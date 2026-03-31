@@ -54,17 +54,17 @@ const series = [
 		</p>
 		<div class="series-grid">
 			{
-				series.map((s) => (
+				series.map((serie) => (
 					<div class="series-card">
-						<div class="series-accent" style={`background: ${s.color}`} />
+						<div class="series-accent" style={`background: ${serie.color}`} />
 						<div class="series-content">
 							<div class="series-header">
-								<h3 class="series-name">{s.name}</h3>
+								<h3 class="series-name">{serie.name}</h3>
 								<span class="series-count">
-									{s.posts} {s.posts === 1 ? "artículo" : "artículos"}
+									{serie.posts} {serie.posts === 1 ? "artículo" : "artículos"}
 								</span>
 							</div>
-							<p class="series-description">{s.description}</p>
+							<p class="series-description">{serie.description}</p>
 						</div>
 					</div>
 				))

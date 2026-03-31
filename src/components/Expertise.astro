@@ -1,150 +1,156 @@
 ---
 const skills = [
-  {
-    title: 'Serverless & AWS Lambda',
-    description: 'Arquitecturas serverless en producción: middlewares con Middy, autenticación, rate limiting, validación de handlers y seguridad.',
-    icon: '&#9889;',
-    tags: ['AWS Lambda', 'Middy', 'Serverless'],
-  },
-  {
-    title: 'TypeScript & Node.js',
-    description: 'Código tipado, principios SOLID, Clean Code y patrones de diseño aplicados: Repository, Factory, Adapter, Bridge.',
-    icon: '&#9881;',
-    tags: ['TypeScript', 'Node.js', 'Zod'],
-  },
-  {
-    title: 'Integraciones Enterprise',
-    description: 'Diseño e implementación de integraciones con APIs externas, Azure Blob Storage, pipelines de transformación de datos.',
-    icon: '&#128279;',
-    tags: ['Azure', 'APIs', 'Data Pipelines'],
-  },
-  {
-    title: 'Cotalker Platform',
-    description: 'Especialista en Cotlang, sistema de permisos RBAC, automatización de workflows y gestión de configuraciones.',
-    icon: '&#128736;',
-    tags: ['Cotalker', 'Cotlang', 'RBAC'],
-  },
+	{
+		title: "Serverless & AWS Lambda",
+		description:
+			"Arquitecturas serverless en producción: middlewares con Middy, validación con Zod, autenticación, rate limiting y manejo centralizado de errores.",
+		icon: "&#9889;",
+		tags: ["AWS Lambda", "Middy", "Zod"]
+	},
+	{
+		title: "TypeScript & Node.js",
+		description:
+			"Desarrollo backend tipado con principios SOLID y Clean Code. Patrones de diseño aplicados a problemas reales: Repository, Factory, Builder.",
+		icon: "&#9881;",
+		tags: ["TypeScript", "Node.js", "Express"]
+	},
+	{
+		title: "Integraciones Enterprise",
+		description:
+			"Conexión entre plataformas y sistemas externos: SAP, Snowflake, Azure Blob, APIs REST. Transformación de datos, mappers y serializers para formatos incompatibles.",
+		icon: "&#128279;",
+		tags: ["SAP", "Snowflake", "APIs REST"]
+	},
+	{
+		title: "Cotalker Platform",
+		description:
+			"Especialista en Cotlang, permisos RBAC, arquitectura de bots como endpoints y diseño de integraciones entrantes y salientes.",
+		icon: "&#128736;",
+		tags: ["Cotalker", "Cotlang", "Integraciones"]
+	}
 ];
 ---
 
 <section class="expertise" id="expertise">
-  <div class="container">
-    <h2 class="section-title">Expertise</h2>
-    <p class="section-description">
-      Las áreas donde concentro mi trabajo y experiencia profesional.
-    </p>
-    <div class="skills-grid">
-      {skills.map(skill => (
-        <div class="skill-card">
-          <div class="skill-icon" set:html={skill.icon} />
-          <h3 class="skill-title">{skill.title}</h3>
-          <p class="skill-description">{skill.description}</p>
-          <div class="skill-tags">
-            {skill.tags.map(tag => (
-              <span class="tag">{tag}</span>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
+	<div class="container">
+		<h2 class="section-title">Expertise</h2>
+		<p class="section-description">
+			Las áreas donde concentro mi trabajo y experiencia profesional.
+		</p>
+		<div class="skills-grid">
+			{
+				skills.map((skill) => (
+					<div class="skill-card">
+						<div class="skill-icon" set:html={skill.icon} />
+						<h3 class="skill-title">{skill.title}</h3>
+						<p class="skill-description">{skill.description}</p>
+						<div class="skill-tags">
+							{skill.tags.map((tag) => (
+								<span class="tag">{tag}</span>
+							))}
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
 </section>
 
 <style>
-  .expertise {
-    padding: 6rem 1.5rem;
-    background: rgba(255, 255, 255, 0.01);
-  }
+	.expertise {
+		padding: 6rem 1.5rem;
+		background: rgba(255, 255, 255, 0.01);
+	}
 
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+	}
 
-  .section-title {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--text-primary);
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.02em;
-  }
+	.section-title {
+		font-size: 2rem;
+		font-weight: 800;
+		color: var(--text-primary);
+		margin-bottom: 0.75rem;
+		letter-spacing: -0.02em;
+	}
 
-  .section-title::after {
-    content: '';
-    display: block;
-    width: 48px;
-    height: 3px;
-    background: var(--accent);
-    margin-top: 0.75rem;
-    border-radius: 2px;
-  }
+	.section-title::after {
+		content: "";
+		display: block;
+		width: 48px;
+		height: 3px;
+		background: var(--accent);
+		margin-top: 0.75rem;
+		border-radius: 2px;
+	}
 
-  .section-description {
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    margin-bottom: 3rem;
-    margin-top: 1rem;
-  }
+	.section-description {
+		color: var(--text-secondary);
+		font-size: 1.05rem;
+		margin-bottom: 3rem;
+		margin-top: 1rem;
+	}
 
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
+	.skills-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.25rem;
+	}
 
-  .skill-card {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 2rem;
-    transition: all 0.25s ease;
-  }
+	.skill-card {
+		background: rgba(255, 255, 255, 0.02);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		border-radius: 12px;
+		padding: 2rem;
+		transition: all 0.25s ease;
+	}
 
-  .skill-card:hover {
-    border-color: rgba(139, 92, 246, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  }
+	.skill-card:hover {
+		border-color: rgba(139, 92, 246, 0.3);
+		transform: translateY(-2px);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+	}
 
-  .skill-icon {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    line-height: 1;
-  }
+	.skill-icon {
+		font-size: 1.75rem;
+		margin-bottom: 1rem;
+		line-height: 1;
+	}
 
-  .skill-title {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 0.75rem;
-  }
+	.skill-title {
+		font-size: 1.15rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		margin-bottom: 0.75rem;
+	}
 
-  .skill-description {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.65;
-    margin-bottom: 1.25rem;
-  }
+	.skill-description {
+		color: var(--text-secondary);
+		font-size: 0.95rem;
+		line-height: 1.65;
+		margin-bottom: 1.25rem;
+	}
 
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
+	.skill-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
 
-  .tag {
-    padding: 0.25rem 0.65rem;
-    background: rgba(139, 92, 246, 0.08);
-    border: 1px solid rgba(139, 92, 246, 0.15);
-    border-radius: 6px;
-    font-size: 0.75rem;
-    color: var(--accent-light);
-    font-weight: 500;
-  }
+	.tag {
+		padding: 0.25rem 0.65rem;
+		background: rgba(139, 92, 246, 0.08);
+		border: 1px solid rgba(139, 92, 246, 0.15);
+		border-radius: 6px;
+		font-size: 0.75rem;
+		color: var(--accent-light);
+		font-weight: 500;
+	}
 
-  @media (max-width: 768px) {
-    .skills-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+	@media (max-width: 768px) {
+		.skills-grid {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>
