@@ -1,0 +1,225 @@
+---
+const series = [
+	{
+		name: "Integración Replicante",
+		description:
+			"Casos reales de integración con patrones de diseño: Repository, Factory, Builder. Problemas que no salieron como esperaba y cómo los resolví.",
+		posts: 1,
+		color: "#06b6d4"
+	},
+	{
+		name: "Protocolo Lambda",
+		description:
+			"Serverless en producción: middlewares, auth, rate limiting y validación con Middy + Zod.",
+		posts: 4,
+		color: "#8b5cf6"
+	},
+	{
+		name: "Nexus de Integración",
+		description:
+			"Arquitectura de integraciones en Cotalker: bots, endpoints, conexiones entrantes y salientes. La guía que la documentación no tiene.",
+		posts: 0,
+		color: "#10b981"
+	},
+	{
+		name: "Hechicería Cotlang",
+		description:
+			"La guía más completa de Cotlang: desde la sintaxis básica hasta funciones ocultas no documentadas.",
+		posts: 4,
+		color: "#3b82f6"
+	},
+	{
+		name: "Pergaminos Rápidos",
+		description:
+			"Artículos directos al grano: problema, solución, código. Sin rodeos.",
+		posts: 2,
+		color: "#f59e0b"
+	},
+	{
+		name: "Fundamentos",
+		description:
+			"SOLID, Clean Code y design patterns explicados con TypeScript y ejemplos reales.",
+		posts: 1,
+		color: "#ef4444"
+	}
+];
+---
+
+<section class="blog" id="blog">
+	<div class="container">
+		<h2 class="section-title">Blog</h2>
+		<p class="section-description">
+			Documento lo que aprendo en series temáticas. Cada serie agrupa artículos
+			relacionados para que puedas seguir un hilo coherente.
+		</p>
+		<div class="series-grid">
+			{
+				series.map((s) => (
+					<div class="series-card">
+						<div class="series-accent" style={`background: ${s.color}`} />
+						<div class="series-content">
+							<div class="series-header">
+								<h3 class="series-name">{s.name}</h3>
+								<span class="series-count">
+									{s.posts} {s.posts === 1 ? "artículo" : "artículos"}
+								</span>
+							</div>
+							<p class="series-description">{s.description}</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+		<div class="blog-cta">
+			<a
+				href="https://blog.etejeda.dev"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="btn btn-primary"
+			>
+				Explorar el blog
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M7 17l9.2-9.2M17 17V7H7"></path>
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.blog {
+		padding: 6rem 1.5rem;
+	}
+
+	.container {
+		max-width: 1100px;
+		margin: 0 auto;
+	}
+
+	.section-title {
+		font-size: 2rem;
+		font-weight: 800;
+		color: var(--text-primary);
+		margin-bottom: 0.75rem;
+		letter-spacing: -0.02em;
+	}
+
+	.section-title::after {
+		content: "";
+		display: block;
+		width: 48px;
+		height: 3px;
+		background: var(--accent);
+		margin-top: 0.75rem;
+		border-radius: 2px;
+	}
+
+	.section-description {
+		color: var(--text-secondary);
+		font-size: 1.05rem;
+		margin-bottom: 3rem;
+		margin-top: 1rem;
+		max-width: 600px;
+	}
+
+	.series-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+
+	.series-card {
+		background: rgba(255, 255, 255, 0.02);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		border-radius: 12px;
+		overflow: hidden;
+		transition: all 0.25s ease;
+	}
+
+	.series-card:hover {
+		border-color: rgba(255, 255, 255, 0.12);
+		transform: translateY(-2px);
+	}
+
+	.series-accent {
+		height: 3px;
+		width: 100%;
+	}
+
+	.series-content {
+		padding: 1.5rem;
+	}
+
+	.series-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 0.75rem;
+		gap: 0.5rem;
+	}
+
+	.series-name {
+		font-size: 1rem;
+		font-weight: 700;
+		color: var(--text-primary);
+	}
+
+	.series-count {
+		font-size: 0.7rem;
+		color: var(--text-muted);
+		background: rgba(255, 255, 255, 0.05);
+		padding: 0.2rem 0.5rem;
+		border-radius: 4px;
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+
+	.series-description {
+		color: var(--text-secondary);
+		font-size: 0.85rem;
+		line-height: 1.6;
+	}
+
+	.blog-cta {
+		margin-top: 2.5rem;
+		text-align: center;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1.5rem;
+		border-radius: 8px;
+		font-weight: 600;
+		font-size: 0.95rem;
+		text-decoration: none;
+		transition: all 0.2s ease;
+	}
+
+	.btn-primary {
+		background: var(--accent);
+		color: #fff;
+	}
+
+	.btn-primary:hover {
+		background: var(--accent-hover);
+		transform: translateY(-1px);
+		box-shadow: 0 4px 20px rgba(139, 92, 246, 0.35);
+	}
+
+	@media (max-width: 768px) {
+		.series-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

@@ -1,0 +1,172 @@
+---
+const navLinks = [
+  { href: '#sobre-mi', label: 'Sobre mí' },
+  { href: '#expertise', label: 'Expertise' },
+  { href: '#blog', label: 'Blog' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header class="header">
+  <nav class="nav">
+    <a href="/" class="nav-logo">
+      <span class="logo-bracket">&lt;</span>etejeda<span class="logo-bracket"> /&gt;</span>
+    </a>
+    <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+    <ul class="nav-links">
+      {navLinks.map(link => (
+        <li><a href={link.href}>{link.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+  }
+
+  .nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .logo-bracket {
+    color: var(--accent);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .hamburger,
+  .hamburger::before,
+  .hamburger::after {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    transition: all 0.3s ease;
+  }
+
+  .hamburger {
+    position: relative;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .hamburger::before { top: -7px; }
+  .hamburger::after { top: 7px; }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+      z-index: 110;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      max-width: 300px;
+      height: 100vh;
+      flex-direction: column;
+      background: rgba(10, 10, 15, 0.98);
+      padding: 5rem 2rem 2rem;
+      gap: 1.5rem;
+      transition: right 0.3s ease;
+      border-left: 1px solid rgba(139, 92, 246, 0.15);
+    }
+
+    .nav-links.active {
+      right: 0;
+    }
+
+    .nav-links a {
+      font-size: 1.1rem;
+    }
+
+    .menu-toggle[aria-expanded="true"] .hamburger {
+      background: transparent;
+    }
+    .menu-toggle[aria-expanded="true"] .hamburger::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+    .menu-toggle[aria-expanded="true"] .hamburger::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    navLinks?.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle?.setAttribute('aria-expanded', 'false');
+      navLinks?.classList.remove('active');
+    });
+  });
+</script>
