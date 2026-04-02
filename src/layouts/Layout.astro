@@ -1,12 +1,12 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
 
 interface Props {
-  title: string;
-  description: string;
+	title: string;
+	description: string;
 }
 
 const { title, description } = Astro.props;
@@ -14,20 +14,38 @@ const { title, description } = Astro.props;
 
 <!doctype html>
 <html lang="es">
-  <head>
-    <BaseHead title={title} description={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <Header />
-    <main>
-      <slot />
-    </main>
-    <Footer />
-  </body>
+	<head>
+		<BaseHead title={title} description={description} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- Matomo -->
+		<script is:inline>
+			var _paq = (window._paq = window._paq || []);
+			_paq.push(["trackPageView"]);
+			_paq.push(["enableLinkTracking"]);
+			(function () {
+				var u = "https://matomo.tebita.xyz/";
+				_paq.push(["setTrackerUrl", u + "matomo.php"]);
+				_paq.push(["setSiteId", "3"]);
+				var d = document,
+					g = d.createElement("script"),
+					s = d.getElementsByTagName("script")[0];
+				g.async = true;
+				g.src = u + "matomo.js";
+				s.parentNode.insertBefore(g, s);
+			})();
+		</script>
+		<!-- End Matomo Code -->
+	</head>
+	<body>
+		<Header />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+	</body>
 </html>
