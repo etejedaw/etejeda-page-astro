@@ -1,5 +1,10 @@
 ---
-const navLinks = [
+interface NavLink {
+	href: string;
+	label: string;
+}
+
+const navLinks: NavLink[] = [
 	{ href: "#sobre-mi", label: "Sobre mí" },
 	{ href: "#expertise", label: "Expertise" },
 	{ href: "#proyectos", label: "Proyectos" },
