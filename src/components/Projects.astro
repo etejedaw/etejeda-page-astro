@@ -1,18 +1,23 @@
 ---
-const projects = [
+interface Project {
+	title: string;
+	description: string;
+	tags: string[];
+	link?: string;
+}
+
+const projects: Project[] = [
 	{
 		title: "Akiba Stands",
 		description:
 			"Plataforma de arriendo de stands para evento anual. Diseño de arquitectura y desarrollo del backend: Express 5, Sequelize, PostgreSQL. Deploy con CI/CD en Caprover. En desarrollo.",
-		tags: ["Express", "PostgreSQL", "Docker", "Caprover"],
-		link: null
+		tags: ["Express", "PostgreSQL", "Docker", "Caprover"]
 	},
 	{
 		title: "Backlogr",
 		description:
 			"Plataforma de gestión de backlog de videojuegos. Backend con NodeJS y PostgreSQL, frontend con Angular. En Desarrollo",
-		tags: ["Angular", "NestJS", "PostgreSQL", "Open Source"],
-		link: "null"
+		tags: ["Angular", "NestJS", "PostgreSQL", "Open Source"]
 	},
 	{
 		title: "Blog Técnico",
