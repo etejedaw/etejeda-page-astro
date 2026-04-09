@@ -17,7 +17,7 @@ const links = [
 		url: "https://blog.etejeda.dev",
 		description: "Lee mis artículos",
 		icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>`
-	},
+	}
 ];
 ---
 
@@ -26,11 +26,12 @@ const links = [
 		<h2 class="section-title">Contacto</h2>
 		<p class="section-description">
 			Si quieres hablar sobre serverless, integraciones, o simplemente
-			intercambiar ideas sobre desarrollo, encuéntrame en estas plataformas.
+			intercambiar ideas sobre desarrollo, encuéntrame en estas
+			plataformas.
 		</p>
 		<div class="links-grid">
 			{
-				links.map((link) => (
+				links.map(link => (
 					<a
 						href={link.url}
 						target="_blank"
@@ -40,7 +41,9 @@ const links = [
 						<div class="link-icon" set:html={link.icon} />
 						<div class="link-info">
 							<span class="link-name">{link.name}</span>
-							<span class="link-description">{link.description}</span>
+							<span class="link-description">
+								{link.description}
+							</span>
 						</div>
 						<svg
 							class="link-arrow"

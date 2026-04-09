@@ -46,13 +46,13 @@ const skills: Skill[] = [
 		</p>
 		<div class="skills-grid">
 			{
-				skills.map((skill) => (
+				skills.map(skill => (
 					<div class="skill-card">
 						<div class="skill-icon" set:html={skill.icon} />
 						<h3 class="skill-title">{skill.title}</h3>
 						<p class="skill-description">{skill.description}</p>
 						<div class="skill-tags">
-							{skill.tags.map((tag) => (
+							{skill.tags.map(tag => (
 								<span class="tag">{tag}</span>
 							))}
 						</div>

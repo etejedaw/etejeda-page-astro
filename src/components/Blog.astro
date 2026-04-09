@@ -6,6 +6,7 @@ interface Serie {
 	color: string;
 }
 
+
 const series: Serie[] = [
 	{
 		name: "Integración Replicante",
@@ -56,22 +57,30 @@ const series: Serie[] = [
 	<div class="container">
 		<h2 class="section-title">Blog</h2>
 		<p class="section-description">
-			Documento lo que aprendo en series temáticas. Cada serie agrupa artículos
-			relacionados para que puedas seguir un hilo coherente.
+			Documento lo que aprendo en series temáticas. Cada serie agrupa
+			artículos relacionados para que puedas seguir un hilo coherente.
 		</p>
 		<div class="series-grid">
 			{
-				series.map((serie) => (
+				series.map(serie => (
 					<div class="series-card">
-						<div class="series-accent" style={`background: ${serie.color}`} />
+						<div
+							class="series-accent"
+							style={`background: ${serie.color}`}
+						/>
 						<div class="series-content">
 							<div class="series-header">
 								<h3 class="series-name">{serie.name}</h3>
 								<span class="series-count">
-									{serie.posts} {serie.posts === 1 ? "artículo" : "artículos"}
+									{serie.posts}{" "}
+									{serie.posts === 1
+										? "artículo"
+										: "artículos"}
 								</span>
 							</div>
-							<p class="series-description">{serie.description}</p>
+							<p class="series-description">
+								{serie.description}
+							</p>
 						</div>
 					</div>
 				))
