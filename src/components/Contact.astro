@@ -30,6 +30,33 @@ const links = [
 			plataformas.
 		</p>
 		<div class="links-grid">
+			<a
+				href="https://blog.etejeda.dev/#/portal/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="link-card newsletter-card"
+			>
+				<div class="link-icon">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+				</div>
+				<div class="link-info">
+					<span class="link-name">Grimorio</span>
+					<span class="link-description">Suscríbete para recibir cada artículo nuevo por correo</span>
+				</div>
+				<svg
+					class="link-arrow"
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M7 17l9.2-9.2M17 17V7H7" />
+				</svg>
+			</a>
 			{
 				links.map(link => (
 					<a
@@ -104,8 +131,18 @@ const links = [
 
 	.links-grid {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		gap: 1rem;
+	}
+
+	.newsletter-card {
+		grid-column: 1 / -1;
+		border-color: rgba(139, 92, 246, 0.2);
+		background: rgba(139, 92, 246, 0.04);
+	}
+
+	.newsletter-card:hover {
+		border-color: rgba(139, 92, 246, 0.4);
 	}
 
 	.link-card {
