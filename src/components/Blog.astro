@@ -112,13 +112,36 @@ function formatDate(dateStr: string): string {
 					);
 				})}
 			</div>
+			<div class="newsletter-cta">
+				<p>Los suscriptores leen los artículos un día antes.</p>
+				<a
+					href="https://blog.etejeda.dev/#/portal/signup/free"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="newsletter-link"
+				>
+					Suscríbete gratis
+					<svg
+						width="14"
+						height="14"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M5 12h14M12 5l7 7-7 7"></path>
+					</svg>
+				</a>
+			</div>
 		</div>
 
 		<h3 class="subsection-title">Series</h3>
 		<div class="series-grid">
 			{
 				series.map(serie => (
-					<div class="series-card">
+					<a href={`https://blog.etejeda.dev/tag/${serie.tagSlug}/`} target="_blank" rel="noopener noreferrer" class="series-card">
 						<div
 							class="series-accent"
 							style={`background: ${serie.color}`}
@@ -137,7 +160,7 @@ function formatDate(dateStr: string): string {
 								{serie.description}
 							</p>
 						</div>
-					</div>
+					</a>
 				))
 			}
 		</div>
@@ -290,6 +313,39 @@ function formatDate(dateStr: string): string {
 		overflow: hidden;
 	}
 
+	.newsletter-cta {
+		margin-top: 1.5rem;
+		padding: 1.25rem 1.5rem;
+		background: rgba(139, 92, 246, 0.06);
+		border: 1px solid rgba(139, 92, 246, 0.15);
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.newsletter-cta p {
+		color: var(--text-secondary);
+		font-size: 0.9rem;
+	}
+
+	.newsletter-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		color: var(--accent-light);
+		font-size: 0.9rem;
+		font-weight: 600;
+		text-decoration: none;
+		white-space: nowrap;
+		transition: color 0.2s ease;
+	}
+
+	.newsletter-link:hover {
+		color: var(--accent);
+	}
+
 	.series-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -302,6 +358,8 @@ function formatDate(dateStr: string): string {
 		border-radius: 12px;
 		overflow: hidden;
 		transition: all 0.25s ease;
+		text-decoration: none;
+		display: block;
 	}
 
 	.series-card:hover {
@@ -377,6 +435,11 @@ function formatDate(dateStr: string): string {
 	}
 
 	@media (max-width: 768px) {
+		.newsletter-cta {
+			flex-direction: column;
+			text-align: center;
+		}
+
 		.recent-grid {
 			grid-template-columns: 1fr;
 		}
