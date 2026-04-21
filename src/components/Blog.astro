@@ -1,55 +1,82 @@
 ---
+import { getRecentPosts, getPostCountByTag, type GhostPost } from "../providers/ghost";
+
 interface Serie {
 	name: string;
 	description: string;
+	tagSlug: string;
 	posts: number;
 	color: string;
 }
 
-const series: Serie[] = [
+const seriesConfig = [
 	{
 		name: "Integración Replicante",
 		description:
 			"Casos reales de integración con patrones de diseño: Repository, Factory, Builder. Problemas que no salieron como esperaba y cómo los resolví.",
-		posts: 1,
+		tagSlug: "integracion-replicante",
 		color: "#06b6d4"
 	},
 	{
 		name: "Protocolo Lambda",
 		description:
 			"Serverless en producción: middlewares, auth, rate limiting y validación con Middy + Zod.",
-		posts: 4,
+		tagSlug: "protocolo-lambda",
 		color: "#8b5cf6"
 	},
 	{
 		name: "Pergaminos Rápidos",
 		description:
 			"Artículos directos al grano: problema, solución, código. Sin rodeos.",
-		posts: 3,
+		tagSlug: "pergaminos-rapidos",
 		color: "#f59e0b"
 	},
 	{
 		name: "Nexus de Integración",
 		description:
 			"Arquitectura de integraciones en Cotalker: bots, endpoints, conexiones entrantes y salientes. La guía que la documentación no tiene.",
-		posts: 1,
+		tagSlug: "nexus-de-integracion",
 		color: "#10b981"
 	},
 	{
 		name: "Hechicería Cotlang",
 		description:
 			"La guía más completa de Cotlang: desde la sintaxis básica hasta funciones ocultas no documentadas.",
-		posts: 4,
+		tagSlug: "hechiceria-cotlang",
 		color: "#3b82f6"
 	},
 	{
 		name: "Códice Cotalker",
 		description:
 			"Buenas prácticas para implementadores: convenciones de nombres, variables de entorno, prefijos y las lecciones que la documentación oficial no cubre.",
-		posts: 3,
+		tagSlug: "codice-cotalker",
 		color: "#ef4444"
 	}
 ];
+
+const [recentPosts, ...counts] = await Promise.all([
+	getRecentPosts(3),
+	...seriesConfig.map(s => getPostCountByTag(s.tagSlug))
+]);
+
+const series: Serie[] = seriesConfig.map((s, i) => ({
+	...s,
+	posts: counts[i]
+}));
+
+const tagColorMap = Object.fromEntries(seriesConfig.map(s => [s.tagSlug, s.color]));
+
+function getPostSeriesTag(post: GhostPost) {
+	return post.tags?.find(t => tagColorMap[t.slug]);
+}
+
+function formatDate(dateStr: string): string {
+	return new Date(dateStr).toLocaleDateString("es-CL", {
+		day: "numeric",
+		month: "short",
+		year: "numeric"
+	});
+}
 ---
 
 <section class="blog" id="blog">
@@ -59,6 +86,35 @@ const series: Serie[] = [
 			Documento lo que aprendo en series temáticas. Cada serie agrupa
 			artículos relacionados para que puedas seguir un hilo coherente.
 		</p>
+
+		<div class="recent-posts">
+			<h3 class="subsection-title">Últimos artículos</h3>
+			<div class="recent-grid">
+				{recentPosts.map(post => {
+					const seriesTag = getPostSeriesTag(post);
+					const accentColor = seriesTag ? tagColorMap[seriesTag.slug] : "var(--accent)";
+					return (
+						<a href={post.url} target="_blank" rel="noopener noreferrer" class="recent-card">
+							{post.feature_image && (
+								<div class="recent-image">
+									<img src={post.feature_image} alt={post.title} loading="lazy" />
+								</div>
+							)}
+							<div class="recent-content">
+								<div class="recent-meta">
+									<time datetime={post.published_at}>{formatDate(post.published_at)}</time>
+									{seriesTag && <span class="recent-tag" style={`color: ${accentColor}`}>{seriesTag.name}</span>}
+								</div>
+								<h4 class="recent-title">{post.title}</h4>
+								<p class="recent-excerpt">{post.excerpt}</p>
+							</div>
+						</a>
+					);
+				})}
+			</div>
+		</div>
+
+		<h3 class="subsection-title">Series</h3>
 		<div class="series-grid">
 			{
 				series.map(serie => (
@@ -141,9 +197,97 @@ const series: Serie[] = [
 	.section-description {
 		color: var(--text-secondary);
 		font-size: 1.05rem;
-		margin-bottom: 3rem;
+		margin-bottom: 2.5rem;
 		margin-top: 1rem;
 		max-width: 600px;
+	}
+
+	.subsection-title {
+		font-size: 1.2rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		margin-bottom: 1.25rem;
+	}
+
+	.recent-posts {
+		margin-bottom: 3rem;
+	}
+
+	.recent-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+
+	.recent-card {
+		background: rgba(255, 255, 255, 0.02);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		border-radius: 12px;
+		overflow: hidden;
+		transition: all 0.25s ease;
+		text-decoration: none;
+		display: block;
+	}
+
+	.recent-card:hover {
+		border-color: rgba(255, 255, 255, 0.12);
+		transform: translateY(-2px);
+	}
+
+	.recent-image {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+	}
+
+	.recent-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.recent-card:hover .recent-image img {
+		transform: scale(1.03);
+	}
+
+	.recent-content {
+		padding: 1.25rem;
+	}
+
+	.recent-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.6rem;
+	}
+
+	.recent-meta time {
+		font-size: 0.75rem;
+		color: var(--text-muted);
+	}
+
+	.recent-tag {
+		font-size: 0.7rem;
+		font-weight: 600;
+	}
+
+	.recent-title {
+		font-size: 0.95rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		line-height: 1.4;
+		margin-bottom: 0.5rem;
+	}
+
+	.recent-excerpt {
+		color: var(--text-secondary);
+		font-size: 0.8rem;
+		line-height: 1.5;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 	.series-grid {
@@ -233,6 +377,10 @@ const series: Serie[] = [
 	}
 
 	@media (max-width: 768px) {
+		.recent-grid {
+			grid-template-columns: 1fr;
+		}
+
 		.series-grid {
 			grid-template-columns: 1fr;
 		}

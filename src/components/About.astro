@@ -1,5 +1,9 @@
 ---
+import { getTotalPosts } from "../providers/ghost";
 
+const totalPosts = await getTotalPosts();
+const roundedPosts = Math.floor(totalPosts / 5) * 5;
+const yearsOfExperience = new Date().getFullYear() - 2022;
 ---
 
 <section class="about" id="sobre-mi">
@@ -36,13 +40,13 @@
 			</div>
 			<div class="about-stats">
 				<div class="stat-card">
-					<span class="stat-number">4+</span>
+					<span class="stat-number">{yearsOfExperience}+</span>
 					<span class="stat-label"
 						>Años en integraciones enterprise</span
 					>
 				</div>
 				<div class="stat-card">
-					<span class="stat-number">16+</span>
+					<span class="stat-number">{roundedPosts}+</span>
 					<span class="stat-label">Artículos técnicos publicados</span
 					>
 				</div>
