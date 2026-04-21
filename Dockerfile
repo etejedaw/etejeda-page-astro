@@ -7,6 +7,10 @@ FROM node:krypton-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ARG GHOST_URL
+ARG GHOST_CONTENT_API_KEY
+ENV GHOST_URL=$GHOST_URL
+ENV GHOST_CONTENT_API_KEY=$GHOST_CONTENT_API_KEY
 RUN npm run build
 
 FROM nginx:alpine AS runner
