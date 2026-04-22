@@ -22,13 +22,6 @@ const navLinks: NavLink[] = [
 				/&gt;</span
 			>
 		</a>
-		<button
-			class="menu-toggle"
-			aria-label="Abrir menú"
-			aria-expanded="false"
-		>
-			<span class="hamburger"></span>
-		</button>
 		<ul class="nav-links">
 			{
 				navLinks.map(link => (
@@ -38,6 +31,21 @@ const navLinks: NavLink[] = [
 				))
 			}
 		</ul>
+		<button class="theme-toggle" aria-label="Cambiar tema" type="button">
+			<svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+			</svg>
+			<svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+			</svg>
+		</button>
+		<button
+			class="menu-toggle"
+			aria-label="Abrir menú"
+			aria-expanded="false"
+		>
+			<span class="hamburger"></span>
+		</button>
 	</nav>
 </header>
 
@@ -48,9 +56,9 @@ const navLinks: NavLink[] = [
 		left: 0;
 		right: 0;
 		z-index: 100;
-		background: rgba(10, 10, 15, 0.85);
+		background: var(--header-bg);
 		backdrop-filter: blur(12px);
-		border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+		border-bottom: 1px solid rgba(var(--accent-rgb), 0.1);
 	}
 
 	.nav {
@@ -58,7 +66,6 @@ const navLinks: NavLink[] = [
 		margin: 0 auto;
 		padding: 1rem 1.5rem;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
 	}
 
@@ -117,6 +124,7 @@ const navLinks: NavLink[] = [
 		gap: 2rem;
 		margin: 0;
 		padding: 0;
+		margin-left: auto;
 	}
 
 	.nav-links a {
@@ -132,10 +140,39 @@ const navLinks: NavLink[] = [
 		color: var(--accent);
 	}
 
+	.theme-toggle {
+		background: none;
+		border: 1px solid rgba(var(--overlay-rgb), 0.1);
+		border-radius: 8px;
+		padding: 0.4rem;
+		margin-left: 1.5rem;
+		cursor: pointer;
+		color: var(--text-secondary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: color 0.2s ease, border-color 0.2s ease;
+	}
+
+	.theme-toggle:hover {
+		color: var(--accent);
+		border-color: rgba(var(--accent-rgb), 0.2);
+	}
+
+	.icon-sun { display: block; }
+	.icon-moon { display: none; }
+	:global([data-theme="light"]) .icon-sun { display: none; }
+	:global([data-theme="light"]) .icon-moon { display: block; }
+
 	@media (max-width: 768px) {
 		.menu-toggle {
 			display: block;
 			z-index: 110;
+		}
+
+		.theme-toggle {
+			margin-left: auto;
+			margin-right: 0.75rem;
 		}
 
 		.nav-links {
@@ -146,11 +183,12 @@ const navLinks: NavLink[] = [
 			max-width: 300px;
 			height: 100vh;
 			flex-direction: column;
-			background: rgba(10, 10, 15, 0.98);
+			background: var(--header-bg-solid);
 			padding: 5rem 2rem 2rem;
 			gap: 1.5rem;
 			transition: right 0.3s ease;
-			border-left: 1px solid rgba(139, 92, 246, 0.15);
+			border-left: 1px solid rgba(var(--accent-rgb), 0.15);
+			margin-left: 0;
 		}
 
 		.nav-links.active {
@@ -190,5 +228,22 @@ const navLinks: NavLink[] = [
 			toggle?.setAttribute("aria-expanded", "false");
 			navLinks?.classList.remove("active");
 		});
+	});
+
+	const themeToggle = document.querySelector(".theme-toggle");
+
+	themeToggle?.addEventListener("click", () => {
+		document.documentElement.classList.add("theme-transition");
+		const current = document.documentElement.getAttribute("data-theme") || "dark";
+		const next = current === "dark" ? "light" : "dark";
+		document.documentElement.setAttribute("data-theme", next);
+		localStorage.setItem("theme", next);
+		setTimeout(() => document.documentElement.classList.remove("theme-transition"), 300);
+	});
+
+	window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
+		if (!localStorage.getItem("theme")) {
+			document.documentElement.setAttribute("data-theme", e.matches ? "light" : "dark");
+		}
 	});
 </script>
