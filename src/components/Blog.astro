@@ -9,11 +9,11 @@ interface Serie {
 	name: string;
 	description: string;
 	tagSlug: string;
-	posts: number;
+	posts?: number;
 	color: string;
 }
 
-const seriesConfig = [
+const seriesConfig: Serie[] = [
 	{
 		name: "Integración Replicante",
 		description:
