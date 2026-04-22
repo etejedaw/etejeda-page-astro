@@ -13,25 +13,49 @@ const projects: Project[] = [
 	{
 		title: "Akiba Stands",
 		description:
-			"Backend y DevOps para plataforma de gestión de stands en Akiba Fest. Express 5, Sequelize, PostgreSQL. Deploy automatizado con CI/CD, mantenimiento de base de datos y hosting de landing page.",
+			"Plataforma para gestionar las postulaciones y asignación de los ~80 stands de Akiba Fest, un evento anual de cultura japonesa en Valdivia. Reemplazó un proceso manual de cientos de correos y planillas por un sistema con postulación, selección, mapa de disponibilidad y confirmación de pago.",
 		tags: ["Express", "PostgreSQL", "Docker", "Caprover"],
 		color: "#f59e0b"
 	},
 	{
-		title: "CORE Model - Tesis",
+		title: "CORE Model - FONDECYT",
 		description:
-			"Sistema de web scraping para el cálculo de resiliencia comunitaria en el proyecto FONDECYT. Extracción y procesamiento de datos institucionales para el modelo CORE. Tesis de Ingeniería Civil en Informática.",
-		tags: ["TypeScript", "Node.js", "Web Scraping"],
+			"Sistema que recopila datos de múltiples fuentes institucionales para calcular indicadores de resiliencia comunitaria. Los resultados se visualizan en dashboards que ayudan a investigadores a identificar dónde invertir para mejorar la preparación municipal. Proyecto FONDECYT del PRU-Lab, tesis de Ingeniería Civil en Informática.",
+		tags: ["TypeScript", "Node.js", "Web Scraping", "Metabase"],
 		color: "#3b82f6",
 		github: "https://github.com/etejedaw/coremodel-fondecyt-node"
 	},
 	{
-		title: "Scraping Wayback Machine - FONDECYT",
+		title: "Wayback Machine Scraping - FONDECYT",
 		description:
-			"Extracción de millones de registros históricos desde Wayback Machine sobre el mercado laboral en Estados Unidos durante la pandemia. Scraping masivo, transformación de datos y exportación a CSV para análisis académico.",
+			"Extracción de millones de registros históricos desde Wayback Machine sobre el mercado laboral en Estados Unidos durante la pandemia. Proyecto FONDECYT que sirvió como base para el paper \"From automation to home production via the gig economy\" del profesor Luis Ignacio Valenzuela Rivera.",
 		tags: ["TypeScript", "Node.js", "Web Scraping", "Wayback Machine"],
 		color: "#10b981",
 		github: "https://github.com/etejedaw/caredotcom-fondecyt-node"
+	},
+	{
+		title: "Completr",
+		description:
+			"Aplicación para hacer seguimiento a los videojuegos que estás jugando, completaste o tienes pendientes. Inspirado en Trakt pero enfocado en gaming. Actualmente en uso con beta cerrada próximamente.",
+		tags: ["Angular", "TypeScript"],
+		color: "#8b5cf6",
+		url: "https://web.completr.app"
+	},
+	{
+		title: "SMC2SFC2",
+		description:
+			"Conversor de ROMs de SNES entre formatos .smc y .sfc que funciona completamente en el navegador. Fork de un proyecto abandonado hace 10 años, migrado de JS + Flask a Astro. Añadí drag & drop, procesamiento múltiple, lectura de metadatos, deduplicación con SHA-256 y soporte PWA.",
+		tags: ["Astro", "TypeScript", "PWA"],
+		color: "#06b6d4",
+		github: "https://github.com/etejedaw/smc2sfc2",
+		url: "https://smc2sfc2.tebita.xyz"
+	},
+	{
+		title: "Sistema Contable",
+		description:
+			"Digitalización de los procesos de una oficina de contabilidad. Desde recepción de documentos hasta generación de informes.",
+		tags: ["NestJS", "TypeScript", "PostgreSQL"],
+		color: "#ef4444"
 	}
 ];
 ---
