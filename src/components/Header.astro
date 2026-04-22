@@ -62,6 +62,14 @@ const navLinks: NavLink[] = [
 				></path>
 			</svg>
 		</button>
+		<a
+			href="https://blog.etejeda.dev/#/portal/signup/free"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="subscribe-btn"
+		>
+			Suscríbete
+		</a>
 		<button
 			class="menu-toggle"
 			aria-label="Abrir menú"
@@ -145,18 +153,17 @@ const navLinks: NavLink[] = [
 	.nav-links {
 		display: flex;
 		list-style: none;
-		gap: 2rem;
+		gap: 1.75rem;
 		margin: 0;
 		padding: 0;
 	}
 
 	.nav-links a {
-		color: var(--text-secondary);
+		color: var(--text-primary);
 		text-decoration: none;
-		font-size: 0.9rem;
-		font-weight: 500;
+		font-size: 0.94rem;
+		font-weight: 700;
 		transition: color 0.2s ease;
-		letter-spacing: 0.02em;
 	}
 
 	.nav-links a:hover {
@@ -195,6 +202,22 @@ const navLinks: NavLink[] = [
 	}
 	:global([data-theme="light"]) .icon-moon {
 		display: block;
+	}
+
+	.subscribe-btn {
+		background: var(--accent);
+		color: var(--btn-on-accent);
+		padding: 0.4rem 1rem;
+		border-radius: 6px;
+		font-size: 0.85rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.2s ease;
+		white-space: nowrap;
+	}
+
+	.subscribe-btn:hover {
+		background: var(--accent-hover);
 	}
 
 	@media (max-width: 768px) {
