@@ -3,7 +3,10 @@ interface Project {
 	title: string;
 	description: string;
 	tags: string[];
-	link?: string;
+	color: string;
+	image?: string;
+	github?: string;
+	url?: string;
 }
 
 const projects: Project[] = [
@@ -11,21 +14,24 @@ const projects: Project[] = [
 		title: "Akiba Stands",
 		description:
 			"Backend y DevOps para plataforma de gestión de stands en Akiba Fest. Express 5, Sequelize, PostgreSQL. Deploy automatizado con CI/CD, mantenimiento de base de datos y hosting de landing page.",
-		tags: ["Express", "PostgreSQL", "Docker", "Caprover"]
+		tags: ["Express", "PostgreSQL", "Docker", "Caprover"],
+		color: "#f59e0b"
 	},
 	{
 		title: "CORE Model - Tesis",
 		description:
 			"Sistema de web scraping para el cálculo de resiliencia comunitaria en el proyecto FONDECYT. Extracción y procesamiento de datos institucionales para el modelo CORE. Tesis de Ingeniería Civil en Informática.",
 		tags: ["TypeScript", "Node.js", "Web Scraping"],
-		link: "https://github.com/etejedaw/coremodel-fondecyt-node"
+		color: "#3b82f6",
+		github: "https://github.com/etejedaw/coremodel-fondecyt-node"
 	},
 	{
 		title: "Scraping Wayback Machine - FONDECYT",
 		description:
 			"Extracción de millones de registros históricos desde Wayback Machine sobre el mercado laboral en Estados Unidos durante la pandemia. Scraping masivo, transformación de datos y exportación a CSV para análisis académico.",
 		tags: ["TypeScript", "Node.js", "Web Scraping", "Wayback Machine"],
-		link: "https://github.com/etejedaw/caredotcom-fondecyt-node"
+		color: "#10b981",
+		github: "https://github.com/etejedaw/caredotcom-fondecyt-node"
 	}
 ];
 ---
@@ -40,49 +46,39 @@ const projects: Project[] = [
 			{
 				projects.map(project => (
 					<div class="project-card">
-						<div class="project-header">
-							<svg
-								class="project-icon"
-								width="20"
-								height="20"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z" />
-							</svg>
-							{project.link ? (
-								<a
-									href={project.link}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="project-link"
-									aria-label={`Ver ${project.title}`}
-								>
-									<svg
-										width="18"
-										height="18"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
-										<path d="M7 17l9.2-9.2M17 17V7H7" />
-									</svg>
-								</a>
-							) : null}
-						</div>
-						<h3 class="project-title">{project.title}</h3>
-						<p class="project-description">{project.description}</p>
-						<div class="project-tags">
-							{project.tags.map(tag => (
-								<span class="tag">{tag}</span>
-							))}
+						{project.image ? (
+							<div class="project-image">
+								<img src={project.image} alt={project.title} loading="lazy" />
+							</div>
+						) : (
+							<div class="project-accent" style={`background: ${project.color}`} />
+						)}
+						<div class="project-body">
+							<div class="project-header">
+								<h3 class="project-title">{project.title}</h3>
+								<div class="project-links">
+									{project.github && (
+										<a href={project.github} target="_blank" rel="noopener noreferrer" class="project-link" aria-label={`GitHub de ${project.title}`}>
+											<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+												<path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+											</svg>
+										</a>
+									)}
+									{project.url && (
+										<a href={project.url} target="_blank" rel="noopener noreferrer" class="project-link" aria-label={`Ver ${project.title}`}>
+											<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<path d="M7 17l9.2-9.2M17 17V7H7" />
+											</svg>
+										</a>
+									)}
+								</div>
+							</div>
+							<p class="project-description">{project.description}</p>
+							<div class="project-tags">
+								{project.tags.map(tag => (
+									<span class="tag">{tag}</span>
+								))}
+							</div>
 						</div>
 					</div>
 				))
@@ -136,27 +132,58 @@ const projects: Project[] = [
 		background: rgba(255, 255, 255, 0.02);
 		border: 1px solid rgba(255, 255, 255, 0.06);
 		border-radius: 12px;
-		padding: 2rem;
+		overflow: hidden;
 		display: flex;
 		flex-direction: column;
 		transition: all 0.25s ease;
 	}
 
 	.project-card:hover {
-		border-color: rgba(139, 92, 246, 0.3);
+		border-color: rgba(255, 255, 255, 0.12);
 		transform: translateY(-2px);
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+	}
+
+	.project-accent {
+		height: 3px;
+		width: 100%;
+	}
+
+	.project-image {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+	}
+
+	.project-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.project-card:hover .project-image img {
+		transform: scale(1.03);
+	}
+
+	.project-body {
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
 	}
 
 	.project-header {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 1.25rem;
+		align-items: flex-start;
+		margin-bottom: 0.75rem;
+		gap: 0.5rem;
 	}
 
-	.project-icon {
-		color: var(--accent-light);
+	.project-links {
+		display: flex;
+		gap: 0.5rem;
+		flex-shrink: 0;
 	}
 
 	.project-link {
@@ -171,17 +198,16 @@ const projects: Project[] = [
 	}
 
 	.project-title {
-		font-size: 1.15rem;
+		font-size: 1.05rem;
 		font-weight: 700;
 		color: var(--text-primary);
-		margin-bottom: 0.75rem;
 	}
 
 	.project-description {
 		color: var(--text-secondary);
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 		line-height: 1.65;
-		margin-bottom: 1.5rem;
+		margin-bottom: 1.25rem;
 		flex: 1;
 	}
 
