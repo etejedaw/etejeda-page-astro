@@ -18,7 +18,10 @@ interface GhostResponse {
 	meta: { pagination: { total: number } };
 }
 
-async function ghostFetch(endpoint: string, params: Record<string, string> = {}): Promise<GhostResponse> {
+async function ghostFetch(
+	endpoint: string,
+	params: Record<string, string> = {}
+): Promise<GhostResponse> {
 	const searchParams = new URLSearchParams({ key: GHOST_KEY, ...params });
 	const res = await fetch(`${API_BASE}/${endpoint}?${searchParams}`);
 	if (!res.ok) throw new Error(`Ghost API error: ${res.status}`);
@@ -29,7 +32,7 @@ export async function getRecentPosts(limit = 3): Promise<GhostPost[]> {
 	const data = await ghostFetch("posts", {
 		limit: String(limit),
 		include: "tags",
-		fields: "id,title,slug,excerpt,url,feature_image,published_at",
+		fields: "id,title,slug,excerpt,url,feature_image,published_at"
 	});
 	return data.posts;
 }
@@ -42,7 +45,7 @@ export async function getTotalPosts(): Promise<number> {
 export async function getPostCountByTag(tagSlug: string): Promise<number> {
 	const data = await ghostFetch("posts", {
 		limit: "1",
-		filter: `tag:${tagSlug}`,
+		filter: `tag:${tagSlug}`
 	});
 	return data.meta.pagination.total;
 }
