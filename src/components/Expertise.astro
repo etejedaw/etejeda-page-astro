@@ -8,32 +8,32 @@ interface Skill {
 
 const skills: Skill[] = [
 	{
-		title: "Serverless & AWS Lambda",
+		title: "Backend & Serverless",
 		description:
-			"Arquitecturas serverless en producción: middlewares con Middy, validación con Zod, autenticación, rate limiting y manejo centralizado de errores.",
+			"Desarrollo backend con principios SOLID y patrones de diseño aplicados a problemas reales. Arquitecturas serverless en producción con manejo centralizado de errores.",
 		icon: "&#9889;",
-		tags: ["AWS Lambda", "Middy", "Zod"]
-	},
-	{
-		title: "TypeScript & Node.js",
-		description:
-			"Desarrollo backend tipado con principios SOLID y Clean Code. Patrones de diseño aplicados a problemas reales: Repository, Factory, Builder.",
-		icon: "&#9881;",
-		tags: ["TypeScript", "Node.js", "Express"]
+		tags: ["Node.js", "TypeScript", "AWS Lambda", "Middy", "Zod", "Express"]
 	},
 	{
 		title: "Integraciones Enterprise",
 		description:
-			"Conexión entre plataformas y sistemas externos: SAP, Snowflake, Azure Blob, APIs REST. Transformación de datos, mappers y serializers para formatos incompatibles.",
+			"Conexión entre plataformas y sistemas externos. Transformación de datos, mappers y serializers para hacer hablar a formatos que no fueron diseñados para entenderse.",
 		icon: "&#128279;",
-		tags: ["SAP", "Snowflake", "APIs REST"]
+		tags: ["SAP", "Snowflake", "Azure Blob", "APIs REST"]
+	},
+	{
+		title: "Infra & DevOps",
+		description:
+			"Servidores Linux, contenedores, CI/CD y bases de datos. Lo suficiente para montar, desplegar y mantener lo que construyo sin depender de otro equipo.",
+		icon: "&#9881;",
+		tags: ["Linux", "Docker", "CapRover", "GitHub Actions", "PostgreSQL", "MySQL"]
 	},
 	{
 		title: "Cotalker Platform",
 		description:
-			"Especialista en Cotlang, permisos RBAC, arquitectura de bots como endpoints y diseño de integraciones entrantes y salientes.",
+			"Diseño la arquitectura de integraciones para clientes, hago mentoría a partners y consultoría para traducir necesidades de negocio en soluciones con Cotalker. Especialista en Cotlang y bots como endpoints.",
 		icon: "&#128736;",
-		tags: ["Cotalker", "Cotlang", "Integraciones"]
+		tags: ["Cotalker", "Cotlang", "RBAC"]
 	}
 ];
 ---
@@ -42,7 +42,7 @@ const skills: Skill[] = [
 	<div class="container">
 		<h2 class="section-title">Expertise</h2>
 		<p class="section-description">
-			Las áreas donde concentro mi trabajo y experiencia profesional.
+			Lo que uso a diario y lo que conozco a fondo.
 		</p>
 		<div class="skills-grid">
 			{
