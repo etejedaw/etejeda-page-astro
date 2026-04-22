@@ -1,5 +1,9 @@
 ---
-import { getRecentPosts, getPostCountByTag, type GhostPost } from "../providers/ghost";
+import {
+	getRecentPosts,
+	getPostCountByTag,
+	type GhostPost
+} from "../providers/ghost";
 
 interface Serie {
 	name: string;
@@ -54,17 +58,19 @@ const seriesConfig = [
 	}
 ];
 
-const [recentPosts, ...counts] = await Promise.all([
-	getRecentPosts(3),
-	...seriesConfig.map(s => getPostCountByTag(s.tagSlug))
-]);
+const recentPosts = await getRecentPosts(3);
 
-const series: Serie[] = seriesConfig.map((s, i) => ({
-	...s,
-	posts: counts[i]
+const seriesSlug = seriesConfig.map(s => s.tagSlug);
+const counts = await Promise.all(seriesSlug.map(getPostCountByTag));
+
+const series = seriesConfig.map((serie, index) => ({
+	...serie,
+	posts: counts[index]
 }));
 
-const tagColorMap = Object.fromEntries(seriesConfig.map(s => [s.tagSlug, s.color]));
+const tagColorMap = Object.fromEntries(
+	seriesConfig.map(serie => [serie.tagSlug, serie.color])
+);
 
 function getPostSeriesTag(post: GhostPost) {
 	return post.tags?.find(t => tagColorMap[t.slug]);
@@ -90,27 +96,49 @@ function formatDate(dateStr: string): string {
 		<div class="recent-posts">
 			<h3 class="subsection-title">Últimos artículos</h3>
 			<div class="recent-grid">
-				{recentPosts.map(post => {
-					const seriesTag = getPostSeriesTag(post);
-					const accentColor = seriesTag ? tagColorMap[seriesTag.slug] : "var(--accent)";
-					return (
-						<a href={post.url} target="_blank" rel="noopener noreferrer" class="recent-card">
-							{post.feature_image && (
-								<div class="recent-image">
-									<img src={post.feature_image} alt={post.title} loading="lazy" />
+				{
+					recentPosts.map(post => {
+						const seriesTag = getPostSeriesTag(post);
+						const accentColor = seriesTag
+							? tagColorMap[seriesTag.slug]
+							: "var(--accent)";
+						return (
+							<a
+								href={post.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="recent-card"
+							>
+								{post.feature_image && (
+									<div class="recent-image">
+										<img
+											src={post.feature_image}
+											alt={post.title}
+											loading="lazy"
+										/>
+									</div>
+								)}
+								<div class="recent-content">
+									<div class="recent-meta">
+										<time datetime={post.published_at}>
+											{formatDate(post.published_at)}
+										</time>
+										{seriesTag && (
+											<span
+												class="recent-tag"
+												style={`color: ${accentColor}`}
+											>
+												{seriesTag.name}
+											</span>
+										)}
+									</div>
+									<h4 class="recent-title">{post.title}</h4>
+									<p class="recent-excerpt">{post.excerpt}</p>
 								</div>
-							)}
-							<div class="recent-content">
-								<div class="recent-meta">
-									<time datetime={post.published_at}>{formatDate(post.published_at)}</time>
-									{seriesTag && <span class="recent-tag" style={`color: ${accentColor}`}>{seriesTag.name}</span>}
-								</div>
-								<h4 class="recent-title">{post.title}</h4>
-								<p class="recent-excerpt">{post.excerpt}</p>
-							</div>
-						</a>
-					);
-				})}
+							</a>
+						);
+					})
+				}
 			</div>
 			<div class="newsletter-cta">
 				<p>Los suscriptores leen los artículos un día antes.</p>
@@ -141,7 +169,12 @@ function formatDate(dateStr: string): string {
 		<div class="series-grid">
 			{
 				series.map(serie => (
-					<a href={`https://blog.etejeda.dev/tag/${serie.tagSlug}/`} target="_blank" rel="noopener noreferrer" class="series-card">
+					<a
+						href={`https://blog.etejeda.dev/tag/${serie.tagSlug}/`}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="series-card"
+					>
 						<div
 							class="series-accent"
 							style={`background: ${serie.color}`}
