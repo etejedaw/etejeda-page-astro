@@ -9,6 +9,7 @@ interface GhostPost {
 	excerpt: string;
 	url: string;
 	feature_image: string | null;
+	feature_image_alt: string | null;
 	published_at: string;
 	tags: { name: string; slug: string }[];
 }
@@ -32,7 +33,7 @@ export async function getRecentPosts(limit = 3): Promise<GhostPost[]> {
 	const data = await ghostFetch("posts", {
 		limit: String(limit),
 		include: "tags",
-		fields: "id,title,slug,excerpt,url,feature_image,published_at"
+		fields: "id,title,slug,excerpt,url,feature_image,feature_image_alt,published_at"
 	});
 	return data.posts;
 }
