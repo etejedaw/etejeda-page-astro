@@ -162,16 +162,16 @@ const navLinks: NavLink[] = [
 		border-color: rgba(var(--accent-rgb), 0.2);
 	}
 
-	.icon-sun {
+	:global(.icon-sun) {
 		display: block;
 	}
-	.icon-moon {
+	:global(.icon-moon) {
 		display: none;
 	}
-	:global([data-theme="light"]) .icon-sun {
+	:global([data-theme="light"] .icon-sun) {
 		display: none;
 	}
-	:global([data-theme="light"]) .icon-moon {
+	:global([data-theme="light"] .icon-moon) {
 		display: block;
 	}
 
