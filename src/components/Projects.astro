@@ -1,9 +1,12 @@
 ---
+type Category = "Freelance" | "Personales" | "Investigación";
+
 interface Project {
 	title: string;
 	description: string;
 	tags: string[];
 	color: string;
+	category: Category;
 	image?: string;
 	github?: string;
 	url?: string;
@@ -15,21 +18,24 @@ const projects: Project[] = [
 		description:
 			"Plataforma para gestionar las postulaciones y asignación de los ~80 stands de Akiba Fest, un evento anual de cultura japonesa en Valdivia. Reemplazó un proceso manual de cientos de correos y planillas por un sistema con postulación, selección, mapa de disponibilidad y confirmación de pago.",
 		tags: ["Express", "PostgreSQL", "Docker", "Caprover"],
-		color: "#f59e0b"
+		color: "#f59e0b",
+		category: "Freelance"
 	},
 	{
 		title: "Sistema Contable",
 		description:
-			"Digitalización de los procesos de una oficina de contabilidad. Desde recepción de documentos hasta generación de informes.",
+			"Digitalización modular de una oficina de contabilidad que aún trabaja con papel. Los primeros módulos reemplazaron libros físicos de seguimiento mensual de declaraciones (renta, IVA, F29) y de fichas de clientes por una plataforma con la información centralizada. Sigue en evolución a medida que aparecen nuevos procesos por digitalizar.",
 		tags: ["NestJS", "TypeScript", "PostgreSQL"],
-		color: "#ef4444"
+		color: "#ef4444",
+		category: "Freelance"
 	},
 	{
 		title: "Completr",
 		description:
-			"Aplicación para hacer seguimiento a los videojuegos que estás jugando, completaste o tienes pendientes. Inspirado en Trakt pero enfocado en gaming. Actualmente en uso con beta cerrada próximamente.",
-		tags: ["Angular", "TypeScript"],
+			"Aplicación web para hacer seguimiento a videojuegos: pendientes, jugando, completados o abandonados. Inspirada en Trakt pero enfocada en gaming, con un sistema de ratio (puntaje / duración) que prioriza qué jugar primero. Backend, frontend y despliegue diseñados y construidos por mí. En uso personal, beta cerrada próximamente.",
+		tags: ["Node.js", "Express", "PostgreSQL", "Angular", "PWA"],
 		color: "#8b5cf6",
+		category: "Personales",
 		url: "https://web.completr.app"
 	},
 	{
@@ -38,6 +44,7 @@ const projects: Project[] = [
 			"Conversor de ROMs de SNES entre formatos .smc y .sfc que funciona completamente en el navegador. Fork de un proyecto abandonado hace 10 años, migrado de JS + Flask a Astro. Añadí drag & drop, procesamiento múltiple, lectura de metadatos, deduplicación con SHA-256 y soporte PWA.",
 		tags: ["Astro", "TypeScript", "PWA"],
 		color: "#06b6d4",
+		category: "Personales",
 		github: "https://github.com/etejedaw/smc2sfc2",
 		url: "https://smc2sfc2.tebita.xyz"
 	},
@@ -47,6 +54,7 @@ const projects: Project[] = [
 			"Sistema que recopila datos de múltiples fuentes institucionales para calcular indicadores de resiliencia comunitaria. Los resultados se visualizan en dashboards que ayudan a investigadores a identificar dónde invertir para mejorar la preparación municipal. Proyecto FONDECYT del PRU-Lab, tesis de Ingeniería Civil en Informática.",
 		tags: ["TypeScript", "Node.js", "Web Scraping", "Metabase"],
 		color: "#3b82f6",
+		category: "Investigación",
 		github: "https://github.com/etejedaw/coremodel-fondecyt-node"
 	},
 	{
@@ -55,6 +63,7 @@ const projects: Project[] = [
 			'Extracción de millones de registros históricos desde Wayback Machine sobre el mercado laboral en Estados Unidos durante la pandemia. Proyecto FONDECYT que sirvió como base para el paper "From automation to home production via the gig economy" del profesor Luis Ignacio Valenzuela Rivera.',
 		tags: ["TypeScript", "Node.js", "Web Scraping", "Wayback Machine"],
 		color: "#10b981",
+		category: "Investigación",
 		github: "https://github.com/etejedaw/caredotcom-fondecyt-node"
 	}
 ];
@@ -64,7 +73,8 @@ const projects: Project[] = [
 	<div class="container">
 		<h2 class="section-title">Proyectos</h2>
 		<p class="section-description">
-			Proyectos freelance y personales en los que he trabajado.
+			Proyectos freelance, personales y de investigación en los que he
+			trabajado.
 		</p>
 		<div class="projects-grid">
 			{
@@ -85,6 +95,7 @@ const projects: Project[] = [
 							/>
 						)}
 						<div class="project-body">
+							<span class="project-category">{project.category}</span>
 							<div class="project-header">
 								<h3 class="project-title">{project.title}</h3>
 								<div class="project-links">
@@ -229,6 +240,15 @@ const projects: Project[] = [
 		display: flex;
 		flex-direction: column;
 		flex: 1;
+	}
+
+	.project-category {
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--text-muted);
+		margin-bottom: 0.5rem;
 	}
 
 	.project-header {
