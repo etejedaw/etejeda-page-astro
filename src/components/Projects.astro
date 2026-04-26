@@ -1,5 +1,5 @@
 ---
-type Category = "Freelance" | "Personales" | "Investigación";
+type Category = "Freelance" | "Personal" | "Investigación";
 
 interface Project {
 	title: string;
@@ -35,7 +35,7 @@ const projects: Project[] = [
 			"Aplicación web para hacer seguimiento a videojuegos: pendientes, jugando, completados o abandonados. Inspirada en Trakt pero enfocada en gaming, con un sistema de ratio (puntaje / duración) que prioriza qué jugar primero. Backend, frontend y despliegue diseñados y construidos por mí. En uso personal, beta cerrada próximamente.",
 		tags: ["Node.js", "Express", "PostgreSQL", "Angular", "PWA"],
 		color: "#8b5cf6",
-		category: "Personales",
+		category: "Personal",
 		url: "https://web.completr.app"
 	},
 	{
@@ -44,7 +44,7 @@ const projects: Project[] = [
 			"Conversor de ROMs de SNES entre formatos .smc y .sfc que funciona completamente en el navegador. Fork de un proyecto abandonado hace 10 años, migrado de JS + Flask a Astro. Añadí drag & drop, procesamiento múltiple, lectura de metadatos, deduplicación con SHA-256 y soporte PWA.",
 		tags: ["Astro", "TypeScript", "PWA"],
 		color: "#06b6d4",
-		category: "Personales",
+		category: "Personal",
 		github: "https://github.com/etejedaw/smc2sfc2",
 		url: "https://smc2sfc2.tebita.xyz"
 	},
