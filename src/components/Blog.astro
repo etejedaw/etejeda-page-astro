@@ -4,6 +4,8 @@ import {
 	getPostCountByTag,
 	type GhostPost
 } from "../providers/ghost";
+import ArrowRight from "./icons/ArrowRight.astro";
+import ArrowUpRight from "./icons/ArrowUpRight.astro";
 
 interface Serie {
 	name: string;
@@ -149,18 +151,7 @@ function formatDate(dateStr: string): string {
 					class="newsletter-link"
 				>
 					Suscríbete al newsletter
-					<svg
-						width="14"
-						height="14"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<path d="M5 12h14M12 5l7 7-7 7"></path>
-					</svg>
+					<ArrowRight size={14} />
 				</a>
 			</div>
 		</div>
@@ -205,18 +196,7 @@ function formatDate(dateStr: string): string {
 				class="btn btn-primary"
 			>
 				Explorar el blog
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<path d="M7 17l9.2-9.2M17 17V7H7"></path>
-				</svg>
+				<ArrowUpRight />
 			</a>
 		</div>
 	</div>
