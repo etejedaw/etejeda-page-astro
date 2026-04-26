@@ -3,7 +3,7 @@ _paq.push(["enableHeartBeatTimer", 15]);
 _paq.push(["trackPageView"]);
 _paq.push(["enableLinkTracking"]);
 (function () {
-	var u = "https://matomo.tebita.xyz/";
+	var u = "https://matomo.app.etejeda.dev/";
 	_paq.push(["setTrackerUrl", u + "matomo.php"]);
 	_paq.push(["setSiteId", "3"]);
 	var d = document,
