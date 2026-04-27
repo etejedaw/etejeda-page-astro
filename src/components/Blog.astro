@@ -115,7 +115,10 @@ function formatDate(dateStr: string): string {
 									<div class="recent-image">
 										<img
 											src={post.feature_image}
-											alt={post.feature_image_alt || post.title}
+											alt={
+												post.feature_image_alt ||
+												post.title
+											}
 											loading="lazy"
 										/>
 									</div>
