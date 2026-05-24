@@ -1,0 +1,11 @@
+/* TEAM */
+Developer: Esteban Tejeda
+Contact: contacto [at] etejeda.dev
+Site: https://www.etejeda.dev
+From: Chile (remoto)
+
+/* SITE */
+Last update: 2026/05/24
+Language: Español
+Standards: HTML5, CSS3
+Components: Astro · nginx · Docker
