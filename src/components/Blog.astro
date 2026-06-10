@@ -70,9 +70,17 @@ const series = seriesConfig.map((serie, index) => ({
 	posts: counts[index]
 }));
 
-const tagColorMap = Object.fromEntries(
-	seriesConfig.map(serie => [serie.tagSlug, serie.color])
-);
+const extraSeriesColors: Record<string, string> = {
+	terraformando: "#ea580c",
+	fundamentos: "#14b8a6"
+};
+
+const tagColorMap: Record<string, string> = {
+	...Object.fromEntries(
+		seriesConfig.map(serie => [serie.tagSlug, serie.color])
+	),
+	...extraSeriesColors
+};
 
 function getPostSeriesTag(post: GhostPost) {
 	return post.tags?.find(t => tagColorMap[t.slug]);
