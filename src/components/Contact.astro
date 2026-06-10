@@ -6,16 +6,18 @@ import Book from "./icons/Book.astro";
 import Mail from "./icons/Mail.astro";
 import ArrowUpRight from "./icons/ArrowUpRight.astro";
 
-type IconName = "github" | "linkedin" | "bell" | "book";
+type IconName = "mail" | "github" | "linkedin" | "bell" | "book";
 
 interface Link {
 	name: string;
 	url: string;
 	description: string;
 	icon: IconName;
+	external?: boolean;
 }
 
 const iconMap = {
+	mail: Mail,
 	github: GitHub,
 	linkedin: LinkedIn,
 	bell: Bell,
@@ -24,187 +26,216 @@ const iconMap = {
 
 const links: Link[] = [
 	{
+		name: "Email",
+		url: "mailto:contacto@etejeda.dev",
+		description: "Escríbeme directamente",
+		icon: "mail"
+	},
+	{
 		name: "GitHub",
 		url: "https://github.com/etejedaw",
-		description: "Revisa mi código",
-		icon: "github"
+		description: "Mi código",
+		icon: "github",
+		external: true
 	},
 	{
 		name: "LinkedIn",
 		url: "https://www.linkedin.com/in/etejedaw/",
 		description: "Conectemos profesionalmente",
-		icon: "linkedin"
+		icon: "linkedin",
+		external: true
 	},
 	{
-		name: "Grimorio",
+		name: "Newsletter",
 		url: "https://blog.etejeda.dev/#/portal/",
-		description: "Suscríbete para recibir cada artículo nuevo por correo",
-		icon: "bell"
+		description: "Cada artículo nuevo en tu correo",
+		icon: "bell",
+		external: true
 	},
 	{
 		name: "Blog",
 		url: "https://blog.etejeda.dev",
-		description: "Lee mis artículos",
-		icon: "book"
+		description: "Artículos técnicos",
+		icon: "book",
+		external: true
 	}
 ];
 ---
 
-<section class="contact" id="contacto">
-	<div class="container">
+<section class="section" id="contacto">
+	<header class="section-header">
 		<h2 class="section-title">Contacto</h2>
-		<p class="section-description">
-			Si quieres hablar sobre serverless, integraciones o simplemente
-			intercambiar ideas sobre desarrollo, encuéntrame en estas
-			plataformas.
-		</p>
-		<div class="links-grid">
-			<a href="mailto:contacto@etejeda.dev" class="link-card email-card">
-				<div class="link-icon">
-					<Mail />
-				</div>
-				<div class="link-info">
-					<span class="link-name">Email</span>
-					<span class="link-description">Escríbeme directamente</span>
-				</div>
-				<ArrowUpRight class="link-arrow" />
-			</a>
-			{
-				links.map(link => {
-					const Icon = iconMap[link.icon];
-					return (
+	</header>
+
+	<ul class="links">
+		{
+			links.map(link => {
+				const Icon = iconMap[link.icon];
+				const isEmail = link.icon === "mail";
+				return (
+					<li class={isEmail ? "li-feature" : undefined}>
 						<a
 							href={link.url}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="link-card"
+							target={link.external ? "_blank" : undefined}
+							rel={
+								link.external
+									? "noopener noreferrer"
+									: undefined
+							}
+							class={`link${isEmail ? " link-feature" : ""}`}
 						>
 							<div class="link-icon">
-								<Icon />
+								<Icon size={isEmail ? 24 : 20} />
 							</div>
-							<div class="link-info">
+							<div class="link-text">
 								<span class="link-name">{link.name}</span>
 								<span class="link-description">
 									{link.description}
 								</span>
 							</div>
-							<ArrowUpRight class="link-arrow" />
+							<ArrowUpRight
+								class="link-arrow"
+								size={isEmail ? 18 : 16}
+							/>
 						</a>
-					);
-				})
-			}
-		</div>
-	</div>
+					</li>
+				);
+			})
+		}
+	</ul>
 </section>
 
 <style>
-	.contact {
-		padding: 6rem 1.5rem;
+	.section {
+		padding: 0 0 5rem;
+		scroll-margin-top: 5rem;
 	}
 
-	.container {
-		max-width: 1100px;
-		margin: 0 auto;
+	.section-header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		padding: 1.25rem 0;
+		margin-bottom: 1.5rem;
+		background: var(--header-bg);
+		backdrop-filter: blur(8px);
 	}
 
 	.section-title {
-		font-size: 2rem;
-		font-weight: 800;
+		font-size: 0.78rem;
+		font-weight: 700;
 		color: var(--text-primary);
-		margin-bottom: 0.75rem;
-		letter-spacing: -0.02em;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
 	}
 
-	.section-title::after {
-		content: "";
-		display: block;
-		width: 48px;
-		height: 3px;
-		background: var(--accent);
-		margin-top: 0.75rem;
-		border-radius: 2px;
-	}
-
-	.section-description {
-		color: var(--text-secondary);
-		font-size: 1.05rem;
-		margin-bottom: 3rem;
-		margin-top: 1rem;
-		max-width: 550px;
-	}
-
-	.links-grid {
+	.links {
+		list-style: none;
+		padding: 0;
+		margin: 0;
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1rem;
+		grid-template-columns: 1fr 1fr;
+		grid-auto-rows: 1fr;
+		gap: 0.85rem;
 	}
 
-	.email-card {
-		grid-column: 1 / -1;
-		border-color: rgba(var(--accent-rgb), 0.2);
-		background: rgba(var(--accent-rgb), 0.04);
-	}
-
-	.email-card:hover {
-		border-color: rgba(var(--accent-rgb), 0.4);
-	}
-
-	.link-card {
+	.links li {
 		display: flex;
-		align-items: center;
-		gap: 1rem;
-		padding: 1.25rem 1.5rem;
-		background: rgba(var(--overlay-rgb), 0.02);
-		border: 1px solid rgba(var(--overlay-rgb), 0.06);
-		border-radius: 12px;
-		text-decoration: none;
-		transition: all 0.25s ease;
 	}
 
-	.link-card:hover {
-		border-color: rgba(var(--accent-rgb), 0.3);
+	.li-feature {
+		grid-column: 1 / -1;
+	}
+
+	.link-feature {
+		background: var(--bg-elevated);
+		border-color: var(--accent-border);
+		padding: 1.35rem 1.5rem;
+	}
+
+	.link-feature .link-icon {
+		width: 48px;
+		height: 48px;
+		border-radius: 10px;
+	}
+
+	.link-feature .link-name {
+		font-size: 1.05rem;
+	}
+
+	.link-feature .link-description {
+		font-size: 0.9rem;
+	}
+
+	.link-feature .link-arrow {
+		color: var(--accent);
+	}
+
+	.link {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		gap: 1rem;
+		align-items: center;
+		padding: 1rem 1.1rem;
+		background: var(--bg-surface);
+		border: 1px solid var(--rule);
+		border-radius: 10px;
+		text-decoration: none;
+		width: 100%;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.link:hover,
+	.link:focus-visible {
+		border-color: var(--accent-border);
 		transform: translateY(-2px);
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+		background: var(--bg-elevated);
 	}
 
 	.link-icon {
-		color: var(--accent-light);
-		flex-shrink: 0;
+		width: 36px;
+		height: 36px;
 		display: flex;
 		align-items: center;
+		justify-content: center;
+		color: var(--accent);
+		background: var(--accent-soft);
+		border-radius: 8px;
+		flex-shrink: 0;
 	}
 
-	.link-info {
+	.link-text {
 		display: flex;
 		flex-direction: column;
 		gap: 0.15rem;
-		flex: 1;
+		min-width: 0;
 	}
 
 	.link-name {
+		font-size: 0.95rem;
 		font-weight: 700;
 		color: var(--text-primary);
-		font-size: 1rem;
+		letter-spacing: -0.01em;
 	}
 
 	.link-description {
-		color: var(--text-muted);
 		font-size: 0.8rem;
+		color: var(--text-muted);
+		line-height: 1.3;
 	}
 
 	.link-arrow {
 		color: var(--text-muted);
-		flex-shrink: 0;
-		transition: all 0.2s ease;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
-	.link-card:hover .link-arrow {
-		color: var(--accent-light);
+	.link:hover .link-arrow {
+		color: var(--accent);
 		transform: translate(2px, -2px);
 	}
 
-	@media (max-width: 768px) {
-		.links-grid {
+	@media (max-width: 600px) {
+		.links {
 			grid-template-columns: 1fr;
 		}
 	}

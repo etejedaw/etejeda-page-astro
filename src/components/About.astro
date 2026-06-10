@@ -1,175 +1,206 @@
 ---
 import { getTotalPosts } from "../providers/ghost";
-import Pin from "./icons/Pin.astro";
 
 const totalPosts = await getTotalPosts();
 const roundedPosts = Math.floor(totalPosts / 5) * 5;
 const yearsOfExperience = new Date().getFullYear() - 2022;
+
+interface Stat {
+	value: string;
+	label: string;
+}
+
+const stats: Stat[] = [
+	{
+		value: `${yearsOfExperience}+`,
+		label: "años en integraciones enterprise"
+	},
+	{ value: "20+", label: "proyectos de integración entregados" },
+	{ value: `${roundedPosts}+`, label: "artículos técnicos publicados" }
+];
 ---
 
-<section class="about" id="sobre-mi">
-	<div class="container">
+<section class="section" id="sobre-mi">
+	<header class="section-header">
 		<h2 class="section-title">Sobre mí</h2>
-		<div class="about-grid">
-			<div class="about-text">
-				<p>
-					Trabajo como <strong>Technical Architect</strong> en
-					<strong>Cotalker</strong>, una plataforma SaaS de workflow
-					automation. Diseño arquitectura de integraciones, mentorizo
-					partners y traduzco necesidades de negocio en soluciones
-					técnicas. En la práctica: ERPs, CRMs, data warehouses, APIs
-					de terceros, modelado de datos y automatización de flujos.
-				</p>
-				<p>
-					Fuera de Cotalker, diseño software a medida como freelance:
-					desde aplicaciones web hasta soluciones backend para
-					negocios con problemas específicos que el software genérico
-					no resuelve.
-				</p>
-				<p>
-					Esas experiencias terminan como artículos en mi blog
-					técnico: los problemas reales, las decisiones que tomé y por
-					qué funcionaron (o no).
-				</p>
-			</div>
-			<div class="about-stats">
-				<div class="stat-card">
-					<span class="stat-number">{yearsOfExperience}+</span>
-					<span class="stat-label"
-						>Años en integraciones enterprise</span
-					>
-				</div>
-				<div class="stat-card">
-					<span class="stat-number">{roundedPosts}+</span>
-					<span class="stat-label">Artículos técnicos publicados</span
-					>
-				</div>
-				<div class="stat-card">
-					<span class="stat-number">20+</span>
-					<span class="stat-label">Integraciones entregadas</span>
-				</div>
-				<div class="stat-card">
-					<span class="stat-number">&infin;</span>
-					<span class="stat-label">Errores sobrevividos</span>
-				</div>
-				<div class="about-location">
-					<Pin />
-					<span>Santiago, Chile</span>
-				</div>
-			</div>
+	</header>
+
+	<div class="content">
+		<p class="lead">
+			Diseño la arquitectura técnica que conecta sistemas que normalmente <strong
+				>no quieren hablarse entre sí</strong
+			>: ERPs, CRMs, data warehouses y APIs de terceros con plataformas
+			SaaS.
+		</p>
+
+		<div class="prose">
+			<p>
+				Trabajo como <strong>Technical Architect</strong> en
+				<a
+					href="https://www.cotalker.com"
+					target="_blank"
+					rel="noopener noreferrer">Cotalker</a
+				>, una plataforma SaaS de workflow automation. Diseño
+				arquitectura de integraciones, mentorizo partners y traduzco
+				necesidades de negocio en soluciones técnicas.
+			</p>
+			<p>
+				Fuera de Cotalker, diseño software a medida como freelance:
+				desde aplicaciones web hasta soluciones backend para negocios
+				con problemas específicos que el software genérico no resuelve.
+			</p>
+			<p>
+				Esas experiencias terminan como artículos en mi
+				<a
+					href="https://blog.etejeda.dev"
+					target="_blank"
+					rel="noopener noreferrer">blog técnico</a
+				>: los problemas reales, las decisiones que tomé y por qué
+				funcionaron (o no).
+			</p>
 		</div>
+
+		<dl class="stats">
+			{
+				stats.map(stat => (
+					<div class="stat">
+						<dt>{stat.value}</dt>
+						<dd>{stat.label}</dd>
+					</div>
+				))
+			}
+		</dl>
 	</div>
 </section>
 
 <style>
-	.about {
-		padding: 6rem 1.5rem;
-		position: relative;
+	.section {
+		padding: 0 0 5rem;
+		scroll-margin-top: 5rem;
 	}
 
-	.container {
-		max-width: 1100px;
-		margin: 0 auto;
+	.section-header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		padding: 1.25rem 0;
+		margin-bottom: 1.5rem;
+		background: var(--header-bg);
+		backdrop-filter: blur(8px);
 	}
 
 	.section-title {
-		font-size: 2rem;
-		font-weight: 800;
+		font-size: 0.78rem;
+		font-weight: 700;
 		color: var(--text-primary);
-		margin-bottom: 3rem;
-		letter-spacing: -0.02em;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
 	}
 
-	.section-title::after {
-		content: "";
-		display: block;
-		width: 48px;
-		height: 3px;
-		background: var(--accent);
-		margin-top: 0.75rem;
-		border-radius: 2px;
+	.lead {
+		font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+		font-weight: 500;
+		line-height: 1.45;
+		color: var(--text-primary);
+		letter-spacing: -0.015em;
+		margin-bottom: 1.75rem;
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid var(--rule);
 	}
 
-	.about-grid {
-		display: grid;
-		grid-template-columns: 1.4fr 1fr;
-		gap: 4rem;
-		align-items: start;
+	.lead strong {
+		color: var(--accent);
+		font-weight: 600;
 	}
 
-	.about-text p {
+	.prose p {
 		color: var(--text-secondary);
-		line-height: 1.8;
-		margin-bottom: 1.25rem;
-		font-size: 1.05rem;
+		line-height: 1.7;
+		margin-bottom: 1.1rem;
+		font-size: 1rem;
 	}
 
-	.about-text strong {
+	.prose strong {
 		color: var(--text-primary);
 		font-weight: 600;
 	}
 
-	.about-text a {
-		color: var(--accent-light);
+	.prose a {
+		color: var(--text-primary);
 		text-decoration: none;
-		border-bottom: 1px solid rgba(var(--accent-rgb), 0.3);
-		transition: border-color 0.2s ease;
-	}
-
-	.about-text a:hover {
-		border-color: var(--accent);
-	}
-
-	.about-stats {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-	}
-
-	.stat-card {
-		background: rgba(var(--overlay-rgb), 0.03);
-		border: 1px solid rgba(var(--overlay-rgb), 0.06);
-		border-radius: 12px;
-		padding: 1.5rem;
-		text-align: center;
-		transition: border-color 0.2s ease;
-	}
-
-	.stat-card:hover {
-		border-color: rgba(var(--accent-rgb), 0.25);
-	}
-
-	.stat-number {
-		display: block;
-		font-size: 2rem;
-		font-weight: 800;
-		color: var(--accent-light);
-		line-height: 1;
-		margin-bottom: 0.5rem;
-	}
-
-	.stat-label {
-		color: var(--text-muted);
-		font-size: 0.8rem;
 		font-weight: 500;
-		letter-spacing: 0.02em;
+		padding-bottom: 1px;
+		background-image: linear-gradient(var(--accent), var(--accent));
+		background-position: 0 100%;
+		background-repeat: no-repeat;
+		background-size: 100% 1.5px;
+		transition:
+			color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+			background-size 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
-	.about-location {
-		grid-column: 1 / -1;
+	.prose a:hover {
+		color: var(--accent);
+		background-size: 100% 3px;
+	}
+
+	.stats {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0;
+		margin-top: 2.5rem;
+		border: 1px solid var(--rule);
+		border-radius: 12px;
+		overflow: hidden;
+		background: var(--bg-surface);
+	}
+
+	.stat {
+		padding: 1.5rem 1.25rem;
+		border-right: 1px solid var(--rule);
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		color: var(--text-muted);
-		font-size: 0.9rem;
-		margin-top: 0.25rem;
+		flex-direction: column;
+		gap: 0.4rem;
 	}
 
-	@media (max-width: 768px) {
-		.about-grid {
+	.stat:last-child {
+		border-right: none;
+	}
+
+	.stat dt {
+		font-size: 1.85rem;
+		font-weight: 700;
+		color: var(--accent);
+		letter-spacing: -0.03em;
+		line-height: 1;
+	}
+
+	.stat dd {
+		color: var(--text-secondary);
+		font-size: 0.78rem;
+		line-height: 1.35;
+	}
+
+	@media (max-width: 600px) {
+		.stats {
 			grid-template-columns: 1fr;
-			gap: 2.5rem;
+		}
+
+		.stat {
+			border-right: none;
+			border-bottom: 1px solid var(--rule);
+			flex-direction: row;
+			align-items: baseline;
+			gap: 1rem;
+		}
+
+		.stat:last-child {
+			border-bottom: none;
+		}
+
+		.stat dt {
+			font-size: 1.5rem;
+			min-width: 60px;
 		}
 	}
 </style>

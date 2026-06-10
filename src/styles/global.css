@@ -1,40 +1,50 @@
 :root {
-	--bg: #0a0a0f;
-	--bg-surface: #12121a;
-	--accent: #8b5cf6;
-	--accent-hover: #7c3aed;
-	--accent-light: #a78bfa;
-	--accent-blue: #3b82f6;
-	--text-primary: #f0f0f5;
-	--text-secondary: #a0a0b5;
-	--text-muted: #8585a0;
-	--accent-rgb: 139, 92, 246;
-	--accent-blue-rgb: 59, 130, 246;
-	--overlay-rgb: 255, 255, 255;
-	--header-bg: rgba(10, 10, 15, 0.85);
-	--header-bg-solid: rgba(10, 10, 15, 0.98);
-	--terminal-bg: rgba(15, 15, 25, 0.8);
-	--btn-on-accent: #fff;
+	--bg: #16130d;
+	--bg-deep: #0f0d09;
+	--bg-surface: #1d1a13;
+	--bg-elevated: #25211a;
+	--text-primary: #f0e8d6;
+	--text-secondary: #b8af96;
+	--text-muted: #7a7261;
+	--accent: #e0a93b;
+	--accent-hover: #ecb854;
+	--accent-soft: rgba(224, 169, 59, 0.12);
+	--accent-border: rgba(224, 169, 59, 0.35);
+	--rule: #2a2519;
+	--rule-strong: #3a3322;
+	--accent-rgb: 224, 169, 59;
+	--ink-rgb: 240, 232, 214;
+	--overlay-rgb: 240, 232, 214;
+	--header-bg: rgba(22, 19, 13, 0.92);
+	--header-bg-solid: #16130d;
+	--terminal-bg: #0a0907;
+	--btn-on-accent: #16130d;
+	--dot-grid: rgba(240, 232, 214, 0.04);
 	color-scheme: dark;
 }
 
 [data-theme="light"] {
-	--bg: #f8f8fc;
+	--bg: #f5ecd7;
+	--bg-deep: #ede2c4;
 	--bg-surface: #ffffff;
-	--accent: #7c3aed;
-	--accent-hover: #6d28d9;
-	--accent-light: #6d28d9;
-	--accent-blue: #2563eb;
-	--text-primary: #1a1a2e;
-	--text-secondary: #4a4a65;
-	--text-muted: #62627d;
-	--accent-rgb: 124, 58, 237;
-	--accent-blue-rgb: 37, 99, 235;
-	--overlay-rgb: 0, 0, 0;
-	--header-bg: rgba(248, 248, 252, 0.85);
-	--header-bg-solid: rgba(248, 248, 252, 0.98);
-	--terminal-bg: rgba(240, 240, 250, 0.9);
-	--btn-on-accent: #fff;
+	--bg-elevated: #fcf6e4;
+	--text-primary: #1a1410;
+	--text-secondary: #4a4135;
+	--text-muted: #857d6d;
+	--accent: #b07419;
+	--accent-hover: #936014;
+	--accent-soft: rgba(176, 116, 25, 0.1);
+	--accent-border: rgba(176, 116, 25, 0.28);
+	--rule: #e0d5b8;
+	--rule-strong: #c4b899;
+	--accent-rgb: 176, 116, 25;
+	--ink-rgb: 26, 20, 16;
+	--overlay-rgb: 26, 20, 16;
+	--header-bg: rgba(245, 236, 215, 0.92);
+	--header-bg-solid: #f5ecd7;
+	--terminal-bg: #ebe0c2;
+	--btn-on-accent: #f5ecd7;
+	--dot-grid: rgba(26, 20, 16, 0.06);
 	color-scheme: light;
 }
 
@@ -59,11 +69,15 @@ body {
 		"Segoe UI",
 		sans-serif;
 	background: var(--bg);
+	background-image: radial-gradient(var(--dot-grid) 1px, transparent 1px);
+	background-size: 24px 24px;
+	background-attachment: fixed;
 	color: var(--text-primary);
-	line-height: 1.6;
+	line-height: 1.55;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	overflow-x: hidden;
+	font-feature-settings: "ss01", "cv11";
 }
 
 .skip-link {
@@ -74,7 +88,7 @@ body {
 	padding: 0.6rem 1.2rem;
 	background: var(--accent);
 	color: var(--btn-on-accent);
-	border-radius: 0 0 8px 8px;
+	border-radius: 4px;
 	font-weight: 600;
 	font-size: 0.9rem;
 	text-decoration: none;
@@ -85,8 +99,8 @@ body {
 }
 
 ::selection {
-	background: rgba(var(--accent-rgb), 0.3);
-	color: var(--text-primary);
+	background: var(--accent);
+	color: var(--btn-on-accent);
 }
 
 a {
@@ -105,8 +119,7 @@ html.theme-transition *::after {
 	transition:
 		background-color 0.3s ease,
 		color 0.3s ease,
-		border-color 0.3s ease,
-		box-shadow 0.3s ease !important;
+		border-color 0.3s ease !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

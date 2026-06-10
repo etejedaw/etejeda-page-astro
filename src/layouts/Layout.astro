@@ -2,7 +2,6 @@
 import { Font } from "astro:assets";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -27,10 +26,10 @@ const { title, description, noindex = false } = Astro.props;
 					theme = null;
 				}
 				if (theme !== "light" && theme !== "dark") {
-					theme = window.matchMedia("(prefers-color-scheme: light)")
+					theme = window.matchMedia("(prefers-color-scheme: dark)")
 						.matches
-						? "light"
-						: "dark";
+						? "dark"
+						: "light";
 				}
 				document.documentElement.setAttribute("data-theme", theme);
 			})();
@@ -41,9 +40,6 @@ const { title, description, noindex = false } = Astro.props;
 	<body>
 		<a href="#contenido" class="skip-link">Saltar al contenido</a>
 		<Header />
-		<main id="contenido">
-			<slot />
-		</main>
-		<Footer />
+		<slot />
 	</body>
 </html>

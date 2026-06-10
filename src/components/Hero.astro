@@ -1,263 +1,435 @@
 ---
-import ArrowDown from "./icons/ArrowDown.astro";
+import Sun from "./icons/Sun.astro";
+import Moon from "./icons/Moon.astro";
+import GitHub from "./icons/GitHub.astro";
+import LinkedIn from "./icons/LinkedIn.astro";
+import Mail from "./icons/Mail.astro";
+import Book from "./icons/Book.astro";
+
+interface NavLink {
+	href: string;
+	label: string;
+	id: string;
+}
+
+const navLinks: NavLink[] = [
+	{ href: "#sobre-mi", label: "Sobre mí", id: "sobre-mi" },
+	{ href: "#expertise", label: "Expertise", id: "expertise" },
+	{ href: "#proyectos", label: "Proyectos", id: "proyectos" },
+	{ href: "#blog", label: "Blog", id: "blog" },
+	{ href: "#contacto", label: "Contacto", id: "contacto" }
+];
 ---
 
 <section class="hero">
-	<div class="hero-content">
-		<div class="hero-badge">Technical Architect</div>
-		<h1 class="hero-title">
-			Hola, soy <span class="highlight">Esteban Tejeda</span>
-		</h1>
-		<p class="hero-subtitle">
-			Integro plataformas SaaS, CRMs y sistemas enterprise. Cada vez que
-			sobrevivo a un proyecto, lo documento en mi blog técnico para que el
-			próximo no empiece de cero.
-		</p>
-		<div class="hero-cta">
-			<a href="#proyectos" class="btn btn-primary">
-				Conoce mi trabajo
-				<ArrowDown />
-			</a>
-			<a href="#contacto" class="btn btn-secondary">Contáctame</a>
+	<div class="hero-top">
+		<div class="hero-head">
+			<a href="/" class="logo" aria-label="Inicio">Esteban Tejeda</a>
 		</div>
-		<div class="hero-terminal">
-			<div class="terminal-bar">
-				<span class="terminal-dot red"></span>
-				<span class="terminal-dot yellow"></span>
-				<span class="terminal-dot green"></span>
-				<span class="terminal-title">~/.dev</span>
-			</div>
-			<div class="terminal-body">
-				<code>
-					<span class="prompt">$</span>
-					<span class="cmd">whoami</span><br />
-					<span class="output"
-						>Un dev que sobrevive a sus propios errores</span
-					><br />
-					<span class="prompt">$</span>
-					<span class="cmd">cat daily.log</span><br />
-					<span class="output"
-						>09:00 Espresso doble. Sin esto no arranca el día.</span
-					><br />
-					<span class="output"
-						>11:00 Diseñando la integración entre el cliente y su
-						ERP</span
-					><br />
-					<span class="output"
-						>17:59 git push origin main --force y que el universo
-						decida</span
-					><br />
-					<span class="output"
-						>22:00 Escribiendo el post que me hubiera salvado ayer</span
-					><br />
-					<span class="prompt">$</span>
-					<span class="cursor">_</span>
-				</code>
-			</div>
+
+		<div class="mark" aria-hidden="true">
+			<span class="lambda">λ</span>
+		</div>
+
+		<h1 class="name">Esteban Tejeda</h1>
+		<p class="role">Technical Architect</p>
+
+		<ul class="specs" aria-label="Áreas">
+			<li>Integraciones</li>
+			<li>Serverless</li>
+			<li>Backend</li>
+			<li>SaaS</li>
+		</ul>
+
+		<p class="location">
+			<span class="dot"></span>
+			Santiago, Chile
+		</p>
+
+		<nav class="side-nav" aria-label="Secciones">
+			<ul>
+				{
+					navLinks.map(link => (
+						<li>
+							<a href={link.href} data-section={link.id}>
+								<span class="nav-line" />
+								<span class="nav-label">{link.label}</span>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+	</div>
+
+	<div class="hero-bottom">
+		<div class="hero-actions">
+			<ul class="socials" aria-label="Redes sociales">
+				<li>
+					<a href="mailto:contacto@etejeda.dev" aria-label="Email">
+						<Mail size={20} />
+					</a>
+				</li>
+				<li>
+					<a
+						href="https://github.com/etejedaw"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="GitHub"
+					>
+						<GitHub size={20} />
+					</a>
+				</li>
+				<li>
+					<a
+						href="https://www.linkedin.com/in/etejedaw/"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="LinkedIn"
+					>
+						<LinkedIn size={20} />
+					</a>
+				</li>
+				<li>
+					<a
+						href="https://blog.etejeda.dev"
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label="Blog"
+					>
+						<Book size={20} />
+					</a>
+				</li>
+			</ul>
+			<button
+				class="theme-toggle"
+				aria-label="Cambiar tema"
+				type="button"
+			>
+				<Sun class="icon-sun" />
+				<Moon class="icon-moon" />
+			</button>
 		</div>
 	</div>
 </section>
 
 <style>
 	.hero {
-		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 3rem;
+		min-height: 100%;
+		position: relative;
+	}
+
+	.hero-head {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		padding: 8rem 1.5rem 4rem;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.hero::before {
-		content: "";
-		position: absolute;
-		top: -50%;
-		left: -50%;
-		width: 200%;
-		height: 200%;
-		background:
-			radial-gradient(
-				ellipse at 30% 20%,
-				rgba(var(--accent-rgb), 0.08) 0%,
-				transparent 50%
-			),
-			radial-gradient(
-				ellipse at 70% 80%,
-				rgba(var(--accent-blue-rgb), 0.05) 0%,
-				transparent 50%
-			);
-		pointer-events: none;
-	}
-
-	.hero-content {
-		max-width: 750px;
-		position: relative;
-		z-index: 1;
-	}
-
-	.hero-badge {
-		display: inline-block;
-		padding: 0.35rem 1rem;
-		background: rgba(var(--accent-rgb), 0.1);
-		border: 1px solid rgba(var(--accent-rgb), 0.25);
-		border-radius: 100px;
-		color: var(--accent-light);
-		font-size: 0.8rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
 		margin-bottom: 1.5rem;
 	}
 
-	.hero-title {
-		font-size: clamp(2.2rem, 5vw, 3.5rem);
-		font-weight: 800;
-		line-height: 1.15;
-		color: var(--text-primary);
-		margin-bottom: 1.25rem;
-		letter-spacing: -0.03em;
-	}
-
-	.highlight {
-		background: linear-gradient(135deg, var(--accent), var(--accent-blue));
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.hero-subtitle {
-		font-size: 1.15rem;
-		line-height: 1.75;
-		color: var(--text-secondary);
-		margin-bottom: 2rem;
-		max-width: 600px;
-	}
-
-	.hero-subtitle strong {
-		color: var(--text-primary);
+	.logo {
+		font-size: 0.92rem;
 		font-weight: 600;
+		color: var(--text-secondary);
+		text-decoration: none;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		transition: color 0.2s ease;
 	}
 
-	.hero-cta {
+	.logo:hover {
+		color: var(--accent);
+	}
+
+	.theme-toggle {
+		background: none;
+		border: 1px solid var(--rule-strong);
+		border-radius: 6px;
+		padding: 0.35rem;
+		cursor: pointer;
+		color: var(--text-secondary);
 		display: flex;
-		gap: 1rem;
-		margin-bottom: 3rem;
-		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.2s ease;
+		flex-shrink: 0;
 	}
 
-	.btn {
+	.theme-toggle:hover {
+		color: var(--accent);
+		border-color: var(--accent-border);
+	}
+
+	:global(.icon-sun) {
+		display: block;
+	}
+	:global(.icon-moon) {
+		display: none;
+	}
+	:global([data-theme="dark"] .icon-sun) {
+		display: none;
+	}
+	:global([data-theme="dark"] .icon-moon) {
+		display: block;
+	}
+
+	.mark {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 1.5rem;
+		line-height: 1;
+		animation: drift 18s ease-in-out infinite;
+		transform-origin: center center;
+		will-change: transform;
+	}
+
+	.lambda {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 4rem;
+		font-weight: 400;
+		line-height: 0.85;
+		color: var(--accent);
+		letter-spacing: -0.02em;
+		text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.25);
+	}
+
+	@keyframes drift {
+		0%,
+		100% {
+			transform: translate(0, 0);
+		}
+		25% {
+			transform: translate(40px, -20px);
+		}
+		50% {
+			transform: translate(80px, 10px);
+		}
+		75% {
+			transform: translate(30px, 30px);
+		}
+	}
+
+	.name {
+		font-size: clamp(2.25rem, 5vw, 3.5rem);
+		font-weight: 700;
+		letter-spacing: -0.035em;
+		line-height: 1;
+		color: var(--text-primary);
+		margin-bottom: 0.6rem;
+	}
+
+	.role {
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--accent);
+		margin-bottom: 1.25rem;
+		letter-spacing: 0.01em;
+	}
+
+	.specs {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 1.25rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+
+	.specs li {
+		font-size: 0.75rem;
+		font-weight: 500;
+		color: var(--accent);
+		background: var(--accent-soft);
+		padding: 0.3rem 0.7rem;
+		border-radius: 999px;
+		line-height: 1;
+	}
+
+	.location {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.78rem;
+		color: var(--text-secondary);
+		margin-bottom: 2.25rem;
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.75rem 1.5rem;
-		border-radius: 8px;
-		font-weight: 600;
-		font-size: 0.95rem;
-		text-decoration: none;
-		transition: all 0.2s ease;
+		line-height: 1.4;
 	}
 
-	.btn-primary {
-		background: var(--accent);
-		color: var(--btn-on-accent);
-	}
-
-	.btn-primary:hover {
-		background: var(--accent-hover);
-		transform: translateY(-1px);
-		box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.35);
-	}
-
-	.btn-secondary {
-		background: transparent;
-		color: var(--text-secondary);
-		border: 1px solid rgba(var(--overlay-rgb), 0.12);
-	}
-
-	.btn-secondary:hover {
-		color: var(--text-primary);
-		border-color: rgba(var(--overlay-rgb), 0.25);
-	}
-
-	.hero-terminal {
-		background: var(--terminal-bg);
-		border: 1px solid rgba(var(--overlay-rgb), 0.08);
-		border-radius: 12px;
-		overflow: hidden;
-		font-family: var(--font-jetbrains-mono), "Fira Code", monospace;
-		font-size: 0.85rem;
-		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-	}
-
-	.terminal-bar {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem 1rem;
-		background: rgba(var(--overlay-rgb), 0.03);
-		border-bottom: 1px solid rgba(var(--overlay-rgb), 0.06);
-	}
-
-	.terminal-dot {
-		width: 10px;
-		height: 10px;
+	.dot {
+		display: inline-block;
+		width: 7px;
+		height: 7px;
 		border-radius: 50%;
+		background: var(--accent);
+		flex-shrink: 0;
+		box-shadow: 0 0 0 0 var(--accent);
+		animation: pulse 2.5s ease-in-out infinite;
 	}
 
-	.terminal-dot.red {
-		background: #ff5f57;
-	}
-	.terminal-dot.yellow {
-		background: #febc2e;
-	}
-	.terminal-dot.green {
-		background: #28c840;
-	}
-
-	.terminal-title {
-		margin-left: 0.5rem;
-		color: var(--text-muted);
-		font-size: 0.75rem;
-	}
-
-	.terminal-body {
-		padding: 1.25rem;
-		line-height: 1.8;
-	}
-
-	.prompt {
-		color: var(--accent);
-	}
-	.cmd {
-		color: var(--accent-light);
-	}
-	.output {
-		color: var(--text-secondary);
-	}
-
-	.cursor {
-		animation: blink 1s step-end infinite;
-		color: var(--accent);
-	}
-
-	@keyframes blink {
+	@keyframes pulse {
 		0%,
 		100% {
-			opacity: 1;
+			box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.4);
 		}
 		50% {
-			opacity: 0;
+			box-shadow: 0 0 0 5px rgba(var(--accent-rgb), 0);
 		}
 	}
 
-	@media (max-width: 768px) {
+	.side-nav {
+		display: none;
+	}
+
+	.side-nav ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+
+	.side-nav a {
+		display: inline-flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.55rem 0;
+		text-decoration: none;
+		color: var(--text-muted);
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.nav-line {
+		display: inline-block;
+		width: 28px;
+		height: 1px;
+		background: var(--text-muted);
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.side-nav a:hover,
+	.side-nav a:focus-visible,
+	.side-nav a.is-active {
+		color: var(--text-primary);
+	}
+
+	.side-nav a:hover .nav-line,
+	.side-nav a:focus-visible .nav-line,
+	.side-nav a.is-active .nav-line {
+		width: 56px;
+		background: var(--accent);
+	}
+
+	.hero-bottom {
+		display: flex;
+		flex-direction: column;
+		gap: 1.75rem;
+	}
+
+	.hero-actions {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--rule);
+	}
+
+	.socials {
+		display: flex;
+		gap: 1.25rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.socials a {
+		color: var(--text-secondary);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		transition:
+			color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+			transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.socials a:hover {
+		color: var(--accent);
+		transform: translateY(-3px);
+	}
+
+	@media (min-width: 1024px) {
 		.hero {
-			padding: 7rem 1.25rem 3rem;
+			padding-right: 1rem;
 		}
 
-		.hero-terminal {
-			font-size: 0.75rem;
+		.hero-head {
+			display: none;
+		}
+
+		.name {
+			font-size: clamp(3rem, 5.5vw, 4rem);
+		}
+
+		.side-nav {
+			display: block;
+			margin-bottom: 3rem;
+		}
+	}
+
+	@media (max-width: 1023px) {
+		.mark {
+			display: none;
+		}
+
+		.hero-bottom {
+			margin-bottom: 2rem;
 		}
 	}
 </style>
+
+<script>
+	if (typeof window !== "undefined" && "IntersectionObserver" in window) {
+		const sections =
+			document.querySelectorAll<HTMLElement>("main section[id]");
+		const navLinks = document.querySelectorAll<HTMLAnchorElement>(
+			".side-nav a[data-section]"
+		);
+
+		if (sections.length && navLinks.length) {
+			const setActive = (id: string) => {
+				navLinks.forEach(link => {
+					link.classList.toggle(
+						"is-active",
+						link.dataset.section === id
+					);
+				});
+			};
+
+			const observer = new IntersectionObserver(
+				entries => {
+					const visible = entries
+						.filter(e => e.isIntersecting)
+						.sort(
+							(a, b) => b.intersectionRatio - a.intersectionRatio
+						)[0];
+					if (visible) setActive(visible.target.id);
+				},
+				{
+					rootMargin: "-30% 0px -50% 0px",
+					threshold: [0, 0.1, 0.25, 0.5]
+				}
+			);
+
+			sections.forEach(section => observer.observe(section));
+		}
+	}
+</script>

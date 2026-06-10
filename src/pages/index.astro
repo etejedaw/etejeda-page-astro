@@ -6,16 +6,72 @@ import Expertise from "../components/Expertise.astro";
 import Projects from "../components/Projects.astro";
 import Blog from "../components/Blog.astro";
 import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <Layout
 	title="Esteban Tejeda — Technical Architect | Serverless & Node.js"
 	description="Technical Architect especializado en integraciones enterprise, serverless, Node.js, TypeScript y AWS Lambda. Blog técnico con guías, design patterns y mejores prácticas."
 >
-	<Hero />
-	<About />
-	<Expertise />
-	<Projects />
-	<Blog />
-	<Contact />
+	<div class="page">
+		<aside class="page-sidebar">
+			<Hero />
+		</aside>
+		<main id="contenido" class="page-main">
+			<About />
+			<Expertise />
+			<Projects />
+			<Blog />
+			<Contact />
+			<Footer />
+		</main>
+	</div>
 </Layout>
+
+<style>
+	.page {
+		max-width: 1280px;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2.5rem;
+	}
+
+	.page-sidebar {
+		padding-top: 6rem;
+	}
+
+	.page-main {
+		padding-top: 4rem;
+		padding-bottom: 4rem;
+	}
+
+	@media (min-width: 1024px) {
+		.page {
+			grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+			gap: 5rem;
+			padding: 0 2.5rem;
+		}
+
+		.page-sidebar {
+			height: 100vh;
+			position: sticky;
+			top: 0;
+			padding-top: 6rem;
+			padding-bottom: 4rem;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.page-main {
+			padding-top: 6rem;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.page {
+			padding: 0 4rem;
+		}
+	}
+</style>
