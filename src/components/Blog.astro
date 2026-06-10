@@ -120,6 +120,7 @@ function formatDate(dateStr: string): string {
 												post.title
 											}
 											loading="lazy"
+											decoding="async"
 										/>
 									</div>
 								)}
@@ -449,6 +450,13 @@ function formatDate(dateStr: string): string {
 		background: var(--accent-hover);
 		transform: translateY(-1px);
 		box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.35);
+	}
+
+	@media (max-width: 1024px) {
+		.recent-grid,
+		.series-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	@media (max-width: 768px) {

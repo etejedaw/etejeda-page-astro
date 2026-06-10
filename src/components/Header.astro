@@ -25,7 +25,7 @@ const navLinks: NavLink[] = [
 				{"};"}</span
 			>
 		</a>
-		<ul class="nav-links">
+		<ul class="nav-links" id="nav-links">
 			{
 				navLinks.map(link => (
 					<li>
@@ -41,8 +41,10 @@ const navLinks: NavLink[] = [
 		<a href="#contacto" class="subscribe-btn"> Hablemos </a>
 		<button
 			class="menu-toggle"
+			type="button"
 			aria-label="Abrir menú"
 			aria-expanded="false"
+			aria-controls="nav-links"
 		>
 			<span class="hamburger"></span>
 		</button>
@@ -71,7 +73,7 @@ const navLinks: NavLink[] = [
 	}
 
 	.nav-logo {
-		font-family: "JetBrains Mono", "Fira Code", monospace;
+		font-family: var(--font-jetbrains-mono), "Fira Code", monospace;
 		font-size: 1.25rem;
 		font-weight: 700;
 		color: var(--text-primary);
@@ -206,7 +208,7 @@ const navLinks: NavLink[] = [
 			right: -100%;
 			width: 70%;
 			max-width: 300px;
-			height: 100vh;
+			height: 100dvh;
 			flex-direction: column;
 			background: var(--header-bg-solid);
 			padding: 5rem 2rem 2rem;
@@ -242,6 +244,11 @@ const navLinks: NavLink[] = [
 	const toggle = document.querySelector(".menu-toggle");
 	const navLinks = document.querySelector(".nav-links");
 
+	function closeMenu() {
+		toggle?.setAttribute("aria-expanded", "false");
+		navLinks?.classList.remove("active");
+	}
+
 	toggle?.addEventListener("click", () => {
 		const expanded = toggle.getAttribute("aria-expanded") === "true";
 		toggle.setAttribute("aria-expanded", String(!expanded));
@@ -249,10 +256,11 @@ const navLinks: NavLink[] = [
 	});
 
 	document.querySelectorAll(".nav-links a").forEach(link => {
-		link.addEventListener("click", () => {
-			toggle?.setAttribute("aria-expanded", "false");
-			navLinks?.classList.remove("active");
-		});
+		link.addEventListener("click", closeMenu);
+	});
+
+	document.addEventListener("keydown", event => {
+		if (event.key === "Escape") closeMenu();
 	});
 
 	const themeToggle = document.querySelector(".theme-toggle");
@@ -263,6 +271,11 @@ const navLinks: NavLink[] = [
 			document.documentElement.getAttribute("data-theme") || "dark";
 		const next = current === "dark" ? "light" : "dark";
 		document.documentElement.setAttribute("data-theme", next);
+		try {
+			localStorage.setItem("theme", next);
+		} catch {
+			// almacenamiento no disponible (modo privado, etc.)
+		}
 		setTimeout(
 			() => document.documentElement.classList.remove("theme-transition"),
 			300

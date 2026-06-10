@@ -1,5 +1,12 @@
 const GHOST_URL = import.meta.env.GHOST_URL;
 const GHOST_KEY = import.meta.env.GHOST_CONTENT_API_KEY;
+
+if (!GHOST_URL || !GHOST_KEY) {
+	throw new Error(
+		"Faltan las variables de entorno GHOST_URL y/o GHOST_CONTENT_API_KEY"
+	);
+}
+
 const API_BASE = `${GHOST_URL}/ghost/api/content`;
 
 interface GhostPost {

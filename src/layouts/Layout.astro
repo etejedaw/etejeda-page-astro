@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -7,36 +8,40 @@ import "../styles/global.css";
 interface Props {
 	title: string;
 	description: string;
+	noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} noindex={noindex} />
 		<script is:inline>
 			(function () {
-				var l = window.matchMedia(
-					"(prefers-color-scheme: light)"
-				).matches;
-				document.documentElement.setAttribute(
-					"data-theme",
-					l ? "light" : "dark"
-				);
+				var theme;
+				try {
+					theme = localStorage.getItem("theme");
+				} catch {
+					theme = null;
+				}
+				if (theme !== "light" && theme !== "dark") {
+					theme = window.matchMedia("(prefers-color-scheme: light)")
+						.matches
+						? "light"
+						: "dark";
+				}
+				document.documentElement.setAttribute("data-theme", theme);
 			})();
 		</script>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
-			rel="stylesheet"
-		/>
+		<Font cssVariable="--font-inter" preload />
+		<Font cssVariable="--font-jetbrains-mono" />
 	</head>
 	<body>
+		<a href="#contenido" class="skip-link">Saltar al contenido</a>
 		<Header />
-		<main>
+		<main id="contenido">
 			<slot />
 		</main>
 		<Footer />

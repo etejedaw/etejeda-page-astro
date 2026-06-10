@@ -28,7 +28,7 @@ const projects: Project[] = [
 		title: "Akiba Stands",
 		description:
 			"Diseñé y construí, trabajando directo con la organización, una plataforma para gestionar las postulaciones y asignación de los ~80 stands de Akiba Fest, un evento anual de cultura japonesa en Valdivia. Reemplazó un proceso manual de cientos de correos y planillas por un sistema con postulación, selección, mapa de disponibilidad y confirmación de pago.",
-		tags: ["Express", "TypeScript", "PostgreSQL", "Docker", "Caprover"],
+		tags: ["Express", "TypeScript", "PostgreSQL", "Docker", "CapRover"],
 		color: "#f59e0b",
 		category: "Freelance"
 	},
@@ -36,7 +36,7 @@ const projects: Project[] = [
 		title: "Completr",
 		description:
 			"Aplicación web para hacer seguimiento a videojuegos: pendientes, jugando, completados o abandonados. Inspirada en Trakt pero enfocada en gaming, con un sistema de ratio (puntaje / duración) que prioriza qué jugar primero. Backend, frontend y despliegue diseñados y construidos por mí. Actualmente en beta cerrada con un grupo reducido de usuarios.",
-		tags: ["Express", "PostgreSQL", "Angular", "PWA", "Caprover"],
+		tags: ["Express", "PostgreSQL", "Angular", "PWA", "CapRover"],
 		color: "#8b5cf6",
 		category: "Personal",
 		url: "https://www.completr.app"
@@ -45,7 +45,7 @@ const projects: Project[] = [
 		title: "SMC2SFC2",
 		description:
 			"Conversor de ROMs de SNES entre formatos .smc y .sfc que funciona completamente en el navegador. Fork de un proyecto abandonado hace 10 años, migrado de JS + Flask a Astro. Añadí drag & drop, procesamiento múltiple, lectura de metadatos, deduplicación con SHA-256 y soporte PWA.",
-		tags: ["Astro", "TypeScript", "PWA", "Caprover"],
+		tags: ["Astro", "TypeScript", "PWA", "CapRover"],
 		color: "#06b6d4",
 		category: "Personal",
 		github: "https://github.com/etejedaw/smc2sfc2",
@@ -89,6 +89,7 @@ const projects: Project[] = [
 									src={project.image}
 									alt={project.title}
 									loading="lazy"
+									decoding="async"
 								/>
 							</div>
 						) : (
@@ -291,6 +292,12 @@ const projects: Project[] = [
 		font-size: 0.75rem;
 		color: var(--accent-light);
 		font-weight: 500;
+	}
+
+	@media (max-width: 1024px) {
+		.projects-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	@media (max-width: 768px) {
