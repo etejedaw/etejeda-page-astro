@@ -15,8 +15,18 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const { title, description, tags, category, year, github, url, image, color } =
-	project.data;
+const {
+	title,
+	description,
+	tags,
+	category,
+	year,
+	github,
+	url,
+	image,
+	gallery,
+	color
+} = project.data;
 
 const all = await getCollection("projects", ({ data }) => !data.draft);
 const sorted = all.sort((a, b) => a.data.order - b.data.order);
@@ -84,6 +94,29 @@ const slugOf = (p: (typeof sorted)[number]) => p.id.replace(/\.md$/, "");
 						loading="eager"
 					/>
 				</figure>
+			)
+		}
+
+		{
+			gallery && gallery.length > 0 && (
+				<ul class="gallery">
+					{gallery.map(item => (
+						<li class="gallery-item">
+							<figure>
+								<Image
+									src={item.src}
+									alt={item.alt ?? ""}
+									widths={[400, 800]}
+									sizes="(min-width: 760px) 240px, 50vw"
+									loading="lazy"
+								/>
+								{item.caption && (
+									<figcaption>{item.caption}</figcaption>
+								)}
+							</figure>
+						</li>
+					))}
+				</ul>
 			)
 		}
 
@@ -346,7 +379,7 @@ const slugOf = (p: (typeof sorted)[number]) => p.id.replace(/\.md$/, "");
 	}
 
 	.cover {
-		margin: 0 0 3rem;
+		margin: 0 0 2rem;
 		border: 1px solid var(--rule);
 		border-radius: 14px;
 		overflow: hidden;
@@ -358,6 +391,47 @@ const slugOf = (p: (typeof sorted)[number]) => p.id.replace(/\.md$/, "");
 		display: block;
 		width: 100%;
 		height: auto;
+	}
+
+	.gallery {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 3rem;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1rem;
+	}
+
+	.gallery-item figure {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.gallery-item img {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 10;
+		object-fit: cover;
+		object-position: top left;
+		border: 1px solid var(--rule);
+		border-radius: 10px;
+		background: #0a0a0a;
+		transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.gallery-item:hover img {
+		transform: translateY(-2px);
+	}
+
+	.gallery-item figcaption {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.72rem;
+		color: var(--text-muted);
+		line-height: 1.4;
+		padding: 0 0.1rem;
 	}
 
 	.body {

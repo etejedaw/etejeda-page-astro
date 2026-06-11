@@ -16,6 +16,15 @@ const projects = defineCollection({
 			github: z.string().optional(),
 			url: z.string().optional(),
 			image: image().optional(),
+			gallery: z
+				.array(
+					z.object({
+						src: image(),
+						alt: z.string().optional(),
+						caption: z.string().optional()
+					})
+				)
+				.optional(),
 			order: z.number().default(99),
 			draft: z.boolean().default(false)
 		})
