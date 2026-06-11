@@ -8,6 +8,11 @@ category: Personal
 year: "2026"
 url: https://www.completr.app
 image: ../assets/projects/completr.png
+gallery:
+    - src: ../assets/projects/completr-games.png
+      caption: "Vista de descubrimiento: featured juego del momento + carrusel de últimos agregados"
+    - src: ../assets/projects/completr-shelf.png
+      caption: "Game Shelf: grid de juegos completados por plataforma (Steam, GOG, SNES, DS, PS2)"
 order: 3
 ---
 
