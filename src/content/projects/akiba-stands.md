@@ -5,7 +5,7 @@ description: "Plataforma para gestionar las postulaciones y asignación de ~80 s
 tags: [Express, TypeScript, PostgreSQL, Docker, CapRover]
 color: "#f59e0b"
 category: Freelance
-year: "2025"
+year: "2026"
 order: 2
 ---
 

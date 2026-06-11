@@ -5,7 +5,7 @@ description: "Aplicación web para seguimiento de videojuegos (pendientes, jugan
 tags: [Express, PostgreSQL, Angular, PWA, CapRover]
 color: "#8b5cf6"
 category: Personal
-year: Beta Cerrada
+year: "2026"
 url: https://www.completr.app
 image: ../../assets/projects/completr.png
 order: 3

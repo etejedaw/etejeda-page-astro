@@ -5,7 +5,7 @@ description: "Conversor de ROMs de SNES (.smc ↔ .sfc) que corre 100% en el nav
 tags: [Astro, TypeScript, PWA, CapRover]
 color: "#06b6d4"
 category: Personal
-year: "2024"
+year: "2026"
 github: https://github.com/etejedaw/smc2sfc2
 url: https://smc2sfc2.app.etejeda.dev
 image: ../../assets/projects/smc2sfc2.png
