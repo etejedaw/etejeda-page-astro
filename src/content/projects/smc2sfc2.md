@@ -8,7 +8,7 @@ category: Personal
 year: "2024"
 github: https://github.com/etejedaw/smc2sfc2
 url: https://smc2sfc2.app.etejeda.dev
-image: /images/projects/smc2sfc2.png
+image: ../../assets/projects/smc2sfc2.png
 order: 4
 ---
 

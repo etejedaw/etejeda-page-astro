@@ -7,7 +7,7 @@ color: "#8b5cf6"
 category: Personal
 year: Beta Cerrada
 url: https://www.completr.app
-image: /images/projects/completr.png
+image: ../../assets/projects/completr.png
 order: 3
 ---
 

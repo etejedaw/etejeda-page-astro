@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import GitHub from "../../components/icons/GitHub.astro";
 import ArrowUpRight from "../../components/icons/ArrowUpRight.astro";
@@ -75,9 +76,11 @@ const slugOf = (p: (typeof sorted)[number]) => p.id.replace(/\.md$/, "");
 		{
 			image && (
 				<figure class="cover">
-					<img
+					<Image
 						src={image}
 						alt={`Captura de ${title}`}
+						widths={[760, 1520]}
+						sizes="(min-width: 760px) 760px, 100vw"
 						loading="eager"
 					/>
 				</figure>
