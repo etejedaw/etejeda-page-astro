@@ -26,18 +26,18 @@
 [data-theme="light"] {
 	--bg: #f5ecd7;
 	--bg-deep: #ede2c4;
-	--bg-surface: #ffffff;
-	--bg-elevated: #fcf6e4;
+	--bg-surface: #fffaeb;
+	--bg-elevated: #fbf3da;
 	--text-primary: #1a1410;
-	--text-secondary: #4a4135;
-	--text-muted: #857d6d;
-	--accent: #b07419;
-	--accent-hover: #936014;
-	--accent-soft: rgba(176, 116, 25, 0.1);
-	--accent-border: rgba(176, 116, 25, 0.28);
-	--rule: #e0d5b8;
-	--rule-strong: #c4b899;
-	--accent-rgb: 176, 116, 25;
+	--text-secondary: #423a2e;
+	--text-muted: #7a7160;
+	--accent: #9c5e10;
+	--accent-hover: #834d0a;
+	--accent-soft: rgba(156, 94, 16, 0.13);
+	--accent-border: rgba(156, 94, 16, 0.4);
+	--rule: #d6c8a3;
+	--rule-strong: #b8a877;
+	--accent-rgb: 156, 94, 16;
 	--ink-rgb: 26, 20, 16;
 	--overlay-rgb: 26, 20, 16;
 	--header-bg: rgba(245, 236, 215, 0.92);
@@ -101,6 +101,13 @@ body {
 ::selection {
 	background: var(--accent);
 	color: var(--btn-on-accent);
+}
+
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+	border-radius: 4px;
+	transition: outline-offset 0.15s ease;
 }
 
 a {
