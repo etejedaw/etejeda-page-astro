@@ -6,6 +6,13 @@ tags: [NestJS, TypeScript, PostgreSQL, Coolify]
 color: "#ef4444"
 category: Freelance
 year: En curso
+image: ../assets/contabilidad-inicio.png
+gallery:
+    - src: ../assets/contabilidad-usuarios.png
+      caption: "Gestión de usuarios: lista paginada con nombre, apellido, correo y rol asignado"
+    - src: ../assets/contabilidad-iva.png
+      caption: "Declaraciones IVA del mes: tabla por cliente con fecha límite, credenciales SII/certificado enmascaradas y estado de declaración"
+disclaimer: "Las capturas muestran un entorno de demo con datos ficticios. En producción el sistema opera con la información real de la oficina contable."
 order: 1
 ---
 
