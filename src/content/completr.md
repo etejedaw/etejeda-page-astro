@@ -7,12 +7,12 @@ color: "#8b5cf6"
 category: Personal
 year: "2026"
 url: https://www.completr.app
-image: ../assets/projects/completr.png
+image: ../assets/completr.png
 gallery:
-    - src: ../assets/projects/completr-games.png
+    - src: ../assets/completr-games.png
       caption: "Vista de descubrimiento: featured juego del momento + carrusel de últimos agregados"
-    - src: ../assets/projects/completr-shelf.png
-      caption: "Game Shelf: grid de juegos completados por plataforma (Steam, GOG, SNES, DS, PS2)"
+    - src: ../assets/completr-feed.png
+      caption: "Feed de actividad: historial de juegos iniciados, completados, abandonados o añadidos a backlog"
 order: 3
 ---
 
