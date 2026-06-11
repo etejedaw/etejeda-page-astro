@@ -4,53 +4,254 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="404 — Esteban Tejeda" description="Página no encontrada" noindex>
 	<section class="not-found">
-		<h1>404</h1>
-		<p>Esta página no existe o fue movida.</p>
-		<a href="/" class="btn">Volver al inicio</a>
+		<div class="not-found-inner">
+			<div class="mark" aria-hidden="true">
+				<span class="lambda">λ</span>
+			</div>
+
+			<p class="code" aria-hidden="true">
+				<span class="code-prompt">$</span>
+				<span class="code-cmd">cat /404</span>
+				<span class="code-blink">_</span>
+			</p>
+
+			<h1 class="title">Esta ruta no está mapeada.</h1>
+
+			<p class="lede">
+				La página que buscas no existe, fue movida, o nunca estuvo aquí.
+				Si llegaste por un link mío que está roto,{" "}
+				<a href="mailto:contacto@etejeda.dev">avísame</a>.
+			</p>
+
+			<div class="actions">
+				<a href="/" class="btn btn-primary">
+					<span aria-hidden="true">←</span>
+					Volver al inicio
+				</a>
+				<a href="https://blog.etejeda.dev" class="btn btn-ghost">
+					Ir al blog
+				</a>
+			</div>
+
+			<nav class="quick-nav" aria-label="Atajos">
+				<span class="quick-nav-label">Atajos</span>
+				<a href="/#sobre-mi">Sobre mí</a>
+				<a href="/#proyectos">Proyectos</a>
+				<a href="/#blog">Blog</a>
+				<a href="/#contacto">Contacto</a>
+			</nav>
+		</div>
 	</section>
 </Layout>
 
+<style is:global>
+	@media (min-width: 1024px) {
+		body:has(.not-found) .header {
+			display: block;
+		}
+	}
+</style>
+
 <style>
 	.not-found {
+		min-height: 100vh;
 		display: flex;
-		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		min-height: 60vh;
-		text-align: center;
-		padding: 2rem 1.5rem;
+		padding: 7rem 1.5rem 4rem;
 	}
 
-	h1 {
-		font-size: 6rem;
-		font-weight: 800;
+	.not-found-inner {
+		max-width: 580px;
+		width: 100%;
+		text-align: left;
+	}
+
+	.mark {
+		margin-bottom: 1.5rem;
+		display: inline-flex;
+		animation: drift 18s ease-in-out infinite;
+		transform-origin: center;
+		will-change: transform;
+	}
+
+	.lambda {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 4rem;
+		font-weight: 400;
+		line-height: 0.85;
 		color: var(--accent);
-		line-height: 1;
-		margin-bottom: 1rem;
+		letter-spacing: -0.02em;
+		text-shadow: 0 0 24px rgba(var(--accent-rgb), 0.25);
 	}
 
-	p {
+	@keyframes drift {
+		0%,
+		100% {
+			transform: translate(0, 0);
+		}
+		25% {
+			transform: translate(20px, -10px);
+		}
+		50% {
+			transform: translate(40px, 5px);
+		}
+		75% {
+			transform: translate(15px, 15px);
+		}
+	}
+
+	.code {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.95rem;
+		color: var(--text-muted);
+		margin-bottom: 1.5rem;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.5rem;
+	}
+
+	.code-prompt {
+		color: var(--accent);
+	}
+
+	.code-cmd {
 		color: var(--text-secondary);
-		font-size: 1.1rem;
+	}
+
+	.code-blink {
+		color: var(--accent);
+		animation: blink 1s step-end infinite;
+	}
+
+	@keyframes blink {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+	}
+
+	.title {
+		font-size: clamp(1.85rem, 4vw, 2.5rem);
+		font-weight: 700;
+		letter-spacing: -0.035em;
+		line-height: 1.1;
+		color: var(--text-primary);
+		margin-bottom: 1.25rem;
+	}
+
+	.lede {
+		font-size: 1.05rem;
+		line-height: 1.65;
+		color: var(--text-secondary);
 		margin-bottom: 2rem;
+		max-width: 50ch;
+	}
+
+	.lede a {
+		color: var(--text-primary);
+		text-decoration: none;
+		font-weight: 600;
+		background-image: linear-gradient(var(--accent), var(--accent));
+		background-position: 0 100%;
+		background-repeat: no-repeat;
+		background-size: 100% 1.5px;
+		padding-bottom: 1px;
+		transition:
+			color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+			background-size 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.lede a:hover {
+		color: var(--accent);
+		background-size: 100% 3px;
+	}
+
+	.actions {
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+		margin-bottom: 2.5rem;
 	}
 
 	.btn {
 		display: inline-flex;
 		align-items: center;
-		padding: 0.75rem 1.5rem;
+		gap: 0.4rem;
+		padding: 0.75rem 1.25rem;
 		border-radius: 8px;
+		font-size: 0.92rem;
 		font-weight: 600;
-		font-size: 0.95rem;
 		text-decoration: none;
-		background: var(--accent);
-		color: var(--btn-on-accent);
 		transition: all 0.2s ease;
 	}
 
-	.btn:hover {
+	.btn-primary {
+		background: var(--accent);
+		color: var(--btn-on-accent);
+	}
+
+	.btn-primary:hover {
 		background: var(--accent-hover);
 		transform: translateY(-1px);
-		box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.35);
+	}
+
+	.btn-ghost {
+		background: transparent;
+		color: var(--text-primary);
+		border: 1px solid var(--rule-strong);
+	}
+
+	.btn-ghost:hover {
+		border-color: var(--accent-border);
+		color: var(--accent);
+	}
+
+	.quick-nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.85rem 1.25rem;
+		align-items: center;
+		font-size: 0.85rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--rule);
+	}
+
+	.quick-nav-label {
+		font-family: var(--font-jetbrains-mono), monospace;
+		color: var(--text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-size: 0.7rem;
+		font-weight: 700;
+	}
+
+	.quick-nav a {
+		color: var(--text-secondary);
+		text-decoration: none;
+		padding-bottom: 1px;
+		border-bottom: 1px solid transparent;
+		transition:
+			color 0.2s ease,
+			border-color 0.2s ease;
+	}
+
+	.quick-nav a:hover {
+		color: var(--accent);
+		border-bottom-color: var(--accent);
+	}
+
+	@media (max-width: 600px) {
+		.actions {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.btn {
+			justify-content: center;
+		}
 	}
 </style>
