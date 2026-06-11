@@ -6,6 +6,13 @@ tags: [Express, TypeScript, PostgreSQL, Docker, CapRover]
 color: "#f59e0b"
 category: Freelance
 year: "2026"
+image: ../assets/akiba-dashboard.png
+gallery:
+    - src: ../assets/akiba-postulaciones.png
+      caption: "Postulaciones recibidas: 13 entradas con estado, recaudación por categoría y filtros (estado, pago, huérfanos)"
+    - src: ../assets/akiba-recinto.png
+      caption: "Mapa del recinto: vista de stands con ocupación al 26%, categorías Arcano/Runa/Mana/Kami"
+disclaimer: "Las capturas muestran un entorno de demo con datos ficticios. En producción el sistema opera con la información real de Akiba Fest."
 order: 2
 ---
 
