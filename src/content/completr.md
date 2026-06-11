@@ -7,7 +7,7 @@ color: "#8b5cf6"
 category: Personal
 year: "2026"
 url: https://www.completr.app
-image: ../../assets/projects/completr.png
+image: ../assets/projects/completr.png
 order: 3
 ---
 
