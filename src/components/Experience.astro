@@ -1,0 +1,261 @@
+---
+// Componente no activo. Para mostrarlo:
+// 1) importar en src/pages/index.astro: `import Experience from "../components/Experience.astro";`
+// 2) renderizar dentro de <main> en el orden deseado: `<Experience />`
+// 3) re-agregar el entry "Experiencia" en navLinks de Hero.astro y Header.astro.
+
+interface Job {
+	role: string;
+	org: string;
+	url?: string;
+	period: string;
+	current?: boolean;
+	description: string;
+	tags: string[];
+}
+
+const jobs: Job[] = [
+	{
+		role: "Technical Architect",
+		org: "Cotalker",
+		url: "https://www.cotalker.com",
+		period: "2022 — Presente",
+		current: true,
+		description:
+			"Diseño la arquitectura de integraciones para clientes enterprise, mentorizo partners y traduzco necesidades de negocio en soluciones técnicas. Especialista en Cotlang, bots como endpoints y workflow automation a escala.",
+		tags: [
+			"TypeScript",
+			"Node.js",
+			"AWS Lambda",
+			"Cotlang",
+			"Integraciones"
+		]
+	},
+	{
+		role: "Asistente de investigación",
+		org: "PRU-Lab · FONDECYT",
+		period: "2021 — 2022",
+		description:
+			"Desarrollo de sistemas de extracción y análisis de datos para proyectos FONDECYT: indicadores de resiliencia comunitaria y mercado laboral en EE.UU. durante la pandemia. Tesis de Ingeniería Civil en Informática.",
+		tags: ["TypeScript", "Web Scraping", "Metabase", "Data Engineering"]
+	}
+];
+---
+
+<section class="section" id="experiencia">
+	<header class="section-header">
+		<h2 class="section-title">Experiencia</h2>
+	</header>
+
+	<ol class="timeline">
+		{
+			jobs.map(job => (
+				<li class="job">
+					<div class="job-meta">
+						<span class="job-period">{job.period}</span>
+						{job.current && (
+							<span class="job-badge">
+								<span class="job-dot" />
+								Actual
+							</span>
+						)}
+					</div>
+					<div class="job-body">
+						<h3 class="job-title">
+							{job.role} <span class="job-sep">·</span>{" "}
+							{job.url ? (
+								<a
+									href={job.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="job-org"
+								>
+									{job.org}
+								</a>
+							) : (
+								<span class="job-org">{job.org}</span>
+							)}
+						</h3>
+						<p class="job-description">{job.description}</p>
+						<ul class="job-tags">
+							{job.tags.map(tag => (
+								<li>{tag}</li>
+							))}
+						</ul>
+					</div>
+				</li>
+			))
+		}
+	</ol>
+</section>
+
+<style>
+	.section {
+		padding: 0 0 5rem;
+		scroll-margin-top: 5rem;
+	}
+
+	.section-header {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		padding: 1.25rem 0;
+		margin-bottom: 1.5rem;
+		background: var(--header-bg);
+		backdrop-filter: blur(8px);
+	}
+
+	.section-title {
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+	}
+
+	.timeline {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.job {
+		display: grid;
+		grid-template-columns: 130px 1fr;
+		gap: 1.5rem;
+		padding: 1.75rem 0;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.job:first-child {
+		padding-top: 0;
+	}
+
+	.job:last-child {
+		border-bottom: none;
+	}
+
+	.job-meta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding-top: 0.15rem;
+	}
+
+	.job-period {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.78rem;
+		color: var(--text-muted);
+		line-height: 1.4;
+	}
+
+	.job-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.7rem;
+		font-weight: 600;
+		color: var(--accent);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.job-dot {
+		display: inline-block;
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: var(--accent);
+		box-shadow: 0 0 0 0 var(--accent);
+		animation: jobpulse 2.5s ease-in-out infinite;
+	}
+
+	@keyframes jobpulse {
+		0%,
+		100% {
+			box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.4);
+		}
+		50% {
+			box-shadow: 0 0 0 5px rgba(var(--accent-rgb), 0);
+		}
+	}
+
+	.job-title {
+		font-size: 1.05rem;
+		font-weight: 600;
+		color: var(--text-primary);
+		letter-spacing: -0.01em;
+		line-height: 1.35;
+		margin-bottom: 0.55rem;
+	}
+
+	.job-sep {
+		color: var(--text-muted);
+		margin: 0 0.2rem;
+		font-weight: 400;
+	}
+
+	.job-org {
+		color: var(--accent);
+		text-decoration: none;
+		font-weight: 600;
+		transition: color 0.2s ease;
+	}
+
+	a.job-org {
+		background-image: linear-gradient(var(--accent), var(--accent));
+		background-position: 0 100%;
+		background-repeat: no-repeat;
+		background-size: 100% 1.5px;
+		padding-bottom: 1px;
+		transition:
+			color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+			background-size 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	a.job-org:hover {
+		background-size: 100% 3px;
+	}
+
+	.job-description {
+		color: var(--text-secondary);
+		font-size: 0.95rem;
+		line-height: 1.6;
+		margin-bottom: 0.85rem;
+	}
+
+	.job-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.job-tags li {
+		font-size: 0.72rem;
+		font-weight: 500;
+		color: var(--accent);
+		background: var(--accent-soft);
+		padding: 0.25rem 0.6rem;
+		border-radius: 999px;
+		line-height: 1;
+	}
+
+	@media (max-width: 600px) {
+		.job {
+			grid-template-columns: 1fr;
+			gap: 0.5rem;
+		}
+
+		.job-meta {
+			flex-direction: row;
+			gap: 0.75rem;
+			padding-top: 0;
+		}
+	}
+</style>
