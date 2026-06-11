@@ -14,6 +14,7 @@ interface Project {
 	year?: string;
 	github?: string;
 	url?: string;
+	image?: string;
 }
 
 const projects: Project[] = [
@@ -46,7 +47,8 @@ const projects: Project[] = [
 		color: "#8b5cf6",
 		category: "Personal",
 		year: "Beta Cerrada",
-		url: "https://www.completr.app"
+		url: "https://www.completr.app",
+		image: "/projects/completr.png"
 	},
 	{
 		title: "SMC2SFC2",
@@ -58,7 +60,8 @@ const projects: Project[] = [
 		category: "Personal",
 		year: "2024",
 		github: "https://github.com/etejedaw/smc2sfc2",
-		url: "https://smc2sfc2.app.etejeda.dev"
+		url: "https://smc2sfc2.app.etejeda.dev",
+		image: "/projects/smc2sfc2.png"
 	},
 	{
 		title: "CORE Model",
@@ -99,13 +102,31 @@ const extra = projects.slice(initialCount);
 			initial.map(project => (
 				<article class="project" style={`--p-color: ${project.color};`}>
 					<div class="project-side">
-						<div class="project-cover" aria-hidden="true">
+						<div
+							class:list={[
+								"project-cover",
+								project.image && "has-image"
+							]}
+							aria-hidden="true"
+						>
+							{project.image ? (
+								<img
+									src={project.image}
+									alt=""
+									class="project-image"
+									loading="lazy"
+									decoding="async"
+								/>
+							) : (
+								<span class="project-mono">
+									{project.short}
+								</span>
+							)}
 							{project.year && (
 								<span class="project-year-cover">
 									{project.year}
 								</span>
 							)}
-							<span class="project-mono">{project.short}</span>
 							<span class="project-cat">{project.category}</span>
 						</div>
 						<ul class="project-tags">
@@ -156,15 +177,31 @@ const extra = projects.slice(initialCount);
 						style={`--p-color: ${project.color};`}
 					>
 						<div class="project-side">
-							<div class="project-cover" aria-hidden="true">
+							<div
+								class:list={[
+									"project-cover",
+									project.image && "has-image"
+								]}
+								aria-hidden="true"
+							>
+								{project.image ? (
+									<img
+										src={project.image}
+										alt=""
+										class="project-image"
+										loading="lazy"
+										decoding="async"
+									/>
+								) : (
+									<span class="project-mono">
+										{project.short}
+									</span>
+								)}
 								{project.year && (
 									<span class="project-year-cover">
 										{project.year}
 									</span>
 								)}
-								<span class="project-mono">
-									{project.short}
-								</span>
 								<span class="project-cat">
 									{project.category}
 								</span>
@@ -369,6 +406,60 @@ const extra = projects.slice(initialCount);
 		min-height: 150px;
 		overflow: hidden;
 		border-bottom: 1px solid var(--rule);
+	}
+
+	.project-cover.has-image {
+		background: #0a0a0a;
+		padding: 0;
+		min-height: 170px;
+	}
+
+	.project-image {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top left;
+		transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.project:hover .project-image {
+		transform: scale(1.04);
+	}
+
+	.project-cover.has-image::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.55) 0%,
+			rgba(0, 0, 0, 0) 35%,
+			rgba(0, 0, 0, 0) 60%,
+			rgba(0, 0, 0, 0.65) 100%
+		);
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	.project-cover.has-image .project-year-cover,
+	.project-cover.has-image .project-cat {
+		position: absolute;
+		z-index: 2;
+		color: #fff;
+		opacity: 1;
+		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	}
+
+	.project-cover.has-image .project-year-cover {
+		top: 0.85rem;
+		right: 0.95rem;
+	}
+
+	.project-cover.has-image .project-cat {
+		bottom: 0.85rem;
+		left: 0.95rem;
 	}
 
 	.project-cover::before {
