@@ -21,7 +21,7 @@ const projects: Project[] = [
 		title: "Sistema Contable",
 		short: "SC",
 		description:
-			"Digitalización modular de una oficina de contabilidad que aún trabaja con papel. Reemplazó libros físicos de seguimiento mensual (renta, IVA, F29) y fichas de clientes por una plataforma con la información centralizada. Sigue en evolución.",
+			"Digitalización modular de una oficina de contabilidad que trabajaba con papel. Reemplazó libros físicos de seguimiento mensual (renta, IVA, F29) y fichas de clientes por una plataforma centralizada. 3+ módulos en producción, en evolución activa.",
 		tags: ["NestJS", "TypeScript", "PostgreSQL", "Coolify"],
 		color: "#ef4444",
 		category: "Freelance",
@@ -31,7 +31,7 @@ const projects: Project[] = [
 		title: "Akiba Stands",
 		short: "AK",
 		description:
-			"Plataforma para gestionar postulaciones y asignación de los ~80 stands de Akiba Fest, evento anual de cultura japonesa en Valdivia. Reemplazó cientos de correos y planillas por postulación, selección, mapa de disponibilidad y confirmación de pago.",
+			"Plataforma para gestionar las postulaciones y asignación de ~80 stands de Akiba Fest, evento anual de cultura japonesa en Valdivia. Reemplazó cientos de correos y planillas por un flujo único: postulación, selección, mapa de disponibilidad y confirmación de pago. Ciclo completo en producción para la edición 2025.",
 		tags: ["Express", "TypeScript", "PostgreSQL", "Docker", "CapRover"],
 		color: "#f59e0b",
 		category: "Freelance",
@@ -41,7 +41,7 @@ const projects: Project[] = [
 		title: "Completr",
 		short: "C",
 		description:
-			"Aplicación web para hacer seguimiento a videojuegos: pendientes, jugando, completados o abandonados. Inspirada en Trakt pero enfocada en gaming, con un sistema de ratio (puntaje / duración) que prioriza qué jugar primero. Actualmente en beta cerrada.",
+			"Aplicación web para seguimiento de videojuegos (pendientes, jugando, completados, abandonados). Inspirada en Trakt pero enfocada en gaming, con sistema de ratio puntaje/duración que prioriza qué jugar primero. Beta cerrada con usuarios activos.",
 		tags: ["Express", "PostgreSQL", "Angular", "PWA", "CapRover"],
 		color: "#8b5cf6",
 		category: "Personal",
@@ -52,7 +52,7 @@ const projects: Project[] = [
 		title: "SMC2SFC2",
 		short: "SF",
 		description:
-			"Conversor de ROMs de SNES entre formatos .smc y .sfc que funciona completamente en el navegador. Fork de un proyecto abandonado hace 10 años, migrado de JS + Flask a Astro. Añadí drag & drop, procesamiento múltiple, lectura de metadatos, deduplicación con SHA-256 y soporte PWA.",
+			"Conversor de ROMs de SNES (.smc ↔ .sfc) que corre 100% en el navegador. Fork de un proyecto abandonado hace 10 años, migrado de JS + Flask a Astro. Añadí drag & drop, procesamiento múltiple, lectura de metadatos, deduplicación con SHA-256 y soporte PWA. Live en producción.",
 		tags: ["Astro", "TypeScript", "PWA", "CapRover"],
 		color: "#06b6d4",
 		category: "Personal",
@@ -64,7 +64,7 @@ const projects: Project[] = [
 		title: "CORE Model",
 		short: "CM",
 		description:
-			"Sistema que recopila datos de múltiples fuentes institucionales para calcular indicadores de resiliencia comunitaria. Los resultados se visualizan en dashboards que ayudan a investigadores a identificar dónde invertir para mejorar la preparación municipal. Tesis FONDECYT.",
+			"Sistema que recopila datos de múltiples fuentes institucionales para calcular indicadores de resiliencia comunitaria. Dashboards para investigadores que identifican dónde invertir para mejorar la preparación municipal. Tesis FONDECYT del PRU-Lab.",
 		tags: ["TypeScript", "Node.js", "Web Scraping", "Metabase"],
 		color: "#3b82f6",
 		category: "Investigación",
@@ -83,6 +83,10 @@ const projects: Project[] = [
 		github: "https://github.com/etejedaw/caredotcom-fondecyt-node"
 	}
 ];
+
+const initialCount = 4;
+const initial = projects.slice(0, initialCount);
+const extra = projects.slice(initialCount);
 ---
 
 <section class="section" id="proyectos">
@@ -92,7 +96,7 @@ const projects: Project[] = [
 
 	<div class="projects">
 		{
-			projects.map(project => (
+			initial.map(project => (
 				<article class="project" style={`--p-color: ${project.color};`}>
 					<div class="project-side">
 						<div class="project-cover" aria-hidden="true">
@@ -143,8 +147,111 @@ const projects: Project[] = [
 				</article>
 			))
 		}
+
+		<div class="extra" id="extra-projects" hidden>
+			{
+				extra.map(project => (
+					<article
+						class="project"
+						style={`--p-color: ${project.color};`}
+					>
+						<div class="project-side">
+							<div class="project-cover" aria-hidden="true">
+								{project.year && (
+									<span class="project-year-cover">
+										{project.year}
+									</span>
+								)}
+								<span class="project-mono">
+									{project.short}
+								</span>
+								<span class="project-cat">
+									{project.category}
+								</span>
+							</div>
+							<ul class="project-tags">
+								{project.tags.map(tag => (
+									<li>{tag}</li>
+								))}
+							</ul>
+						</div>
+						<div class="project-body">
+							<div class="project-titlebar">
+								<h3 class="project-title">{project.title}</h3>
+								<div class="project-links">
+									{project.github && (
+										<a
+											href={project.github}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="project-link"
+											aria-label={`GitHub de ${project.title}`}
+										>
+											<GitHub size={16} />
+										</a>
+									)}
+									{project.url && (
+										<a
+											href={project.url}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="project-link"
+											aria-label={`Ver ${project.title}`}
+										>
+											<ArrowUpRight size={16} />
+										</a>
+									)}
+								</div>
+							</div>
+							<p class="project-description">
+								{project.description}
+							</p>
+						</div>
+					</article>
+				))
+			}
+		</div>
 	</div>
+
+	{
+		extra.length > 0 && (
+			<button
+				type="button"
+				class="show-more"
+				aria-expanded="false"
+				aria-controls="extra-projects"
+			>
+				<span class="show-more-label">
+					Ver {extra.length} proyectos más
+				</span>
+				<span class="show-more-icon" aria-hidden="true">
+					↓
+				</span>
+			</button>
+		)
+	}
 </section>
+
+<script>
+	const btn = document.querySelector<HTMLButtonElement>(".show-more");
+	const extra = document.getElementById("extra-projects");
+
+	btn?.addEventListener("click", () => {
+		const expanded = btn.getAttribute("aria-expanded") === "true";
+		btn.setAttribute("aria-expanded", String(!expanded));
+		if (expanded) {
+			extra?.setAttribute("hidden", "");
+			btn.querySelector(".show-more-label")!.textContent =
+				btn.dataset.labelShow || "Ver más proyectos";
+		} else {
+			extra?.removeAttribute("hidden");
+			btn.dataset.labelShow =
+				btn.querySelector(".show-more-label")?.textContent || "";
+			btn.querySelector(".show-more-label")!.textContent =
+				"Ocultar proyectos";
+		}
+	});
+</script>
 
 <style>
 	.section {
@@ -174,6 +281,50 @@ const projects: Project[] = [
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
+	}
+
+	.extra {
+		display: contents;
+	}
+
+	.extra[hidden] {
+		display: none;
+	}
+
+	.show-more {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		width: 100%;
+		margin-top: 1.5rem;
+		padding: 0.95rem 1.25rem;
+		background: transparent;
+		border: 1px dashed var(--rule-strong);
+		border-radius: 12px;
+		color: var(--text-secondary);
+		font-family: var(--font-inter), sans-serif;
+		font-size: 0.9rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		cursor: pointer;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.show-more:hover,
+	.show-more:focus-visible {
+		color: var(--accent);
+		border-color: var(--accent-border);
+		background: var(--accent-soft);
+	}
+
+	.show-more-icon {
+		font-family: var(--font-jetbrains-mono), monospace;
+		transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.show-more[aria-expanded="true"] .show-more-icon {
+		transform: rotate(180deg);
 	}
 
 	.project {
