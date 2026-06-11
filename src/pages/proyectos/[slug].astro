@@ -1,0 +1,429 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import GitHub from "../../components/icons/GitHub.astro";
+import ArrowUpRight from "../../components/icons/ArrowUpRight.astro";
+
+export async function getStaticPaths() {
+	const projects = await getCollection("projects", ({ data }) => !data.draft);
+	return projects.map(project => ({
+		params: { slug: project.id.replace(/\.md$/, "") },
+		props: { project }
+	}));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, description, tags, category, year, github, url, image, color } =
+	project.data;
+
+const all = await getCollection("projects", ({ data }) => !data.draft);
+const sorted = all.sort((a, b) => a.data.order - b.data.order);
+const idx = sorted.findIndex(p => p.id === project.id);
+const prev = idx > 0 ? sorted[idx - 1] : null;
+const next = idx < sorted.length - 1 ? sorted[idx + 1] : null;
+
+const slugOf = (p: (typeof sorted)[number]) => p.id.replace(/\.md$/, "");
+---
+
+<Layout title={`${title} — Esteban Tejeda`} description={description}>
+	<article class="project-page" style={`--p-color: ${color};`}>
+		<a href="/#proyectos" class="back">
+			<span aria-hidden="true">←</span> Volver a proyectos
+		</a>
+
+		<header class="head">
+			<div class="meta">
+				<span class="meta-cat">{category}</span>
+				{year && <span class="meta-year">{year}</span>}
+			</div>
+			<h1 class="title">{title}</h1>
+			<p class="description">{description}</p>
+			<ul class="tags">
+				{tags.map(tag => <li>{tag}</li>)}
+			</ul>
+			{
+				(github || url) && (
+					<div class="links">
+						{url && (
+							<a
+								href={url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="btn btn-primary"
+							>
+								Ver en vivo
+								<ArrowUpRight size={16} />
+							</a>
+						)}
+						{github && (
+							<a
+								href={github}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="btn btn-ghost"
+							>
+								<GitHub size={16} />
+								Código fuente
+							</a>
+						)}
+					</div>
+				)
+			}
+		</header>
+
+		{
+			image && (
+				<figure class="cover">
+					<img
+						src={image}
+						alt={`Captura de ${title}`}
+						loading="eager"
+					/>
+				</figure>
+			)
+		}
+
+		<div class="body prose">
+			<Content />
+		</div>
+
+		<nav class="pagination" aria-label="Otros proyectos">
+			{
+				prev && (
+					<a
+						href={`/proyectos/${slugOf(prev)}`}
+						class="page-link page-prev"
+					>
+						<span class="page-dir">← Anterior</span>
+						<span class="page-title">{prev.data.title}</span>
+					</a>
+				)
+			}
+			{
+				next && (
+					<a
+						href={`/proyectos/${slugOf(next)}`}
+						class="page-link page-next"
+					>
+						<span class="page-dir">Siguiente →</span>
+						<span class="page-title">{next.data.title}</span>
+					</a>
+				)
+			}
+		</nav>
+	</article>
+</Layout>
+
+<style is:global>
+	@media (min-width: 1024px) {
+		body:has(.project-page) .header {
+			display: block;
+		}
+	}
+
+	.project-page .prose h2 {
+		font-size: 1.45rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		letter-spacing: -0.02em;
+		margin: 2.5rem 0 1rem;
+	}
+
+	.project-page .prose h3 {
+		font-size: 1.15rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		letter-spacing: -0.01em;
+		margin: 2rem 0 0.75rem;
+	}
+
+	.project-page .prose p,
+	.project-page .prose ul,
+	.project-page .prose ol {
+		color: var(--text-secondary);
+		font-size: 1rem;
+		line-height: 1.75;
+		margin-bottom: 1.25rem;
+	}
+
+	.project-page .prose ul,
+	.project-page .prose ol {
+		padding-left: 1.5rem;
+	}
+
+	.project-page .prose li {
+		margin-bottom: 0.4rem;
+	}
+
+	.project-page .prose strong {
+		color: var(--text-primary);
+		font-weight: 600;
+	}
+
+	.project-page .prose em {
+		color: var(--text-muted);
+		font-style: italic;
+	}
+
+	.project-page .prose a {
+		color: var(--text-primary);
+		text-decoration: none;
+		font-weight: 500;
+		background-image: linear-gradient(var(--accent), var(--accent));
+		background-position: 0 100%;
+		background-repeat: no-repeat;
+		background-size: 100% 1.5px;
+		padding-bottom: 1px;
+		transition:
+			color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+			background-size 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.project-page .prose a:hover {
+		color: var(--accent);
+		background-size: 100% 3px;
+	}
+
+	.project-page .prose code {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.88em;
+		background: var(--bg-surface);
+		border: 1px solid var(--rule);
+		padding: 0.1rem 0.35rem;
+		border-radius: 4px;
+		color: var(--accent);
+	}
+
+	.project-page .prose pre {
+		background: var(--bg-surface);
+		border: 1px solid var(--rule);
+		border-radius: 10px;
+		padding: 1rem 1.25rem;
+		overflow-x: auto;
+		margin: 1.5rem 0;
+	}
+
+	.project-page .prose pre code {
+		background: none;
+		border: none;
+		padding: 0;
+		color: var(--text-primary);
+	}
+</style>
+
+<style>
+	.project-page {
+		max-width: 760px;
+		margin: 0 auto;
+		padding: 7rem 1.5rem 5rem;
+	}
+
+	.back {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		text-decoration: none;
+		margin-bottom: 2.5rem;
+		transition: color 0.2s ease;
+	}
+
+	.back:hover {
+		color: var(--accent);
+	}
+
+	.head {
+		margin-bottom: 2.5rem;
+		padding-bottom: 2rem;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.meta {
+		display: flex;
+		align-items: center;
+		gap: 0.85rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.meta-cat {
+		font-family: var(--font-inter), sans-serif;
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: var(--p-color);
+		background: color-mix(in srgb, var(--p-color) 14%, transparent);
+		padding: 0.3rem 0.7rem;
+		border-radius: 999px;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
+
+	.meta-year {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.82rem;
+		color: var(--text-muted);
+	}
+
+	.title {
+		font-size: clamp(2.25rem, 5vw, 3.25rem);
+		font-weight: 700;
+		letter-spacing: -0.04em;
+		line-height: 1.05;
+		color: var(--text-primary);
+		margin-bottom: 1.25rem;
+	}
+
+	.description {
+		font-size: 1.1rem;
+		line-height: 1.65;
+		color: var(--text-secondary);
+		margin-bottom: 1.5rem;
+		max-width: 60ch;
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		list-style: none;
+		padding: 0;
+		margin: 0 0 1.75rem;
+	}
+
+	.tags li {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.75rem;
+		font-weight: 500;
+		color: var(--accent);
+		background: var(--accent-soft);
+		padding: 0.3rem 0.7rem;
+		border-radius: 999px;
+		line-height: 1;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.85rem;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		padding: 0.65rem 1.15rem;
+		border-radius: 8px;
+		font-size: 0.9rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition: all 0.2s ease;
+	}
+
+	.btn-primary {
+		background: var(--accent);
+		color: var(--btn-on-accent);
+	}
+
+	.btn-primary:hover {
+		background: var(--accent-hover);
+		transform: translateY(-1px);
+	}
+
+	.btn-ghost {
+		background: transparent;
+		color: var(--text-primary);
+		border: 1px solid var(--rule-strong);
+	}
+
+	.btn-ghost:hover {
+		border-color: var(--accent-border);
+		color: var(--accent);
+	}
+
+	.cover {
+		margin: 0 0 3rem;
+		border: 1px solid var(--rule);
+		border-radius: 14px;
+		overflow: hidden;
+		background: #0a0a0a;
+		box-shadow: 0 12px 40px -20px rgba(0, 0, 0, 0.5);
+	}
+
+	.cover img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.body {
+		margin-bottom: 4rem;
+	}
+
+	.pagination {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--rule);
+	}
+
+	.page-link {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		padding: 1rem 1.25rem;
+		background: var(--bg-surface);
+		border: 1px solid var(--rule);
+		border-radius: 10px;
+		text-decoration: none;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.page-next {
+		text-align: right;
+		grid-column: 2;
+	}
+
+	.page-prev {
+		grid-column: 1;
+	}
+
+	.page-link:hover {
+		border-color: var(--accent-border);
+		background: var(--bg-elevated);
+		transform: translateY(-2px);
+	}
+
+	.page-dir {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.72rem;
+		color: var(--text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.page-title {
+		font-size: 0.98rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		letter-spacing: -0.01em;
+	}
+
+	.page-link:hover .page-title {
+		color: var(--accent);
+	}
+
+	@media (max-width: 600px) {
+		.pagination {
+			grid-template-columns: 1fr;
+		}
+
+		.page-prev,
+		.page-next {
+			grid-column: 1;
+			text-align: left;
+		}
+	}
+</style>
