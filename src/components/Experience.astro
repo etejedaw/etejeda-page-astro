@@ -1,9 +1,4 @@
 ---
-// Componente no activo. Para mostrarlo:
-// 1) importar en src/pages/index.astro: `import Experience from "../components/Experience.astro";`
-// 2) renderizar dentro de <main> en el orden deseado: `<Experience />`
-// 3) re-agregar el entry "Experiencia" en navLinks de Hero.astro y Header.astro.
-
 interface Job {
 	role: string;
 	org: string;
@@ -19,25 +14,43 @@ const jobs: Job[] = [
 		role: "Technical Architect",
 		org: "Cotalker",
 		url: "https://www.cotalker.com",
-		period: "2022 — Presente",
+		period: "2022",
 		current: true,
 		description:
-			"Diseño la arquitectura de integraciones para clientes enterprise, mentorizo partners y traduzco necesidades de negocio en soluciones técnicas. Especialista en Cotlang, bots como endpoints y workflow automation a escala.",
+			"Consultoría, arquitectura e integraciones para clientes enterprise sobre el software Cotalker. Diseño los patrones técnicos y decisiones de arquitectura que el resto del equipo adopta en sus proyectos.",
 		tags: [
 			"TypeScript",
-			"Node.js",
 			"AWS Lambda",
+			"Serverless Framework",
 			"Cotlang",
 			"Integraciones"
 		]
 	},
 	{
-		role: "Asistente de investigación",
-		org: "PRU-Lab · FONDECYT",
-		period: "2021 — 2022",
+		role: "Ayudante en Ingeniería de Software",
+		org: "Universidad Austral de Chile",
+		url: "https://www.uach.cl/",
+		period: "2022",
 		description:
-			"Desarrollo de sistemas de extracción y análisis de datos para proyectos FONDECYT: indicadores de resiliencia comunitaria y mercado laboral en EE.UU. durante la pandemia. Tesis de Ingeniería Civil en Informática.",
-		tags: ["TypeScript", "Web Scraping", "Metabase", "Data Engineering"]
+			"Ayudantías del curso: arquitectura, APIs REST con Node.js, Clean Code. Mi primera experiencia explicando ideas técnicas. El músculo que hoy uso mentorizando partners.",
+		tags: ["TypeScript", "Express.js", "Node.js", "Clean Code", "REST"]
+	},
+	{
+		role: "Web Scraper & Backend Developer",
+		org: "PRU-Lab · UACh",
+		url: "https://pru-lab.cl/",
+		period: "2022",
+		description:
+			"Práctica profesional: prototipo de extracción multi-fuente de indicadores institucionales, normalización y exposición vía API REST. La semilla del CORE Model que después se volvió mi tesis.",
+		tags: ["TypeScript", "Cheerio", "Node.js", "MongoDB", "REST"]
+	},
+	{
+		role: "Asistente contable",
+		org: "Oficina de Contabilidad",
+		period: "2018 — 2021",
+		description:
+			"Trabajo mientras estudiaba informática. El dominio (RUT, IVA, F29, plazos SII, certificado digital) que años después se volvería el caso del Sistema Contable.",
+		tags: ["Contabilidad", "SII", "IVA", "F29"]
 	}
 ];
 ---
