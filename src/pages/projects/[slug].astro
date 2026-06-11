@@ -95,7 +95,7 @@ const slugOf = (p: (typeof sorted)[number]) => p.id.replace(/\.md$/, "");
 			{
 				prev && (
 					<a
-						href={`/proyectos/${slugOf(prev)}`}
+						href={`/projects/${slugOf(prev)}`}
 						class="page-link page-prev"
 					>
 						<span class="page-dir">← Anterior</span>
@@ -106,7 +106,7 @@ const slugOf = (p: (typeof sorted)[number]) => p.id.replace(/\.md$/, "");
 			{
 				next && (
 					<a
-						href={`/proyectos/${slugOf(next)}`}
+						href={`/projects/${slugOf(next)}`}
 						class="page-link page-next"
 					>
 						<span class="page-dir">Siguiente →</span>

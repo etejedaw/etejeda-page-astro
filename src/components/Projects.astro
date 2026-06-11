@@ -24,7 +24,7 @@ const extra = projects.slice(initialCount);
 			initial.map(project => (
 				<article class="project" style={`--p-color: ${project.color};`}>
 					<a
-						href={`/proyectos/${project.slug}`}
+						href={`/projects/${project.slug}`}
 						class="project-side"
 						aria-label={`Ver detalle de ${project.title}`}
 					>
@@ -65,7 +65,7 @@ const extra = projects.slice(initialCount);
 					<div class="project-body">
 						<div class="project-titlebar">
 							<h3 class="project-title">
-								<a href={`/proyectos/${project.slug}`}>
+								<a href={`/projects/${project.slug}`}>
 									{project.title}
 								</a>
 							</h3>
@@ -96,7 +96,7 @@ const extra = projects.slice(initialCount);
 						</div>
 						<p class="project-description">{project.description}</p>
 						<a
-							href={`/proyectos/${project.slug}`}
+							href={`/projects/${project.slug}`}
 							class="project-more"
 						>
 							Ver detalle <span aria-hidden="true">→</span>
@@ -114,7 +114,7 @@ const extra = projects.slice(initialCount);
 						style={`--p-color: ${project.color};`}
 					>
 						<a
-							href={`/proyectos/${project.slug}`}
+							href={`/projects/${project.slug}`}
 							class="project-side"
 							aria-label={`Ver detalle de ${project.title}`}
 						>
@@ -157,7 +157,7 @@ const extra = projects.slice(initialCount);
 						<div class="project-body">
 							<div class="project-titlebar">
 								<h3 class="project-title">
-									<a href={`/proyectos/${project.slug}`}>
+									<a href={`/projects/${project.slug}`}>
 										{project.title}
 									</a>
 								</h3>
@@ -190,7 +190,7 @@ const extra = projects.slice(initialCount);
 								{project.description}
 							</p>
 							<a
-								href={`/proyectos/${project.slug}`}
+								href={`/projects/${project.slug}`}
 								class="project-more"
 							>
 								Ver detalle <span aria-hidden="true">→</span>
