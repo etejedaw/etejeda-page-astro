@@ -1,18 +1,18 @@
 ---
 title: Wayback Scraping
 short: WB
-description: "Pipeline en Node + TypeScript para extraer millones de snapshots históricos de care.com desde Wayback Machine, como insumo de un paper del Prof. Luis Ignacio Valenzuela sobre brechas de género en la gig economy estadounidense durante la pandemia. Mi primera colaboración con un proyecto FONDECYT; el antecesor directo —en aprendizajes y en errores— del CORE Model."
+description: "Pipeline en Node + TypeScript para extraer millones de snapshots históricos de care.com desde Wayback Machine, como insumo de un paper del Prof. Luis Ignacio Valenzuela sobre brechas de género en la gig economy estadounidense durante la pandemia. Mi primera colaboración con un proyecto FONDECYT; el antecesor directo (en aprendizajes y en errores) del CORE Model."
 tags: [TypeScript, Node.js, Web Scraping, Wayback Machine]
 color: "#10b981"
 category: Investigación
 year: "2021"
 github: https://github.com/etejedaw/caredotcom-fondecyt-node
-order: 6
+order: 7
 ---
 
 ## Contexto
 
-Esta fue mi primera colaboración con un equipo de investigación. El Prof. Luis Ignacio Valenzuela necesitaba datos para un paper sobre cómo la pandemia reconfiguró el mercado de cuidados en Estados Unidos: _"From automation to home production via the gig economy: a novel gender-based analysis"_. La fuente natural era [care.com](https://www.care.com/), la plataforma estadounidense más grande para contratar cuidadores, niñeras, paseadores de perros y servicios domésticos por hora — una de las pocas vitrinas públicas donde ves precios, ofertas y demanda de trabajo doméstico en tiempo casi real.
+Esta fue mi primera colaboración con un equipo de investigación. El Prof. Luis Ignacio Valenzuela necesitaba datos para un paper sobre cómo la pandemia reconfiguró el mercado de cuidados en Estados Unidos: _"From automation to home production via the gig economy: a novel gender-based analysis"_. La fuente natural era [care.com](https://www.care.com/), la plataforma estadounidense más grande para contratar cuidadores, niñeras, paseadores de perros y servicios domésticos por hora: una de las pocas vitrinas públicas donde ves precios, ofertas y demanda de trabajo doméstico en tiempo casi real.
 
 El problema: care.com cambia su catálogo a diario. Cuando alguien postula un cuidador o cierra un trabajo, el listado desaparece. Si querías datos del peak de la pandemia (2020-2021) en 2021, ya no estaban en el sitio. La única manera de recuperarlos era ir a [Wayback Machine](https://web.archive.org/) y reconstruir el mercado a partir de las copias históricas que el archivo guardó cada vez que pasó por esas páginas.
 
@@ -30,7 +30,7 @@ Este es un proyecto de 2021 y se nota: el código es más procedural que arquite
 
 **Rate limiting simple pero respetuoso.** Wayback es un servicio público y gratuito; saturarlo con miles de requests por minuto sería abusar de él (y además te bloquean rápido). Metí un `Sleep.sleep(400)` antes de cada request de HTML. Lento por diseño: un pipeline que demora días pero termina, antes que uno rápido que se cae a las dos horas.
 
-**Parsing tolerante a HTML que cambia en el tiempo.** Este fue el aprendizaje más caro del proyecto. care.com rediseñó su sitio varias veces entre 2018 y 2021, y los snapshots de distintas épocas tienen estructuras HTML completamente distintas. Mantuve dos pipelines paralelos (`ScrapeJobs` y `ScrapeOffers`) cada uno con su provider + page-data, con selectores múltiples por campo: si el primero no encuentra, probamos el siguiente. Funcional, pero frágil — y es la razón principal por la que el CORE Model separó después `FetchAdapter` de `ParseAdapter` como ciudadanos de primera clase del diseño.
+**Parsing tolerante a HTML que cambia en el tiempo.** Este fue el aprendizaje más caro del proyecto. care.com rediseñó su sitio varias veces entre 2018 y 2021, y los snapshots de distintas épocas tienen estructuras HTML completamente distintas. Mantuve dos pipelines paralelos (`ScrapeJobs` y `ScrapeOffers`) cada uno con su provider + page-data, con selectores múltiples por campo: si el primero no encuentra, probamos el siguiente. Funcional, pero frágil, y es la razón principal por la que el CORE Model separó después `FetchAdapter` de `ParseAdapter` como ciudadanos de primera clase del diseño.
 
 **Streaming a CSV en disco.** Decisión deliberada de _no_ guardar todo en memoria ni en una base intermedia. Cada snapshot procesado se appendea inmediatamente al CSV correspondiente. Si el proceso se cae a las 12 horas, lo perdido es solo el snapshot en curso; el resto está en disco. Para un pipeline tan largo, la durabilidad de los resultados parciales valía más que cualquier elegancia arquitectónica.
 

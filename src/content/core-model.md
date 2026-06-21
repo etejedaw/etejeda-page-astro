@@ -7,7 +7,7 @@ color: "#3b82f6"
 category: Investigación
 year: "2026"
 github: https://github.com/etejedaw/coremodel-fondecyt-node
-order: 5
+order: 6
 ---
 
 ## Contexto
