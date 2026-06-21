@@ -49,7 +49,7 @@ Hoy está en **beta cerrada**, abierta a quien quiera probarla.
 
 **Errores en tres capas** (`ServiceError → DomainError → HttpError`). El servicio lanza errores de negocio sin saber de HTTP; un middleware global los normaliza al formato Problem Details (RFC 9457). Cada módulo declara sus códigos en una tabla; el normalizer solo delega. Sumar un módulo nuevo no requiere tocar código común.
 
-**Toda la lógica de cálculo en backend.** Ratios, estadísticas, status derivado, ratios personales — todo se calcula server-side. El frontend solo renderiza. Permite cambiar la fórmula del ratio (o agregar uno nuevo) sin tocar el cliente Angular.
+**Toda la lógica de cálculo en backend.** Ratios, estadísticas, status derivado, ratios personales, todo se calcula server-side. El frontend solo renderiza. Permite cambiar la fórmula del ratio (o agregar uno nuevo) sin tocar el cliente Angular.
 
 **RBAC con cuatro roles** (`user`, `premium`, `moderator`, `admin`) + registro público cerrado: solo el admin crea usuarios. Es deliberado para la fase actual, invitar persona por persona da control sobre el feedback temprano y previene crecimiento descontrolado de datos sucios mientras itero rápido en el modelo.
 

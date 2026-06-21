@@ -47,7 +47,7 @@ Mi rol fue consultoría + decisiones de arquitectura + desarrollo backend comple
 ## Outcomes
 
 - **Sistema en producción**, reemplazando completamente el flujo de planillas impresas + check manual.
-- **Visibilidad compartida en tiempo real**: el staff ve simultáneamente qué cliente ya fue declarado este mes y quién lo hizo — la doble visita por descoordinación deja de pasar.
+- **Visibilidad compartida en tiempo real**: el staff ve simultáneamente qué cliente ya fue declarado este mes y quién lo hizo, la doble visita por descoordinación deja de pasar.
 - **Cero declaraciones perdidas**: el job mensual asegura que todos los clientes activos aparecen en el tablero del mes desde el día 1; ya no se descubre un IVA olvidado un mes después.
 - **Datos del cliente sincronizados**: cualquier actualización (datos de contacto, plazo asignado, estado) la ve todo el equipo de inmediato.
 - **Sistema en evolución activa**: liberamos features nuevas con cierta regularidad, ajustando el sistema al flujo real del staff a medida que el día a día revela necesidades. Es un proyecto de iteración continua, no un entregable cerrado.
