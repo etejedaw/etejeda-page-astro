@@ -13,7 +13,7 @@ gallery:
     - src: ../assets/akiba-recinto.png
       caption: "Mapa del recinto: vista de stands con ocupación, categorías Arcano/Runa/Mana/Kami y total de stands disponibles"
 disclaimer: "Las capturas muestran un entorno de demo con datos ficticios. En producción el sistema opera con la información real de Akiba Festival."
-order: 2
+order: 1
 ---
 
 ## Contexto
