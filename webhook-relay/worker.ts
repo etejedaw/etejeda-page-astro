@@ -15,7 +15,7 @@ export default {
 		if (url.searchParams.get("key") !== env.WEBHOOK_SECRET)
 			return new Response("Forbidden", { status: 403 });
 
-		const res = await fetch(
+		const response = await fetch(
 			`https://api.github.com/repos/${REPO}/dispatches`,
 			{
 				method: "POST",
@@ -29,8 +29,8 @@ export default {
 			}
 		);
 
-		if (!res.ok)
-			return new Response(`GitHub dispatch failed: ${res.status}`, {
+		if (!response.ok)
+			return new Response(`GitHub dispatch failed: ${response.status}`, {
 				status: 502
 			});
 
