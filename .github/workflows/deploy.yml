@@ -3,6 +3,9 @@ name: Deploy to Cloudflare
 on:
     push:
         branches: [main]
+    repository_dispatch:
+        types: [ghost-publish]
+    workflow_dispatch:
 
 jobs:
     deploy:
