@@ -3,7 +3,7 @@ import eslintPluginAstro from "eslint-plugin-astro";
 export default [
 	...eslintPluginAstro.configs.recommended,
 	{
-		ignores: [".astro/**"]
+		ignores: [".astro/**", "webhook-relay/**"]
 	},
 	{
 		rules: {
