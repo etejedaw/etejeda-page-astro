@@ -8,14 +8,12 @@ const EVENT_TYPE = "ghost-publish";
 
 export default {
 	async fetch(request: Request, env: Env): Promise<Response> {
-		if (request.method !== "POST") {
+		if (request.method !== "POST")
 			return new Response("Method not allowed", { status: 405 });
-		}
 
 		const url = new URL(request.url);
-		if (url.searchParams.get("key") !== env.WEBHOOK_SECRET) {
+		if (url.searchParams.get("key") !== env.WEBHOOK_SECRET)
 			return new Response("Forbidden", { status: 403 });
-		}
 
 		const res = await fetch(
 			`https://api.github.com/repos/${REPO}/dispatches`,
@@ -31,11 +29,11 @@ export default {
 			}
 		);
 
-		if (!res.ok) {
+		if (!res.ok)
 			return new Response(`GitHub dispatch failed: ${res.status}`, {
 				status: 502
 			});
-		}
+
 		return new Response("Deploy triggered", { status: 202 });
 	}
 } satisfies ExportedHandler<Env>;
