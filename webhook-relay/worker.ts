@@ -36,4 +36,4 @@ export default {
 
 		return new Response("Deploy triggered", { status: 202 });
 	}
-} satisfies ExportedHandler<Env>;
+};
