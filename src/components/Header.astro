@@ -218,9 +218,7 @@ const navLinks: NavLink[] = [
 			document.documentElement.setAttribute("data-theme", next);
 			try {
 				localStorage.setItem("theme", next);
-			} catch {
-				// almacenamiento no disponible (modo privado, etc.)
-			}
+			} catch {}
 			setTimeout(
 				() =>
 					document.documentElement.classList.remove(
