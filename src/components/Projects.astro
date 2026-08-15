@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import GitHub from "./icons/GitHub.astro";
 import ArrowUpRight from "./icons/ArrowUpRight.astro";
+import ShowMore from "./ShowMore.astro";
 
 const all = await getCollection("projects", ({ data }) => !data.draft);
 const projects = all
@@ -106,7 +107,7 @@ const extra = projects.slice(initialCount);
 			))
 		}
 
-		<div class="extra" id="extra-projects" hidden>
+		<div class="extra" id="extra-projects" data-extra="projects" hidden>
 			{
 				extra.map(project => (
 					<article
@@ -204,44 +205,15 @@ const extra = projects.slice(initialCount);
 
 	{
 		extra.length > 0 && (
-			<button
-				type="button"
-				class="show-more"
-				aria-expanded="false"
-				aria-controls="extra-projects"
-			>
-				<span class="show-more-label">
-					Ver {extra.length} proyecto
-					{extra.length === 1 ? "" : "s"} más
-				</span>
-				<span class="show-more-icon" aria-hidden="true">
-					↓
-				</span>
-			</button>
+			<ShowMore
+				controls="extra-projects"
+				target="projects"
+				labelShow={`Ver ${extra.length} proyecto${extra.length === 1 ? "" : "s"} más`}
+				labelHide="Ocultar proyectos"
+			/>
 		)
 	}
 </section>
-
-<script>
-	const btn = document.querySelector<HTMLButtonElement>(".show-more");
-	const extra = document.getElementById("extra-projects");
-
-	btn?.addEventListener("click", () => {
-		const expanded = btn.getAttribute("aria-expanded") === "true";
-		btn.setAttribute("aria-expanded", String(!expanded));
-		if (expanded) {
-			extra?.setAttribute("hidden", "");
-			btn.querySelector(".show-more-label")!.textContent =
-				btn.dataset.labelShow || "Ver más proyectos";
-		} else {
-			extra?.removeAttribute("hidden");
-			btn.dataset.labelShow =
-				btn.querySelector(".show-more-label")?.textContent || "";
-			btn.querySelector(".show-more-label")!.textContent =
-				"Ocultar proyectos";
-		}
-	});
-</script>
 
 <style>
 	.section {
@@ -279,42 +251,6 @@ const extra = projects.slice(initialCount);
 
 	.extra[hidden] {
 		display: none;
-	}
-
-	.show-more {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		width: 100%;
-		margin-top: 1.5rem;
-		padding: 0.95rem 1.25rem;
-		background: transparent;
-		border: 1px dashed var(--rule-strong);
-		border-radius: 12px;
-		color: var(--text-secondary);
-		font-family: var(--font-inter), sans-serif;
-		font-size: 0.9rem;
-		font-weight: 600;
-		letter-spacing: 0.02em;
-		cursor: pointer;
-		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.show-more:hover,
-	.show-more:focus-visible {
-		color: var(--accent);
-		border-color: var(--accent-border);
-		background: var(--accent-soft);
-	}
-
-	.show-more-icon {
-		font-family: var(--font-jetbrains-mono), monospace;
-		transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.show-more[aria-expanded="true"] .show-more-icon {
-		transform: rotate(180deg);
 	}
 
 	.project {

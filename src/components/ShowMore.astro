@@ -1,0 +1,88 @@
+---
+interface Props {
+	controls: string;
+	target: string;
+	labelShow: string;
+	labelHide: string;
+	compact?: boolean;
+}
+
+const { controls, target, labelShow, labelHide, compact = false } = Astro.props;
+---
+
+<button
+	type="button"
+	class:list={["show-more", compact && "is-compact"]}
+	aria-expanded="false"
+	aria-controls={controls}
+	data-target={target}
+	data-label-show={labelShow}
+	data-label-hide={labelHide}
+>
+	<span class="show-more-label">{labelShow}</span>
+	<span class="show-more-icon" aria-hidden="true">↓</span>
+</button>
+
+<script>
+	document.querySelectorAll<HTMLButtonElement>(".show-more").forEach(btn => {
+		const { target, labelShow, labelHide } = btn.dataset;
+		if (!target) return;
+
+		const extras = document.querySelectorAll<HTMLElement>(
+			`[data-extra="${target}"]`
+		);
+		const label = btn.querySelector(".show-more-label");
+
+		btn.addEventListener("click", () => {
+			const expanded = btn.getAttribute("aria-expanded") === "true";
+			btn.setAttribute("aria-expanded", String(!expanded));
+			extras.forEach(el => el.toggleAttribute("hidden", expanded));
+
+			if (label) {
+				label.textContent = (expanded ? labelShow : labelHide) || "";
+			}
+		});
+	});
+</script>
+
+<style>
+	.show-more {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		width: 100%;
+		margin-top: 1.5rem;
+		padding: 0.95rem 1.25rem;
+		background: transparent;
+		border: 1px dashed var(--rule-strong);
+		border-radius: 12px;
+		color: var(--text-secondary);
+		font-family: var(--font-inter), sans-serif;
+		font-size: 0.9rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		cursor: pointer;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.show-more.is-compact {
+		margin-top: 0.75rem;
+	}
+
+	.show-more:hover,
+	.show-more:focus-visible {
+		color: var(--accent);
+		border-color: var(--accent-border);
+		background: var(--accent-soft);
+	}
+
+	.show-more-icon {
+		font-family: var(--font-jetbrains-mono), monospace;
+		transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.show-more[aria-expanded="true"] .show-more-icon {
+		transform: rotate(180deg);
+	}
+</style>
