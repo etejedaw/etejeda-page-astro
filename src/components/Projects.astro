@@ -21,6 +21,11 @@ const extra = projects.slice(initialCount);
 		<h2 class="section-title">Proyectos</h2>
 	</header>
 
+	<p class="section-note">
+		Las integraciones para clientes enterprise no son públicas. Acá van los
+		proyectos propios, freelance y de investigación.
+	</p>
+
 	<div class="projects">
 		{
 			initial.map(project => (
@@ -238,6 +243,14 @@ const extra = projects.slice(initialCount);
 		color: var(--text-primary);
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
+	}
+
+	.section-note {
+		color: var(--text-muted);
+		font-size: 0.85rem;
+		line-height: 1.6;
+		max-width: 60ch;
+		margin-bottom: 1.75rem;
 	}
 
 	.projects {
