@@ -3,7 +3,7 @@ title: SMC2SFC2
 short: SF
 description: "Conversor de ROMs de SNES (.smc ↔ .sfc) que corre 100% en el navegador. Rescate de un proyecto que llevaba abandonado ~10 años y al que Heroku le bajó la persiana en algún momento de 2022. Lo reescribí en Astro + TypeScript, le metí drag & drop, batch, lector de header de SNES, deduplicación con SHA-256 y PWA. Live en producción."
 tags: [Astro, TypeScript, PWA, CapRover]
-color: "#06b6d4"
+color: "#2d4f9e"
 category: Personal
 year: "2026"
 github: https://github.com/etejedaw/smc2sfc2
