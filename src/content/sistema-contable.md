@@ -11,7 +11,7 @@ gallery:
     - src: ../assets/contabilidad-usuarios.png
       caption: "Gestión de usuarios del staff: lista paginada con nombre, apellido, correo y rol asignado"
 disclaimer: "Las capturas muestran un entorno de demo con datos ficticios. En producción el sistema opera con la información real de la oficina contable."
-order: 2
+order: 3
 ---
 
 ## Contexto

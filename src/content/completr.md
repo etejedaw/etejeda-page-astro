@@ -13,7 +13,7 @@ gallery:
       caption: "Vista de descubrimiento: featured juego del momento + carrusel de últimos agregados"
     - src: ../assets/completr-feed.png
       caption: "Feed de actividad: historial de juegos iniciados, completados, abandonados o añadidos a backlog"
-order: 3
+order: 2
 ---
 
 ## Contexto
