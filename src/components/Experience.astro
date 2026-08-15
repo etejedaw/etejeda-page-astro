@@ -1,4 +1,6 @@
 ---
+import ShowMore from "./ShowMore.astro";
+
 interface Job {
 	role: string;
 	org: string;
@@ -62,6 +64,9 @@ const jobs: Job[] = [
 		tags: ["Contabilidad", "SII", "IVA", "F29"]
 	}
 ];
+
+const initialCount = 3;
+const extraCount = Math.max(jobs.length - initialCount, 0);
 ---
 
 <section class="section" id="experiencia">
@@ -69,10 +74,16 @@ const jobs: Job[] = [
 		<h2 class="section-title">Experiencia</h2>
 	</header>
 
-	<ol class="timeline">
+	<ol class="timeline" id="timeline">
 		{
-			jobs.map(job => (
-				<li class="job">
+			jobs.map((job, index) => (
+				<li
+					class="job"
+					hidden={index >= initialCount}
+					data-extra={
+						index >= initialCount ? "experiencia" : undefined
+					}
+				>
 					<div class="job-meta">
 						<span class="job-period">{job.period}</span>
 						{job.current && (
@@ -109,6 +120,18 @@ const jobs: Job[] = [
 			))
 		}
 	</ol>
+
+	{
+		extraCount > 0 && (
+			<ShowMore
+				controls="timeline"
+				target="experiencia"
+				labelShow={`Ver ${extraCount} experiencia${extraCount === 1 ? "" : "s"} más`}
+				labelHide="Ocultar experiencias"
+				compact
+			/>
+		)
+	}
 </section>
 
 <style>
@@ -148,15 +171,16 @@ const jobs: Job[] = [
 		grid-template-columns: 130px 1fr;
 		gap: 1.5rem;
 		padding: 1.75rem 0;
-		border-bottom: 1px solid var(--rule);
+		border-top: 1px solid var(--rule);
 	}
 
 	.job:first-child {
 		padding-top: 0;
+		border-top: none;
 	}
 
-	.job:last-child {
-		border-bottom: none;
+	.job[hidden] {
+		display: none;
 	}
 
 	.job-meta {
