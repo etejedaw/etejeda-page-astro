@@ -3,7 +3,7 @@ title: Dawn Grimorio
 short: DG
 description: "Fork del tema oficial de Ghost (Dawn) personalizado para blog.etejeda.dev, construido con asistencia de IA. Más de cuarenta cambios sobre el original: dark mode rediseñado para lectura nocturna, TOC sticky con heading activo, barra de progreso, copiar código, share híbrido y 404 narrativo. Sin jQuery, sin Owl Carousel, deploy automático vía GitHub Actions."
 tags: [Ghost, Handlebars, GitHub Actions, Claude Code]
-color: "#8b5cf6"
+color: "#e0a93b"
 category: Personal
 year: "2026"
 github: https://github.com/etejedaw/ghost-blog-dawn
