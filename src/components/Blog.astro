@@ -82,6 +82,10 @@ const tagColorMap: Record<string, string> = {
 	...extraSeriesColors
 };
 
+function resizedCover(url: string, width = 400): string {
+	return url.replace("/content/images/", `/content/images/size/w${width}/`);
+}
+
 function getPostSeriesTag(post: GhostPost) {
 	return post.tags?.find(t => tagColorMap[t.slug]);
 }
@@ -120,7 +124,9 @@ function formatDate(dateStr: string): string {
 								{post.feature_image ? (
 									<div class="post-cover">
 										<img
-											src={post.feature_image}
+											src={resizedCover(
+												post.feature_image
+											)}
 											alt={
 												post.feature_image_alt ||
 												post.title
