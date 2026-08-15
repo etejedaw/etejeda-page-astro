@@ -5,7 +5,7 @@ description: "Pipeline ETL para mi tesis de Ingeniería Civil en Informática, h
 tags: [TypeScript, Node.js, MongoDB, Metabase]
 color: "#3b82f6"
 category: Investigación
-year: "2026"
+year: "2022"
 github: https://github.com/etejedaw/coremodel-fondecyt-node
 order: 6
 ---
