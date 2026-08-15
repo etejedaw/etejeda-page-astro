@@ -5,6 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 import GitHub from "../../components/icons/GitHub.astro";
 import ArrowUpRight from "../../components/icons/ArrowUpRight.astro";
 import Lightbox from "../../components/Lightbox.astro";
+import { byYearDesc } from "../../lib/projects";
 
 export async function getStaticPaths() {
 	const projects = await getCollection("projects", ({ data }) => !data.draft);
@@ -31,7 +32,7 @@ const {
 } = project.data;
 
 const all = await getCollection("projects", ({ data }) => !data.draft);
-const sorted = all.sort((a, b) => a.data.order - b.data.order);
+const sorted = all.sort((a, b) => byYearDesc(a.data, b.data));
 const idx = sorted.findIndex(p => p.id === project.id);
 const prev = idx > 0 ? sorted[idx - 1] : null;
 const next = idx < sorted.length - 1 ? sorted[idx + 1] : null;

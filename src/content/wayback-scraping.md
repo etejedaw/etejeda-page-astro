@@ -7,7 +7,6 @@ color: "#10b981"
 category: Investigación
 year: "2021"
 github: https://github.com/etejedaw/caredotcom-fondecyt-node
-order: 7
 ---
 
 ## Contexto

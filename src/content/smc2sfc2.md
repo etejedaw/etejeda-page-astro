@@ -9,7 +9,6 @@ year: "2026"
 github: https://github.com/etejedaw/smc2sfc2
 url: https://smc2sfc2.app.etejeda.dev
 image: ../assets/smc2sfc2.png
-order: 4
 ---
 
 ## Contexto

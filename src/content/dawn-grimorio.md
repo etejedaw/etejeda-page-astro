@@ -14,7 +14,6 @@ gallery:
       caption: "TOC sticky a la derecha con heading activo destacado en color accent, sobre el dark mode rediseñado para lectura nocturna"
     - src: ../assets/dawn-grimorio-404.png
       caption: "Página 404 propia en español con CTAs y sección 'Pero quizá te interesen estos posts' (3 destacados con fallback a recientes)"
-order: 5
 ---
 
 ## Contexto

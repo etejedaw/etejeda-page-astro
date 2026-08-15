@@ -4,13 +4,14 @@ import { Image } from "astro:assets";
 import GitHub from "./icons/GitHub.astro";
 import ArrowUpRight from "./icons/ArrowUpRight.astro";
 import ShowMore from "./ShowMore.astro";
+import { byYearDesc } from "../lib/projects";
 
 const all = await getCollection("projects", ({ data }) => !data.draft);
 const projects = all
 	.map(p => ({ ...p.data, slug: p.id.replace(/\.md$/, "") }))
-	.sort((a, b) => a.order - b.order);
+	.sort(byYearDesc);
 
-const initialCount = 4;
+const initialCount = 3;
 const initial = projects.slice(0, initialCount);
 const extra = projects.slice(initialCount);
 ---
