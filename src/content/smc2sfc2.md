@@ -7,7 +7,7 @@ color: "#2d4f9e"
 category: Personal
 year: "2026"
 github: https://github.com/etejedaw/smc2sfc2
-url: https://smc2sfc2.app.etejeda.dev
+url: https://smc2sfc2.etejeda.dev
 image: ../assets/smc2sfc2.png
 ---
 
@@ -37,7 +37,7 @@ Años después volví al problema con más kilometraje encima y con asistencia d
 
 ## Outcomes
 
-- **Live en producción** en [smc2sfc2.app.etejeda.dev](https://smc2sfc2.app.etejeda.dev), reemplazando el deploy original caído.
+- **Live en producción** en [smc2sfc2.etejeda.dev](https://smc2sfc2.etejeda.dev), reemplazando el deploy original caído.
 - **Stack reducido a la mitad**: Flask + React + Webpack + Heroku → Astro + TypeScript + Nginx + VPS. Menos piezas que mantener, menos cosas que se pueden romper en 10 años.
 - **Privacidad por construcción**: las ROMs nunca salen del navegador. No hay servidor que pueda filtrar, perder o ser hackeado.
 - **Crédito al autor original mantenido** en el repo y en la app: la idea no es mía, el rescate sí.
