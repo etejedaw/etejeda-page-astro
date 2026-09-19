@@ -1,11 +1,12 @@
 ---
 title: Completr
 short: C
-description: "Aplicación web para hacer seguimiento a tu backlog de videojuegos: pendientes, jugando, completados, abandonados. Inspirada en Trakt pero enfocada en gaming, con un sistema de ratio (puntaje / duración estimada) que prioriza qué jugar primero. Proyecto 100% personal, backend y frontend hechos íntegramente por mí. Actualmente en beta cerrada, abierta a invitaciones."
-tags: [Express, PostgreSQL, Angular, PWA, CapRover]
+description: "Aplicación web para hacer seguimiento a tu backlog de videojuegos: pendientes, jugando, completados, abandonados. Inspirada en Trakt pero enfocada en gaming, con un sistema de ratio (puntaje / duración estimada) que prioriza qué jugar primero. Proyecto 100% personal, backend y frontend hechos íntegramente por mí, con el código abierto bajo AGPL-3.0. Actualmente en beta cerrada, abierta a invitaciones."
+tags: [TypeScript, Express, PostgreSQL, Angular, PWA, CapRover]
 color: "#8b5cf6"
 category: Personal
 year: "2026"
+github: https://github.com/etejedaw/completr-node-monorepo
 url: https://www.completr.app
 image: ../assets/completr.png
 gallery:
@@ -23,11 +24,15 @@ Copié el Excel del video, lo personalicé, empecé a agregar columnas (estado, 
 
 Es un **proyecto 100% personal**, sin cliente. Backend (Node + Express), frontend (Angular + PWA), infra (CapRover sobre VPS), diseño y producto, todo lo llevo yo. La ventaja: cada decisión técnica nace del uso real, porque soy el primer usuario que sufre cuando algo está mal.
 
+El código es público: API y web viven en un mismo monorepo en [GitHub](https://github.com/etejedaw/completr-node-monorepo).
+
 Hoy está en **beta cerrada**, abierta a quien quiera probarla.
 
 ## Decisiones técnicas
 
-**Stack:** Node 22 + Express 5 + TypeScript + PostgreSQL (Sequelize 6) en backend; Angular + PWA en frontend; Zod 4 como única fuente de validación; Pino para logs; Helmet + CORS + rate-limiter-flexible para hardening. Despliegue en CapRover sobre VPS.
+**Stack:** Node 22 + Express 5 + TypeScript + PostgreSQL (Sequelize 6) en backend; Angular 22 (standalone + Signals) + Tailwind CSS 4 + ng-primitives + PWA en frontend, con Vitest para tests; Zod 4 como única fuente de validación; Pino para logs; Helmet + CORS + rate-limiter-flexible para hardening. Despliegue en CapRover sobre VPS.
+
+**Monorepo con npm workspaces.** API (`apps/api`) y web (`apps/web`) comparten repo, lockfile y `node_modules`. Un solo `npm install` y un solo `npm run dev` levantan todo, y lint, formato y hooks aplican igual a las dos apps. La regla que evita problemas: las herramientas comunes se declaran en la raíz y lo que usa una sola app va en su `package.json`, nunca en los dos, para que un paquete no termine instalado en dos versiones. Con dos repos separados, cada cambio de contrato entre API y frontend significaba coordinar dos PRs; ahora es un solo commit.
 
 **Sistema de puntajes en tres niveles**, la decisión más distintiva del diseño. Los puntajes y duraciones de un juego viven en tres lugares según el contexto:
 
@@ -55,6 +60,7 @@ Hoy está en **beta cerrada**, abierta a quien quiera probarla.
 ## Outcomes
 
 - **Live en producción** en [completr.app](https://www.completr.app), en beta cerrada y abierta a quien quiera probarla.
+- **Código abierto** bajo AGPL-3.0: cualquiera puede leer, correr localmente o contribuir. La colección de endpoints (Bruno) está en el mismo repo.
 - **El Excel original quedó obsoleto**: lo que arrancó como una hoja de cálculo personal escaló a una app multi-usuario con catálogo global, ratios, vistas guardables y listas compartibles.
 - **Desarrollo guiado por feedback de usuarios reales** (incluido el mío). Roadmap a corto plazo: sincronización con Steam, listas colaborativas y estadísticas anuales, todo viene de cosas que los usuarios beta y yo hemos venido pidiendo en el día a día.
 - **Hecho por alguien que lo usa, para gente que juega**: cada decisión de producto y de código pasa por "¿esto me molestaría a mí jugando?". Es lo que permite resolver problemas reales y no inventados.
