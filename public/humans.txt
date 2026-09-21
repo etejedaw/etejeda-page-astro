@@ -5,7 +5,7 @@ Site: https://www.etejeda.dev
 From: Chile (remoto)
 
 /* SITE */
-Last update: 2026/09/20
+Last update: 2026/09/21
 Language: Español
 Standards: HTML5, CSS3
 Components: Astro · Ghost (CMS) · Cloudflare Workers
