@@ -14,12 +14,12 @@ import type { MenuLink } from "../lib/menu";
 const showBlog = await isBlogAvailable();
 
 const sections: MenuLink[] = [
-	{ href: "#sobre-mi", label: "Sobre mí" },
-	{ href: "#experiencia", label: "Experiencia" },
+	{ href: "#about", label: "Sobre mí" },
+	{ href: "#experience", label: "Experiencia" },
 	{ href: "#expertise", label: "Expertise" },
 	{ href: "#projects", label: "Proyectos" },
 	{ href: "#blog", label: "Blog" },
-	{ href: "#contacto", label: "Contacto" }
+	{ href: "#contact", label: "Contacto" }
 ].filter(link => showBlog || link.href !== "#blog");
 ---
 
@@ -32,7 +32,7 @@ const sections: MenuLink[] = [
 		<aside class="page-sidebar">
 			<Hero links={sections} showBlog={showBlog} />
 		</aside>
-		<main id="contenido" class="page-main">
+		<main id="content" class="page-main">
 			<About />
 			<Experience />
 			<Expertise />

@@ -69,7 +69,7 @@ const initialCount = 3;
 const extraCount = Math.max(jobs.length - initialCount, 0);
 ---
 
-<section class="section" id="experiencia">
+<section class="section" id="experience">
 	<header class="section-header">
 		<h2 class="section-title">Experiencia</h2>
 	</header>
@@ -81,7 +81,7 @@ const extraCount = Math.max(jobs.length - initialCount, 0);
 					class="job"
 					hidden={index >= initialCount}
 					data-extra={
-						index >= initialCount ? "experiencia" : undefined
+						index >= initialCount ? "experience" : undefined
 					}
 				>
 					<div class="job-meta">
@@ -125,7 +125,7 @@ const extraCount = Math.max(jobs.length - initialCount, 0);
 		extraCount > 0 && (
 			<ShowMore
 				controls="timeline"
-				target="experiencia"
+				target="experience"
 				labelShow={`Ver ${extraCount} experiencia${extraCount === 1 ? "" : "s"} más`}
 				labelHide="Ocultar experiencias"
 				compact

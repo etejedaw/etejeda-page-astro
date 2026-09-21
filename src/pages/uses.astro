@@ -26,7 +26,7 @@ const updatedAt = new Date("2026-09-21");
 
 const groups: ToolGroup[] = [
 	{
-		id: "desarrollo",
+		id: "development",
 		title: "Desarrollo",
 		tools: [
 			{
@@ -68,7 +68,7 @@ const groups: ToolGroup[] = [
 		]
 	},
 	{
-		id: "productividad",
+		id: "productivity",
 		title: "Productividad",
 		tools: [
 			{
@@ -141,7 +141,7 @@ const groups: ToolGroup[] = [
 		]
 	},
 	{
-		id: "infraestructura",
+		id: "infrastructure",
 		title: "Infraestructura",
 		tools: [
 			{
@@ -274,7 +274,7 @@ const menu: MenuGroup[] = [
 				href: `#${group.id}`,
 				label: group.title
 			})),
-			{ href: "#equipos", label: "Equipos" }
+			{ href: "#hardware", label: "Equipos" }
 		]
 	}
 ];
@@ -291,7 +291,7 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 	description="Las herramientas, la infraestructura y los equipos que uso para trabajar y construir mis proyectos. Software libre siempre que se puede."
 	menu={menu}
 >
-	<main id="contenido">
+	<main id="content">
 		<article class="uses-page">
 			<a href="/" class="back">
 				<span aria-hidden="true">←</span> Volver al inicio
@@ -349,7 +349,7 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 				))
 			}
 
-			<section class="group" id="equipos">
+			<section class="group" id="hardware">
 				<h2 class="group-title">Equipos</h2>
 				<ul class="machines">
 					{
