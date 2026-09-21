@@ -24,7 +24,7 @@ Años después volví al problema con más kilometraje encima y con asistencia d
 
 **Stack:** Astro 6 + TypeScript + [fflate](https://github.com/101arrowz/fflate) para ZIPs en cliente. Deploy en Cloudflare Workers como sitio estático. Cero backend: solo se sirven estáticos.
 
-**100% en el navegador, sin backend.** El original tenía Flask para hacer la conversión server-side; las ROMs subían al servidor y volvían convertidas. Acá la conversión ocurre íntegramente en el cliente usando `ArrayBuffer` y `Blob`. Razones: (1) ROMs son archivos personales del usuario, no tiene por qué pasar nada al servidor; (2) elimina toda una capa de infraestructura (workers, storage, límites de tamaño, costos por GB); (3) hace el proyecto trivialmente desplegable como static + Nginx, que es justo lo que mató al original cuando Heroku cerró el grifo.
+**100% en el navegador, sin backend.** El original tenía Flask para hacer la conversión server-side; las ROMs subían al servidor y volvían convertidas. Acá la conversión ocurre íntegramente en el cliente usando `ArrayBuffer` y `Blob`. Razones: (1) ROMs son archivos personales del usuario, no tiene por qué pasar nada al servidor; (2) elimina toda una capa de infraestructura (workers, storage, límites de tamaño, costos por GB); (3) hace el proyecto trivialmente desplegable como sitio estático, sin un servidor que mantener: justo lo que mató al original cuando Heroku cerró el grifo.
 
 **Parser de header SNES propio.** La conversión real es trivial (agregar o quitar 512 bytes), pero quería que la UI mostrara qué ROM estás convirtiendo: título interno, región, tipo (HiROM/LoROM), modo de video (NTSC/PAL), coprocessor (SA-1, SuperFX, DSP-1…), tamaño declarado, checksum. Eso fue meterme a leer la [especificación del header de SNES](https://snes.nesdev.org/wiki/ROM_header) y portarla a TypeScript. Detección de HiROM vs LoROM por validación de checksum complementario (`checksum + complement === 0xFFFF`), no por nombre de archivo. Side effect inesperado: aprendí bastante de arquitectura SNES como yapa.
 
@@ -32,14 +32,14 @@ Años después volví al problema con más kilometraje encima y con asistencia d
 
 **Batch + ZIP de salida.** Drag & drop de múltiples archivos, procesamiento secuencial con progreso, y al final un único ZIP descargable armado con fflate. fflate va sobre JSZip porque pesa una fracción y es streaming-friendly; para batches grandes la diferencia se nota.
 
-**Hardening del Nginx.** CSP estricta sin `unsafe-inline` ni `unsafe-eval`, HSTS con preload, `X-Frame-Options: DENY`, COOP/CORP/COEP para aislamiento, `Permissions-Policy` cerrando casi todo. Sobreingeniería para una app que convierte ROMs, sí, pero también es práctica para mí: el mismo `nginx.conf` me sirve de plantilla para los otros estáticos que despliego en el VPS.
+**Headers de seguridad en Cloudflare.** CSP estricta sin `unsafe-inline` ni `unsafe-eval`, HSTS, `X-Frame-Options: DENY`, COOP/CORP para aislamiento y `Permissions-Policy` cerrando cámara, micrófono y geolocalización, todo declarado en un archivo `_headers`. Sobreingeniería para una app que convierte ROMs, sí, pero también es práctica para mí: el mismo esquema me sirve de plantilla para los otros sitios estáticos que despliego.
 
 **PWA con instalación offline.** Como toda la lógica ya vive en el cliente, hacerlo instalable y funcional sin red era casi gratis. Service worker cacheando el shell, manifest con íconos, y queda como app nativa en el dock si quieres.
 
 ## Outcomes
 
 - **Live en producción** en [smc2sfc2.etejeda.dev](https://smc2sfc2.etejeda.dev), reemplazando el deploy original caído.
-- **Stack reducido a la mitad**: Flask + React + Webpack + Heroku → Astro + TypeScript + Nginx + VPS. Menos piezas que mantener, menos cosas que se pueden romper en 10 años.
+- **Stack reducido a la mitad**: Flask + React + Webpack + Heroku → Astro + TypeScript + Cloudflare Workers. Menos piezas que mantener, menos cosas que se pueden romper en 10 años.
 - **Privacidad por construcción**: las ROMs nunca salen del navegador. No hay servidor que pueda filtrar, perder o ser hackeado.
 - **Crédito al autor original mantenido** en el repo y en la app: la idea no es mía, el rescate sí.
 - **Un proyecto de hace 10 años respira de nuevo**: pequeño, pero el tipo de utility tool que cuando no existe te das cuenta de cuánto la usabas.
