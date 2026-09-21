@@ -5,6 +5,12 @@ fully static site; the blog content is pulled from a self-hosted
 [Ghost](https://ghost.org) CMS at build time via `GHOST_URL` and
 `GHOST_CONTENT_API_KEY`.
 
+If Ghost is unreachable or those variables are missing, the build still
+succeeds: the blog section, the post count stat and every blog link
+(navigation, sidebar, contact, 404, RSS `<link>`) are hidden instead. To
+preview that state locally, point `GHOST_URL` in `.env` to an invalid host and
+run `npm run dev`.
+
 ## Commands
 
 All commands are run from the root of the project, from a terminal:
