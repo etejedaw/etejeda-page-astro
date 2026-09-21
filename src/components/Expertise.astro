@@ -2,10 +2,9 @@
 import Zap from "./icons/Zap.astro";
 import Link from "./icons/Link.astro";
 import Server from "./icons/Server.astro";
-import GitBranch from "./icons/GitBranch.astro";
 import Layers from "./icons/Layers.astro";
 
-type IconName = "zap" | "link" | "server" | "branch" | "layers";
+type IconName = "zap" | "link" | "server" | "layers";
 
 interface Skill {
 	title: string;
@@ -18,7 +17,6 @@ const iconMap = {
 	zap: Zap,
 	link: Link,
 	server: Server,
-	branch: GitBranch,
 	layers: Layers
 };
 
@@ -40,8 +38,16 @@ const skills: Skill[] = [
 	{
 		title: "Integraciones & Automatización",
 		description:
-			"Conexión entre plataformas y sistemas externos. Transformación de datos, mappers y serializers para hacer hablar a formatos que no fueron diseñados para entenderse.",
-		tags: ["APIs REST", "Webhooks", "ETL", "SAP", "Snowflake", "CRMs"],
+			"Conexión entre plataformas y sistemas externos: transformación de datos, mappers y serializers, y automatización de procesos sobre plataformas de workflow automation como Cotalker.",
+		tags: [
+			"APIs REST",
+			"Webhooks",
+			"ETL",
+			"SAP",
+			"Snowflake",
+			"Workflow Automation",
+			"Data Modeling"
+		],
 		icon: "link"
 	},
 	{
@@ -50,13 +56,6 @@ const skills: Skill[] = [
 			"Servidores GNU/Linux, contenedores, CI/CD y bases de datos. Lo suficiente para montar, desplegar y mantener lo que construyo sin depender de otro equipo.",
 		tags: ["GNU/Linux", "Docker", "CapRover", "PostgreSQL", "MySQL"],
 		icon: "server"
-	},
-	{
-		title: "Workflow Automation & SaaS",
-		description:
-			"Diseñé la arquitectura de integraciones para clientes enterprise, mentoricé partners y traduje necesidades de negocio en soluciones técnicas sobre plataformas de workflow automation como Cotalker.",
-		tags: ["Workflow Automation", "Cotalker", "Cotlang", "Data Modeling"],
-		icon: "branch"
 	},
 	{
 		title: "Producto end to end",
