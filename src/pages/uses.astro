@@ -6,6 +6,7 @@ interface Tool {
 	name: string;
 	description: string;
 	foss: boolean;
+	replaces?: string;
 }
 
 interface ToolGroup {
@@ -37,8 +38,32 @@ const groups: ToolGroup[] = [
 			{
 				name: "Hyper + zsh",
 				description:
-					"Terminal hecha con tecnologías web y configurable con JavaScript. zsh con Oh My Zsh y Powerlevel10k, en macOS y Linux.",
+					"Terminal hecha con tecnologías web y configurable con JavaScript. zsh con Oh My Zsh, Powerlevel10k, autosuggestions y syntax highlighting.",
 				foss: true
+			},
+			{
+				name: "JetBrains Mono",
+				description:
+					"La fuente de mi editor y mi terminal, en su versión Nerd Font con íconos. También es la que ves en este sitio.",
+				foss: true
+			},
+			{
+				name: "CLI moderna",
+				description:
+					"eza, bat, fzf y jq: ls y cat con mejor formato, búsqueda interactiva y JSON desde la terminal.",
+				foss: true
+			},
+			{
+				name: "Git",
+				description:
+					"gh para trabajar con GitHub desde la terminal, git-flow para las ramas y gitleaks para no subir secretos por error.",
+				foss: true
+			},
+			{
+				name: "Docker Desktop",
+				description:
+					"Contenedores en local, para levantar los mismos servicios que corren en el VPS y el homelab.",
+				foss: false
 			},
 			{
 				name: "Bruno",
@@ -59,9 +84,9 @@ const groups: ToolGroup[] = [
 				foss: false
 			},
 			{
-				name: "Claude Code",
+				name: "Claude Code + herdr",
 				description:
-					"IA en la terminal. Le delego la escritura de código y yo me dedico a revisar y decidir.",
+					"IA en la terminal: le delego la escritura de código y yo reviso y decido. Con herdr trabajo con varios agentes y modelos en paralelo.",
 				foss: false
 			}
 		]
@@ -71,16 +96,85 @@ const groups: ToolGroup[] = [
 		title: "Productividad",
 		tools: [
 			{
-				name: "AFFiNE",
-				description:
-					"Donde organizo mis proyectos personales: pendientes, ideas y avances en un mismo espacio.",
-				foss: true
-			},
-			{
 				name: "Brave",
 				description:
 					"Mi navegador. Basado en Chromium, con bloqueo de anuncios y rastreadores incluido.",
 				foss: true
+			},
+			{
+				name: "Raycast",
+				description:
+					"Lanzador para macOS: apps, atajos y comandos sin sacar las manos del teclado.",
+				foss: false
+			}
+		]
+	},
+	{
+		id: "self-hosted",
+		title: "Self-hosted",
+		tools: [
+			{
+				name: "Ghost",
+				description:
+					"El CMS de mi blog. Este sitio consume su API en cada build.",
+				foss: true,
+				replaces: "Medium / Substack"
+			},
+			{
+				name: "Nextcloud",
+				description:
+					"Mi nube personal para archivos, en mi propio servidor.",
+				foss: true,
+				replaces: "Google Drive"
+			},
+			{
+				name: "OnlyOffice",
+				description:
+					"Suite de oficina libre para editar documentos, planillas y presentaciones desde el navegador.",
+				foss: true,
+				replaces: "Google Docs"
+			},
+			{
+				name: "AFFiNE",
+				description:
+					"Donde organizo mis proyectos personales: pendientes, ideas y avances en un mismo espacio.",
+				foss: true,
+				replaces: "Notion"
+			},
+			{
+				name: "NocoDB",
+				description:
+					"Para las tablas que en Excel se quedan cortas: relaciones, tipos y vistas, pensando como base de datos.",
+				foss: true,
+				replaces: "Excel / Airtable"
+			},
+			{
+				name: "Linkwarden",
+				description:
+					"Guarda y archiva mis enlaces, con copia de la página por si el original desaparece.",
+				foss: true,
+				replaces: "Pocket / Raindrop"
+			},
+			{
+				name: "Miniflux",
+				description:
+					"Lector de RSS minimalista para seguir blogs y noticias.",
+				foss: true,
+				replaces: "Feedly"
+			},
+			{
+				name: "Umami",
+				description:
+					"Analítica web sin cookies y respetuosa de la privacidad.",
+				foss: true,
+				replaces: "Google Analytics"
+			},
+			{
+				name: "Uptime Kuma",
+				description:
+					"Monitorea que mis sitios y servicios sigan arriba, y avisa si algo cae.",
+				foss: true,
+				replaces: "UptimeRobot"
 			}
 		]
 	},
@@ -91,13 +185,7 @@ const groups: ToolGroup[] = [
 			{
 				name: "VPS + CapRover",
 				description:
-					"Mi servidor para todo lo que necesita backend: el blog, Completr y otros servicios en contenedores.",
-				foss: true
-			},
-			{
-				name: "Ghost",
-				description:
-					"El CMS de mi blog, self-hosted en el VPS. Este sitio consume su API en cada build.",
+					"Mi servidor para todo lo que necesita backend: las apps self-hosted, Completr y un servicio de correo propio hecho con Hono, sobre PostgreSQL, MariaDB y Redis compartidos.",
 				foss: true
 			},
 			{
@@ -111,6 +199,12 @@ const groups: ToolGroup[] = [
 				description:
 					"Donde viven mis sitios estáticos, incluido este. Gratis y sin ocupar espacio en el VPS.",
 				foss: false
+			},
+			{
+				name: "AWS CLI",
+				description:
+					"Para trabajar con AWS desde la terminal: funciones Lambda, logs y recursos.",
+				foss: true
 			}
 		]
 	},
@@ -259,6 +353,11 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 								<p class="tool-description">
 									{tool.description}
 								</p>
+								{tool.replaces && (
+									<p class="tool-replaces">
+										reemplaza a {tool.replaces}
+									</p>
+								)}
 							</li>
 						))}
 					</ul>
@@ -435,6 +534,15 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 		font-size: 1rem;
 		font-weight: 700;
 		color: var(--text-primary);
+	}
+
+	.tool-replaces {
+		margin-top: auto;
+		padding-top: 0.6rem;
+		border-top: 1px dashed var(--rule-strong);
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.72rem;
+		color: var(--text-muted);
 	}
 
 	.tool-description {
