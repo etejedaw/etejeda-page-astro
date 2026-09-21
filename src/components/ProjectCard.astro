@@ -1,0 +1,356 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import GitHub from "./icons/GitHub.astro";
+import ArrowUpRight from "./icons/ArrowUpRight.astro";
+
+interface Props {
+	project: CollectionEntry<"projects">["data"] & { slug: string };
+}
+
+const { project } = Astro.props;
+const href = `/projects/${project.slug}`;
+---
+
+<article class="project" style={`--p-color: ${project.color};`}>
+	<a
+		href={href}
+		class:list={["project-cover", project.image && "has-image"]}
+		aria-label={`Ver detalle de ${project.title}`}
+	>
+		{
+			project.image ? (
+				<Image
+					src={project.image}
+					alt=""
+					class="project-image"
+					widths={[400, 800]}
+					sizes="(min-width: 1024px) 240px, 100vw"
+					loading="lazy"
+				/>
+			) : (
+				<span class="project-mono" aria-hidden="true">
+					{project.short}
+				</span>
+			)
+		}
+		{
+			project.year && (
+				<span class="project-year" aria-hidden="true">
+					{project.year}
+				</span>
+			)
+		}
+		<span class="project-cat" aria-hidden="true">{project.category}</span>
+	</a>
+
+	<div class="project-body">
+		<div class="project-titlebar">
+			<h3 class="project-title">
+				<a href={href}>{project.title}</a>
+			</h3>
+			<div class="project-links">
+				{
+					project.github && (
+						<a
+							href={project.github}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="project-link"
+							aria-label={`GitHub de ${project.title}`}
+						>
+							<GitHub size={16} />
+						</a>
+					)
+				}
+				{
+					project.url && (
+						<a
+							href={project.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="project-link"
+							aria-label={`${project.title} en vivo`}
+						>
+							<ArrowUpRight size={16} />
+						</a>
+					)
+				}
+			</div>
+		</div>
+		<p class="project-description">
+			{project.summary ?? project.description}
+		</p>
+		<ul class="project-tags">
+			{project.tags.map(tag => <li>{tag}</li>)}
+		</ul>
+		<a href={href} class="project-more">
+			Ver detalle <span aria-hidden="true">→</span>
+		</a>
+	</div>
+</article>
+
+<style>
+	.project {
+		display: grid;
+		grid-template-columns: 220px 1fr;
+		background: var(--bg-surface);
+		border: 1px solid var(--rule);
+		border-radius: 14px;
+		overflow: hidden;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.project:hover {
+		border-color: var(--accent-border);
+		transform: translateY(-3px);
+		box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.4);
+	}
+
+	.project-cover {
+		position: relative;
+		display: grid;
+		place-items: center;
+		min-height: 180px;
+		overflow: hidden;
+		border-right: 1px solid var(--rule);
+		text-decoration: none;
+		background:
+			radial-gradient(
+				circle at 30% 20%,
+				color-mix(in srgb, var(--p-color) 60%, transparent) 0%,
+				transparent 65%
+			),
+			linear-gradient(
+				160deg,
+				color-mix(in srgb, var(--p-color) 38%, var(--bg-surface)),
+				color-mix(in srgb, var(--p-color) 14%, var(--bg-surface))
+			);
+	}
+
+	.project-cover::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(
+			rgba(255, 255, 255, 0.05) 1px,
+			transparent 1px
+		);
+		background-size: 18px 18px;
+		pointer-events: none;
+	}
+
+	:global([data-theme="light"]) .project-cover::before {
+		background-image: radial-gradient(
+			rgba(0, 0, 0, 0.06) 1px,
+			transparent 1px
+		);
+	}
+
+	.project-cover.has-image {
+		background: #0a0a0a;
+	}
+
+	.project-cover.has-image::before {
+		display: none;
+	}
+
+	.project-cover::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			180deg,
+			rgba(0, 0, 0, 0.45) 0%,
+			rgba(0, 0, 0, 0) 30%,
+			rgba(0, 0, 0, 0) 60%,
+			rgba(0, 0, 0, 0.6) 100%
+		);
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	.project-image {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top left;
+		transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.project:hover .project-image {
+		transform: scale(1.04);
+	}
+
+	.project-mono {
+		font-size: 4.5rem;
+		font-weight: 800;
+		letter-spacing: -0.06em;
+		color: var(--p-color);
+		line-height: 0.85;
+		mix-blend-mode: screen;
+		filter: brightness(1.4) saturate(1.2);
+		text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+		position: relative;
+	}
+
+	:global([data-theme="light"]) .project-mono {
+		mix-blend-mode: normal;
+		filter: none;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+	}
+
+	.project-year,
+	.project-cat {
+		position: absolute;
+		z-index: 2;
+		color: #fff;
+		text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+	}
+
+	.project-year {
+		top: 0.85rem;
+		right: 0.95rem;
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+	}
+
+	.project-cat {
+		bottom: 0.85rem;
+		left: 0.95rem;
+		font-size: 0.65rem;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+
+	.project-body {
+		padding: 1.5rem 1.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		min-width: 0;
+	}
+
+	.project-titlebar {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 0.75rem;
+	}
+
+	.project-title {
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		letter-spacing: -0.02em;
+		line-height: 1.2;
+	}
+
+	.project-title a {
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.project-title a:hover {
+		color: var(--accent);
+	}
+
+	.project-links {
+		display: flex;
+		gap: 0.75rem;
+		flex-shrink: 0;
+		padding-top: 0.15rem;
+	}
+
+	.project-link {
+		color: var(--text-muted);
+		display: inline-flex;
+		align-items: center;
+		transition: color 0.2s ease;
+	}
+
+	.project-link:hover {
+		color: var(--accent);
+	}
+
+	.project-description {
+		color: var(--text-secondary);
+		font-size: 0.95rem;
+		line-height: 1.65;
+	}
+
+	.project-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem 1rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.project-tags li {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.72rem;
+		font-weight: 500;
+		color: var(--text-secondary);
+		line-height: 1.2;
+		position: relative;
+		padding-left: 0.8rem;
+	}
+
+	.project-tags li::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0.35rem;
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		background: var(--p-color);
+		opacity: 0.8;
+	}
+
+	.project-more {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.78rem;
+		font-weight: 600;
+		color: var(--accent);
+		text-decoration: none;
+		margin-top: 0.15rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		width: fit-content;
+		transition: gap 0.2s ease;
+	}
+
+	.project-more:hover {
+		gap: 0.55rem;
+	}
+
+	@media (max-width: 700px) {
+		.project {
+			grid-template-columns: 1fr;
+		}
+
+		.project-cover {
+			min-height: 160px;
+			border-right: none;
+			border-bottom: 1px solid var(--rule);
+		}
+
+		.project-mono {
+			font-size: 3.5rem;
+		}
+
+		.project-body {
+			padding: 1.25rem;
+		}
+	}
+</style>
