@@ -42,12 +42,6 @@ const groups: ToolGroup[] = [
 				foss: true
 			},
 			{
-				name: "Docker",
-				description:
-					"Contenedores en local, para levantar los mismos servicios que corren en el VPS y el homelab.",
-				foss: true
-			},
-			{
 				name: "Bruno",
 				description:
 					"Cliente de APIs offline: las colecciones viven en el repo como archivos de texto y se versionan con git.",
@@ -151,9 +145,21 @@ const groups: ToolGroup[] = [
 		title: "Infraestructura",
 		tools: [
 			{
+				name: "GNU/Linux",
+				description:
+					"Ubuntu Server en el VPS y Fedora Workstation en el homelab.",
+				foss: true
+			},
+			{
 				name: "VPS + CapRover",
 				description:
 					"Mi servidor para todo lo que necesita backend: las apps self-hosted y Completr, sobre PostgreSQL, MariaDB y Redis compartidos.",
+				foss: true
+			},
+			{
+				name: "Docker",
+				description:
+					"La base de todo lo que despliego: el VPS, el homelab y los proyectos freelance corren en contenedores.",
 				foss: true
 			},
 			{
@@ -169,10 +175,10 @@ const groups: ToolGroup[] = [
 				foss: false
 			},
 			{
-				name: "AWS CLI",
+				name: "GitHub Actions",
 				description:
-					"Para trabajar con AWS desde la terminal: funciones Lambda, logs y recursos.",
-				foss: true
+					"Actualiza el tema de mi blog y despliega mis sitios en Cloudflare en cada push.",
+				foss: false
 			}
 		]
 	},
@@ -193,6 +199,12 @@ const groups: ToolGroup[] = [
 			{
 				name: "Portainer",
 				description: "Para administrar los contenedores del homelab.",
+				foss: true
+			},
+			{
+				name: "WireGuard",
+				description:
+					"VPN para entrar al homelab de forma segura desde cualquier lugar.",
 				foss: true
 			}
 		]
@@ -289,7 +301,7 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 			<p class="lede">
 				Las herramientas, la infraestructura y los equipos con los que
 				trabajo y construyo mis proyectos. Uso software libre siempre
-				que puedo: Linux en mis servidores y en mi escritorio de
+				que puedo: GNU/Linux en mis servidores y en mi escritorio de
 				trabajo, y licencias libres en todo lo que publico.
 			</p>
 			<time
