@@ -3,7 +3,7 @@ title: SMC2SFC2
 short: SF
 description: "Conversor de ROMs de SNES (.smc ↔ .sfc) que corre 100% en el navegador. Rescate de un proyecto que llevaba abandonado ~10 años y al que Heroku le bajó la persiana en algún momento de 2022. Lo reescribí en Astro + TypeScript, le metí drag & drop, batch, lector de header de SNES, deduplicación con SHA-256 y PWA. Live en producción."
 summary: "Conversor de ROMs de SNES (.smc ↔ .sfc) que corre 100% en el navegador. Rescate de un proyecto abandonado, reescrito en Astro y TypeScript."
-tags: [Astro, TypeScript, PWA, CapRover]
+tags: [Astro, TypeScript, PWA, Cloudflare Workers]
 color: "#2d4f9e"
 category: Personal
 year: "2026"
@@ -22,7 +22,7 @@ Años después volví al problema con más kilometraje encima y con asistencia d
 
 ## Decisiones técnicas
 
-**Stack:** Astro 6 + TypeScript + [fflate](https://github.com/101arrowz/fflate) para ZIPs en cliente. Nginx en Docker, deploy en CapRover sobre VPS. Cero backend: el servidor solo sirve estáticos.
+**Stack:** Astro 6 + TypeScript + [fflate](https://github.com/101arrowz/fflate) para ZIPs en cliente. Deploy en Cloudflare Workers como sitio estático. Cero backend: solo se sirven estáticos.
 
 **100% en el navegador, sin backend.** El original tenía Flask para hacer la conversión server-side; las ROMs subían al servidor y volvían convertidas. Acá la conversión ocurre íntegramente en el cliente usando `ArrayBuffer` y `Blob`. Razones: (1) ROMs son archivos personales del usuario, no tiene por qué pasar nada al servidor; (2) elimina toda una capa de infraestructura (workers, storage, límites de tamaño, costos por GB); (3) hace el proyecto trivialmente desplegable como static + Nginx, que es justo lo que mató al original cuando Heroku cerró el grifo.
 

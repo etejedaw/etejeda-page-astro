@@ -1,7 +1,7 @@
 ---
 title: CORE Model
 short: CM
-description: "Pipeline ETL para mi tesis de Ingeniería Civil en Informática, hecho con el PRU-Lab dentro de un proyecto FONDECYT sobre resiliencia comunitaria ante tsunamis en la costa chilena. Recopila indicadores sociales desde fuentes abiertas heterogéneas (HTML, APIs JSON, PDFs, planillas), las normaliza y las publica como dashboards en Metabase. Arquitectura modular con adapters para que sumar una fuente nueva no requiera reescribir el core. Sistema funcional; defensa pendiente."
+description: "Pipeline ETL para mi tesis de Ingeniería Civil en Informática, hecho con el PRU-Lab dentro de un proyecto FONDECYT sobre resiliencia comunitaria ante tsunamis en la costa chilena. Recopila indicadores sociales desde fuentes abiertas heterogéneas (HTML, APIs JSON, PDFs, planillas), las normaliza y las publica como dashboards en Metabase. Arquitectura modular con adapters para que sumar una fuente nueva no requiera reescribir el core. Sistema funcional."
 summary: "Pipeline ETL para un proyecto FONDECYT: recopila y normaliza indicadores sociales de fuentes abiertas para medir resiliencia ante tsunamis."
 tags: [TypeScript, Node.js, MongoDB, Metabase]
 color: "#3b82f6"
@@ -18,7 +18,7 @@ Los datos no están en un lugar. Están desperdigados entre el INE, ONEMI, la Bi
 
 Mi tesis fue construir el software que automatiza ese pipeline: **un sistema modular donde cada fuente nueva se declara como una pieza de configuración y se enchufa al motor común**, sin tocar nada del core. El objetivo era que un futuro tesista o un investigador del lab pudiera sumar el indicador N+1 sin tener que entender todo el sistema, solo escribir el pedazo específico de su fuente.
 
-El sistema **está listo y funcionando**, corriendo crons, poblando MongoDB, alimentando dashboards de Metabase. Lo que me queda es la defensa y ver si sale a producción para un uso real.
+El sistema **está listo y funcionando**, corriendo crons, poblando MongoDB, alimentando dashboards de Metabase. Queda por ver si sale a producción para un uso real.
 
 ## Decisiones técnicas
 
@@ -60,4 +60,3 @@ Cada uno implementa la misma interfaz, así que el resto del pipeline es ignoran
 - **De semanas a minutos**: actualizar un indicador pasó de ser un trabajo manual de descarga + limpieza, a un cron que corre solo según la frecuencia declarada de cada fuente.
 - **Extensible por construcción**: el siguiente tesista del lab puede sumar una fuente nueva escribiendo solo sus adapters y registrando el módulo, sin tocar el core ni entender el ciclo ETL completo.
 - **Documentación dura**: README con paso a paso para crear un módulo nuevo, colección Bruno con todos los endpoints de la API, guía de setup de Metabase, y tests como contrato de comportamiento de cada adapter.
-- **Tesis lista; defensa pendiente.** El software cumple sus objetivos; lo que me falta es presentar.
