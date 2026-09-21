@@ -5,6 +5,7 @@ import Bell from "./icons/Bell.astro";
 import Book from "./icons/Book.astro";
 import Mail from "./icons/Mail.astro";
 import ArrowUpRight from "./icons/ArrowUpRight.astro";
+import { isBlogAvailable } from "../providers/ghost";
 
 type IconName = "mail" | "github" | "linkedin" | "bell" | "book";
 
@@ -14,6 +15,7 @@ interface Link {
 	description: string;
 	icon: IconName;
 	external?: boolean;
+	needsBlog?: boolean;
 }
 
 const iconMap = {
@@ -50,16 +52,21 @@ const links: Link[] = [
 		url: "https://blog.etejeda.dev/#/portal/",
 		description: "Cada artículo nuevo en tu correo",
 		icon: "bell",
-		external: true
+		external: true,
+		needsBlog: true
 	},
 	{
 		name: "Blog",
 		url: "https://blog.etejeda.dev",
 		description: "Artículos técnicos",
 		icon: "book",
-		external: true
+		external: true,
+		needsBlog: true
 	}
 ];
+
+const showBlog = await isBlogAvailable();
+const visibleLinks = links.filter(link => showBlog || !link.needsBlog);
 ---
 
 <section class="section" id="contacto">
@@ -69,7 +76,7 @@ const links: Link[] = [
 
 	<ul class="links">
 		{
-			links.map(link => {
+			visibleLinks.map(link => {
 				const Icon = iconMap[link.icon];
 				const isEmail = link.icon === "mail";
 				return (

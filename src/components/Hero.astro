@@ -9,9 +9,10 @@ import type { MenuLink } from "../lib/menu";
 
 interface Props {
 	links: MenuLink[];
+	showBlog: boolean;
 }
 
-const { links } = Astro.props;
+const { links, showBlog } = Astro.props;
 ---
 
 <section class="hero">
@@ -82,16 +83,20 @@ const { links } = Astro.props;
 						<LinkedIn size={20} />
 					</a>
 				</li>
-				<li>
-					<a
-						href="https://blog.etejeda.dev"
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="Blog"
-					>
-						<Book size={20} />
-					</a>
-				</li>
+				{
+					showBlog && (
+						<li>
+							<a
+								href="https://blog.etejeda.dev"
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label="Blog"
+							>
+								<Book size={20} />
+							</a>
+						</li>
+					)
+				}
 			</ul>
 			<button
 				class="theme-toggle"
