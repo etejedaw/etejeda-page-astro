@@ -5,7 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 import GitHub from "../../components/icons/GitHub.astro";
 import ArrowUpRight from "../../components/icons/ArrowUpRight.astro";
 import Lightbox from "../../components/Lightbox.astro";
-import { byYearDesc } from "../../lib/projects";
+import { byYearDesc, getProjectsMenu } from "../../lib/projects";
 
 export async function getStaticPaths() {
 	const projects = await getCollection("projects", ({ data }) => !data.draft);
@@ -85,6 +85,7 @@ const breadcrumbSchema = {
 	imageAlt={ogImage ? `Captura de ${title}` : undefined}
 	type="article"
 	schemas={[projectSchema, breadcrumbSchema]}
+	menu={await getProjectsMenu(slugOf(project))}
 >
 	<article class="project-page" style={`--p-color: ${color};`}>
 		<a href="/#projects" class="back">

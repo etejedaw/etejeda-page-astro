@@ -3,15 +3,18 @@ import type { ComponentProps } from "astro/types";
 import { Font } from "astro:assets";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
+import type { MenuGroup } from "../lib/menu";
 import "../styles/global.css";
 
-type Props = ComponentProps<typeof BaseHead>;
+type Props = ComponentProps<typeof BaseHead> & { menu?: MenuGroup[] };
+
+const { menu, ...head } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
-		<BaseHead {...Astro.props} />
+		<BaseHead {...head} />
 		<script is:inline>
 			(function () {
 				var theme;
@@ -34,7 +37,7 @@ type Props = ComponentProps<typeof BaseHead>;
 	</head>
 	<body>
 		<a href="#contenido" class="skip-link">Saltar al contenido</a>
-		<Header />
+		<Header menu={menu} />
 		<slot />
 	</body>
 </html>

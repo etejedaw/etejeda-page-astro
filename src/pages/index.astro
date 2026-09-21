@@ -8,15 +8,29 @@ import Blog from "../components/Blog.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import Experience from "../components/Experience.astro";
+import { isBlogAvailable } from "../providers/ghost";
+import type { MenuLink } from "../lib/menu";
+
+const showBlog = await isBlogAvailable();
+
+const sections: MenuLink[] = [
+	{ href: "#sobre-mi", label: "Sobre mí" },
+	{ href: "#experiencia", label: "Experiencia" },
+	{ href: "#expertise", label: "Expertise" },
+	{ href: "#projects", label: "Proyectos" },
+	{ href: "#blog", label: "Blog" },
+	{ href: "#contacto", label: "Contacto" }
+].filter(link => showBlog || link.href !== "#blog");
 ---
 
 <Layout
 	title="Esteban Tejeda - Software Engineer"
 	description="Software Engineer en Buk. Backend serverless con Node.js, TypeScript e integraciones enterprise. Guías, design patterns y buenas prácticas en el blog."
+	menu={[{ links: sections }]}
 >
 	<div class="page">
 		<aside class="page-sidebar">
-			<Hero />
+			<Hero links={sections} />
 		</aside>
 		<main id="contenido" class="page-main">
 			<About />

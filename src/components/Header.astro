@@ -1,23 +1,14 @@
 ---
 import Sun from "./icons/Sun.astro";
 import Moon from "./icons/Moon.astro";
-import { isBlogAvailable } from "../providers/ghost";
+import type { MenuGroup } from "../lib/menu";
 
-interface NavLink {
-	href: string;
-	label: string;
+interface Props {
+	menu?: MenuGroup[];
 }
 
-const showBlog = await isBlogAvailable();
-
-const navLinks: NavLink[] = [
-	{ href: "#sobre-mi", label: "Sobre mí" },
-	{ href: "#experiencia", label: "Experiencia" },
-	{ href: "#expertise", label: "Expertise" },
-	{ href: "#projects", label: "Proyectos" },
-	{ href: "#blog", label: "Blog" },
-	{ href: "#contacto", label: "Contacto" }
-].filter(link => showBlog || link.href !== "#blog");
+const { menu = [] } = Astro.props;
+const isHome = Astro.url.pathname === "/";
 ---
 
 <header class="header">
@@ -36,15 +27,49 @@ const navLinks: NavLink[] = [
 		>
 			<span class="hamburger"></span>
 		</button>
-		<ul class="mobile-nav" id="mobile-nav">
+		<div class="mobile-nav" id="mobile-nav">
 			{
-				navLinks.map(link => (
-					<li>
-						<a href={link.href}>{link.label}</a>
-					</li>
+				menu.map(group => (
+					<div
+						class:list={["menu-group", !group.title && "is-plain"]}
+					>
+						{group.title && <p class="menu-title">{group.title}</p>}
+						<ul class="menu-links">
+							{group.links.map(link => (
+								<li>
+									<a
+										href={link.href}
+										class:list={[
+											"menu-link",
+											link.current && "is-current"
+										]}
+										aria-current={
+											link.current ? "page" : undefined
+										}
+									>
+										<span class="menu-label">
+											{link.label}
+										</span>
+										{link.meta && (
+											<span class="menu-meta">
+												{link.meta}
+											</span>
+										)}
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
 				))
 			}
-		</ul>
+			{
+				!isHome && (
+					<a href="/" class="menu-home">
+						<span aria-hidden="true">←</span> Inicio
+					</a>
+				)
+			}
+		</div>
 	</nav>
 </header>
 
@@ -151,23 +176,83 @@ const navLinks: NavLink[] = [
 		height: 100dvh;
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 1.75rem;
 		background: var(--header-bg-solid);
 		padding: 5.5rem 2rem 2rem;
 		border-left: 1px solid var(--rule);
-		list-style: none;
-		transition: right 0.3s ease;
+		overflow-y: auto;
+		visibility: hidden;
+		transition:
+			right 0.3s ease,
+			visibility 0.3s;
 	}
 
 	.mobile-nav.active {
 		right: 0;
+		visibility: visible;
 	}
 
-	.mobile-nav a {
+	.menu-title {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: var(--text-muted);
+		letter-spacing: 0.12em;
+		margin-bottom: 0.75rem;
+	}
+
+	.menu-links {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+	}
+
+	.is-plain .menu-links {
+		gap: 1.5rem;
+	}
+
+	.menu-link {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
 		color: var(--text-primary);
 		text-decoration: none;
-		font-size: 1.1rem;
+		font-size: 1rem;
 		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+	.is-plain .menu-link {
+		font-size: 1.1rem;
+	}
+
+	.menu-link:hover,
+	.menu-link.is-current {
+		color: var(--accent);
+	}
+
+	.menu-meta {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.7rem;
+		color: var(--text-muted);
+		white-space: nowrap;
+	}
+
+	.menu-home {
+		margin-top: auto;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--rule);
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.85rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.menu-home:hover {
+		color: var(--accent);
 	}
 
 	.menu-toggle[aria-expanded="true"] .hamburger {

@@ -5,24 +5,13 @@ import GitHub from "./icons/GitHub.astro";
 import LinkedIn from "./icons/LinkedIn.astro";
 import Mail from "./icons/Mail.astro";
 import Book from "./icons/Book.astro";
-import { isBlogAvailable } from "../providers/ghost";
+import type { MenuLink } from "../lib/menu";
 
-interface NavLink {
-	href: string;
-	label: string;
-	id: string;
+interface Props {
+	links: MenuLink[];
 }
 
-const showBlog = await isBlogAvailable();
-
-const navLinks: NavLink[] = [
-	{ href: "#sobre-mi", label: "Sobre mí", id: "sobre-mi" },
-	{ href: "#experiencia", label: "Experiencia", id: "experiencia" },
-	{ href: "#expertise", label: "Expertise", id: "expertise" },
-	{ href: "#projects", label: "Proyectos", id: "projects" },
-	{ href: "#blog", label: "Blog", id: "blog" },
-	{ href: "#contacto", label: "Contacto", id: "contacto" }
-].filter(link => showBlog || link.href !== "#blog");
+const { links } = Astro.props;
 ---
 
 <section class="hero">
@@ -49,9 +38,12 @@ const navLinks: NavLink[] = [
 		<nav class="side-nav" aria-label="Secciones">
 			<ul>
 				{
-					navLinks.map(link => (
+					links.map(link => (
 						<li>
-							<a href={link.href} data-section={link.id}>
+							<a
+								href={link.href}
+								data-section={link.href.slice(1)}
+							>
 								<span class="nav-line" />
 								<span class="nav-label">{link.label}</span>
 							</a>

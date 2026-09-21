@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import type { MenuGroup } from "../lib/menu";
 
 interface Tool {
 	name: string;
@@ -192,6 +193,18 @@ const machines: Machine[] = [
 	}
 ];
 
+const menu: MenuGroup[] = [
+	{
+		links: [
+			...groups.map(group => ({
+				href: `#${group.id}`,
+				label: group.title
+			})),
+			{ href: "#equipos", label: "Equipos" }
+		]
+	}
+];
+
 const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 	month: "long",
 	year: "numeric",
@@ -202,6 +215,7 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 <Layout
 	title="Uses - Esteban Tejeda"
 	description="Las herramientas, la infraestructura y los equipos que uso para trabajar y construir mis proyectos. Software libre siempre que se puede."
+	menu={menu}
 >
 	<article class="uses-page">
 		<a href="/" class="back">
