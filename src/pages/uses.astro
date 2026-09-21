@@ -17,7 +17,7 @@ interface ToolGroup {
 
 interface Machine {
 	host: string;
-	kind: "desktop" | "notebook";
+	kind: "desktop" | "server" | "notebook";
 	role: string;
 	specs: [string, string][];
 }
@@ -78,9 +78,21 @@ const groups: ToolGroup[] = [
 				foss: true
 			},
 			{
+				name: "Typora",
+				description:
+					"Editor de Markdown sin distracciones: el formato se aplica mientras escribo, sin panel de vista previa.",
+				foss: false
+			},
+			{
 				name: "Raycast",
 				description:
 					"Lanzador para macOS: apps, atajos y comandos sin sacar las manos del teclado.",
+				foss: false
+			},
+			{
+				name: "Steam",
+				description:
+					"Técnicamente no es productividad. Pero descansar también es parte del trabajo.",
 				foss: false
 			}
 		]
@@ -125,6 +137,27 @@ const groups: ToolGroup[] = [
 				replaces: "Excel / Airtable"
 			},
 			{
+				name: "Linkwarden",
+				description:
+					"Guarda y organiza mis enlaces, con una copia de cada página por si el original desaparece.",
+				foss: true,
+				replaces: "Pocket / Raindrop"
+			},
+			{
+				name: "Miniflux",
+				description:
+					"Lector RSS minimalista: sigo blogs y sitios sin algoritmos ni redes sociales de por medio.",
+				foss: true,
+				replaces: "Feedly"
+			},
+			{
+				name: "Stirling PDF",
+				description:
+					"Herramientas para PDF (unir, dividir, comprimir, convertir) sin subir mis documentos a sitios de terceros.",
+				foss: true,
+				replaces: "iLovePDF / Adobe Acrobat"
+			},
+			{
 				name: "Umami",
 				description:
 					"Analítica web sin cookies y respetuosa de la privacidad.",
@@ -147,7 +180,7 @@ const groups: ToolGroup[] = [
 			{
 				name: "GNU/Linux",
 				description:
-					"Ubuntu Server en el VPS y Fedora Workstation en el homelab.",
+					"Ubuntu Server en el VPS y Fedora Server en el homelab.",
 				foss: true
 			},
 			{
@@ -163,7 +196,7 @@ const groups: ToolGroup[] = [
 				foss: true
 			},
 			{
-				name: "Coolify",
+				name: "VPS + Coolify",
 				description:
 					"Plataforma de despliegue self-hosted para los proyectos freelance.",
 				foss: true
@@ -194,6 +227,30 @@ const groups: ToolGroup[] = [
 			{
 				name: "Home Assistant",
 				description: "Domótica de la casa, sin depender de la nube.",
+				foss: true
+			},
+			{
+				name: "Zigbee2MQTT + Mosquitto",
+				description:
+					"Conectan los sensores y dispositivos Zigbee con Home Assistant a través de MQTT, sin hubs ni apps de cada fabricante.",
+				foss: true
+			},
+			{
+				name: "AdGuard Home",
+				description:
+					"El DNS de la casa: bloquea anuncios y rastreadores en todos los dispositivos de la red, sin instalar nada en ellos.",
+				foss: true
+			},
+			{
+				name: "Nginx Proxy Manager",
+				description:
+					"Proxy inverso con interfaz web y certificados de Let's Encrypt automáticos para los servicios del homelab.",
+				foss: true
+			},
+			{
+				name: "Duplicati",
+				description:
+					"Respaldos cifrados y programados de la configuración de todos los contenedores y de mis partidas guardadas.",
 				foss: true
 			},
 			{
@@ -236,6 +293,19 @@ const machines: Machine[] = [
 			["RAM", "16 GB DDR4 3733 MHz"],
 			["Case", "NZXT H510i"],
 			["Monitor", "Lenovo ThinkVision L28u-30"]
+		]
+	},
+	{
+		host: "homelab",
+		kind: "server",
+		role: "Servidor del homelab",
+		specs: [
+			["OS", "Fedora Server"],
+			["Modelo", "FIREBAT T8 Plus"],
+			["CPU", "Intel N100"],
+			["RAM", "8 GB DDR5"],
+			["Sistema", "SSD 256 GB"],
+			["Datos", "HDD 14 TB + 5 TB + 2 TB"]
 		]
 	},
 	{
@@ -552,6 +622,18 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 		grid-column: span 3;
 	}
 
+	.machine-server {
+		grid-column: span 6;
+	}
+
+	.machine-server .machine-specs {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-auto-flow: column;
+		grid-template-rows: repeat(3, auto);
+		column-gap: 1.5rem;
+	}
+
 	.machine-notebook {
 		grid-column: span 2;
 	}
@@ -646,8 +728,15 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 		}
 
 		.machine-desktop,
+		.machine-server,
 		.machine-notebook {
 			grid-column: auto;
+		}
+
+		.machine-server .machine-specs {
+			grid-template-columns: 1fr;
+			grid-auto-flow: row;
+			grid-template-rows: none;
 		}
 	}
 </style>
