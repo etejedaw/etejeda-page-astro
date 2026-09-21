@@ -1,0 +1,543 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+interface Tool {
+	name: string;
+	description: string;
+	foss: boolean;
+}
+
+interface ToolGroup {
+	id: string;
+	title: string;
+	tools: Tool[];
+}
+
+interface Machine {
+	host: string;
+	kind: "desktop" | "notebook";
+	role: string;
+	specs: [string, string][];
+}
+
+const updatedAt = new Date("2026-09-21");
+
+const groups: ToolGroup[] = [
+	{
+		id: "desarrollo",
+		title: "Desarrollo",
+		tools: [
+			{
+				name: "VSCodium",
+				description:
+					"Mi editor. Es VS Code compilado sin telemetría ni licencias propietarias: las mismas extensiones, sin rastreo.",
+				foss: true
+			},
+			{
+				name: "Hyper + zsh",
+				description:
+					"Terminal hecha con tecnologías web y configurable con JavaScript. zsh con Oh My Zsh y Powerlevel10k, en macOS y Linux.",
+				foss: true
+			},
+			{
+				name: "Bruno",
+				description:
+					"Cliente de APIs offline: las colecciones viven en el repo como archivos de texto y se versionan con git.",
+				foss: true
+			},
+			{
+				name: "DBeaver",
+				description:
+					"Cliente de bases de datos para PostgreSQL y MySQL. Uno solo para todos los motores relacionales.",
+				foss: true
+			},
+			{
+				name: "Studio 3T",
+				description:
+					"Lo mismo que DBeaver, pero para explorar y consultar MongoDB.",
+				foss: false
+			},
+			{
+				name: "Claude Code",
+				description:
+					"IA en la terminal. Le delego la escritura de código y yo me dedico a revisar y decidir.",
+				foss: false
+			}
+		]
+	},
+	{
+		id: "productividad",
+		title: "Productividad",
+		tools: [
+			{
+				name: "AFFiNE",
+				description:
+					"Donde organizo mis proyectos personales: pendientes, ideas y avances en un mismo espacio.",
+				foss: true
+			},
+			{
+				name: "Brave",
+				description:
+					"Mi navegador. Basado en Chromium, con bloqueo de anuncios y rastreadores incluido.",
+				foss: true
+			}
+		]
+	},
+	{
+		id: "infraestructura",
+		title: "Infraestructura",
+		tools: [
+			{
+				name: "VPS + CapRover",
+				description:
+					"Mi servidor para todo lo que necesita backend: el blog, Completr y otros servicios en contenedores.",
+				foss: true
+			},
+			{
+				name: "Ghost",
+				description:
+					"El CMS de mi blog, self-hosted en el VPS. Este sitio consume su API en cada build.",
+				foss: true
+			},
+			{
+				name: "Coolify",
+				description:
+					"Plataforma de despliegue self-hosted para los proyectos freelance.",
+				foss: true
+			},
+			{
+				name: "Cloudflare Workers",
+				description:
+					"Donde viven mis sitios estáticos, incluido este. Gratis y sin ocupar espacio en el VPS.",
+				foss: false
+			}
+		]
+	},
+	{
+		id: "homelab",
+		title: "Homelab",
+		tools: [
+			{
+				name: "Jellyfin",
+				description: "Mi servidor multimedia, sin suscripciones.",
+				foss: true
+			},
+			{
+				name: "Home Assistant",
+				description: "Domótica de la casa, sin depender de la nube.",
+				foss: true
+			},
+			{
+				name: "Portainer",
+				description: "Para administrar los contenedores del homelab.",
+				foss: true
+			}
+		]
+	}
+];
+
+const machines: Machine[] = [
+	{
+		host: "workstation",
+		kind: "desktop",
+		role: "Escritorio de trabajo",
+		specs: [
+			["OS", "Fedora Workstation KDE"],
+			["CPU", "AMD Ryzen 5 5600"],
+			["GPU", "Radeon RX 6800 XT Gaming X Trio"],
+			["RAM", "16 GB DDR4 3200 MHz"],
+			["Case", "Cooler Master NR200P"],
+			["Monitor", "Samsung ViewFinity S7"]
+		]
+	},
+	{
+		host: "gaming",
+		kind: "desktop",
+		role: "Escritorio para jugar",
+		specs: [
+			["OS", "Windows 11"],
+			["CPU", "AMD Ryzen 7 5800X"],
+			["GPU", "Radeon RX 7800 XT Windforce"],
+			["RAM", "16 GB DDR4 3733 MHz"],
+			["Case", "NZXT H510i"],
+			["Monitor", "Lenovo ThinkVision L28u-30"]
+		]
+	},
+	{
+		host: "air",
+		kind: "notebook",
+		role: "Notebook personal",
+		specs: [
+			["OS", "macOS"],
+			["Modelo", "MacBook Air M4"]
+		]
+	},
+	{
+		host: "vivobook",
+		kind: "notebook",
+		role: "Notebook personal",
+		specs: [
+			["OS", "Linux Mint MATE"],
+			["Modelo", "ASUS Vivobook S14 S406UA"]
+		]
+	},
+	{
+		host: "buk",
+		kind: "notebook",
+		role: "Notebook de trabajo",
+		specs: [
+			["OS", "macOS"],
+			["Modelo", 'MacBook Pro 16" M5 Pro']
+		]
+	}
+];
+
+const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
+	month: "long",
+	year: "numeric",
+	timeZone: "UTC"
+});
+---
+
+<Layout
+	title="Uses - Esteban Tejeda"
+	description="Las herramientas, la infraestructura y los equipos que uso para trabajar y construir mis proyectos. Software libre siempre que se puede."
+>
+	<article class="uses-page">
+		<a href="/" class="back">
+			<span aria-hidden="true">←</span> Volver al inicio
+		</a>
+
+		<header class="head">
+			<h1 class="title">Lo que uso</h1>
+			<p class="lede">
+				Las herramientas, la infraestructura y los equipos con los que
+				trabajo y construyo mis proyectos. Uso software libre siempre
+				que puedo: Linux en mis servidores y en mi escritorio de
+				trabajo, y licencias libres en todo lo que publico.
+			</p>
+			<time
+				class="updated"
+				datetime={updatedAt.toISOString().slice(0, 10)}
+			>
+				Actualizado en {updatedLabel}
+			</time>
+		</header>
+
+		{
+			groups.map(group => (
+				<section class="group" id={group.id}>
+					<h2 class="group-title">{group.title}</h2>
+					<ul class="tools">
+						{group.tools.map(tool => (
+							<li class="tool">
+								<div class="tool-head">
+									<span class="tool-name">{tool.name}</span>
+									{tool.foss && (
+										<span
+											class="badge badge-foss"
+											title="Software libre"
+										>
+											FOSS
+										</span>
+									)}
+								</div>
+								<p class="tool-description">
+									{tool.description}
+								</p>
+							</li>
+						))}
+					</ul>
+				</section>
+			))
+		}
+
+		<section class="group" id="equipos">
+			<h2 class="group-title">Equipos</h2>
+			<ul class="machines">
+				{
+					machines.map(machine => (
+						<li class={`machine machine-${machine.kind}`}>
+							<div class="machine-bar" aria-hidden="true">
+								<span />
+								<span />
+								<span />
+							</div>
+							<div class="machine-body">
+								<p class="machine-host">
+									<span class="machine-user">esteban</span>@
+									<span class="machine-name">
+										{machine.host}
+									</span>
+								</p>
+								<p class="machine-role">{machine.role}</p>
+								<dl class="machine-specs">
+									{machine.specs.map(([key, value]) => (
+										<div class="spec">
+											<dt>{key}</dt>
+											<dd>{value}</dd>
+										</div>
+									))}
+								</dl>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</section>
+	</article>
+</Layout>
+
+<style is:global>
+	@media (min-width: 1024px) {
+		body:has(.uses-page) .header {
+			display: block;
+		}
+	}
+</style>
+
+<style>
+	.uses-page {
+		max-width: 880px;
+		margin: 0 auto;
+		padding: 7rem 1.5rem 5rem;
+	}
+
+	.back {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		text-decoration: none;
+		margin-bottom: 2.5rem;
+		transition: color 0.2s ease;
+	}
+
+	.back:hover {
+		color: var(--accent);
+	}
+
+	.head {
+		margin-bottom: 3.5rem;
+	}
+
+	.title {
+		font-size: clamp(2.25rem, 5vw, 3.25rem);
+		font-weight: 700;
+		letter-spacing: -0.04em;
+		line-height: 1.05;
+		color: var(--text-primary);
+		margin-bottom: 1.25rem;
+	}
+
+	.lede {
+		font-size: 1.1rem;
+		line-height: 1.65;
+		color: var(--text-secondary);
+		max-width: 62ch;
+		margin-bottom: 1.5rem;
+	}
+
+	.updated {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.8rem;
+		color: var(--text-muted);
+	}
+
+	.badge {
+		display: inline-flex;
+		align-items: center;
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.66rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		padding: 0.22rem 0.55rem;
+		border-radius: 999px;
+		line-height: 1;
+		white-space: nowrap;
+	}
+
+	.badge-foss {
+		color: var(--accent);
+		background: var(--accent-soft);
+		border: 1px solid var(--accent-border);
+	}
+
+	.group {
+		margin-bottom: 3.5rem;
+		scroll-margin-top: 5rem;
+	}
+
+	.group-title {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		margin-bottom: 1.5rem;
+	}
+
+	.group-title::after {
+		content: "";
+		flex: 1;
+		height: 1px;
+		background: var(--rule);
+	}
+
+	.tools {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.tool {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		padding: 1.25rem 1.4rem;
+		background: var(--bg-surface);
+		border: 1px solid var(--rule);
+		border-radius: 12px;
+	}
+
+	.tool-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.tool-name {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 1rem;
+		font-weight: 700;
+		color: var(--text-primary);
+	}
+
+	.tool-description {
+		color: var(--text-secondary);
+		font-size: 0.92rem;
+		line-height: 1.6;
+	}
+
+	.machines {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.machine-desktop {
+		grid-column: span 3;
+	}
+
+	.machine-notebook {
+		grid-column: span 2;
+	}
+
+	.machine-notebook .spec {
+		grid-template-columns: 1fr;
+		gap: 0.1rem;
+	}
+
+	.machine-notebook .spec + .spec {
+		margin-top: 0.35rem;
+	}
+
+	.machine {
+		background: var(--terminal-bg);
+		border: 1px solid var(--rule-strong);
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: 0 12px 40px -24px rgba(0, 0, 0, 0.6);
+	}
+
+	.machine-bar {
+		display: flex;
+		gap: 0.4rem;
+		padding: 0.7rem 0.9rem;
+		border-bottom: 1px solid var(--rule);
+		background: var(--bg-surface);
+	}
+
+	.machine-bar span {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: var(--rule-strong);
+	}
+
+	.machine-bar span:first-child {
+		background: var(--accent);
+	}
+
+	.machine-body {
+		padding: 1.1rem 1.25rem 1.3rem;
+		font-family: var(--font-jetbrains-mono), monospace;
+	}
+
+	.machine-host {
+		font-size: 0.95rem;
+		font-weight: 700;
+		color: var(--text-secondary);
+	}
+
+	.machine-user,
+	.machine-name {
+		color: var(--accent);
+	}
+
+	.machine-role {
+		font-size: 0.75rem;
+		color: var(--text-muted);
+		padding-bottom: 0.75rem;
+		margin-bottom: 0.75rem;
+		border-bottom: 1px dashed var(--rule-strong);
+	}
+
+	.machine-specs {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+	}
+
+	.spec {
+		display: grid;
+		grid-template-columns: 5.5rem 1fr;
+		gap: 0.75rem;
+		font-size: 0.8rem;
+		line-height: 1.45;
+	}
+
+	.spec dt {
+		color: var(--accent);
+		font-weight: 700;
+	}
+
+	.spec dd {
+		color: var(--text-primary);
+	}
+
+	@media (max-width: 700px) {
+		.tools,
+		.machines {
+			grid-template-columns: 1fr;
+		}
+
+		.machine-desktop,
+		.machine-notebook {
+			grid-column: auto;
+		}
+	}
+</style>

@@ -15,6 +15,19 @@ import ArrowUpRight from "./icons/ArrowUpRight.astro";
 			<ArrowUpRight size={14} />
 		</a>
 	</aside>
+
+	<nav class="colophon" aria-label="Sobre este sitio">
+		<a href="/uses">Lo que uso</a>
+		<span class="colophon-sep" aria-hidden="true">·</span>
+		<a
+			href="https://github.com/etejedaw/etejeda-page-astro"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			Código fuente
+			<ArrowUpRight size={12} />
+		</a>
+	</nav>
 </footer>
 
 <style>
@@ -83,5 +96,32 @@ import ArrowUpRight from "./icons/ArrowUpRight.astro";
 	.bridge-link:hover svg {
 		color: var(--accent);
 		transform: translate(2px, -2px);
+	}
+
+	.colophon {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.6rem;
+		margin-top: 2rem;
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.78rem;
+	}
+
+	.colophon a {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		color: var(--text-secondary);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.colophon a:hover {
+		color: var(--accent);
+	}
+
+	.colophon-sep {
+		color: var(--text-muted);
 	}
 </style>
