@@ -3,45 +3,47 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="404 - Esteban Tejeda" description="Página no encontrada" noindex>
-	<section class="not-found">
-		<div class="not-found-inner">
-			<div class="mark" aria-hidden="true">
-				<span class="lambda">λ</span>
+	<main id="contenido">
+		<section class="not-found">
+			<div class="not-found-inner">
+				<div class="mark" aria-hidden="true">
+					<span class="lambda">λ</span>
+				</div>
+
+				<p class="code" aria-hidden="true">
+					<span class="code-prompt">$</span>
+					<span class="code-cmd">cat /404</span>
+					<span class="code-blink">_</span>
+				</p>
+
+				<h1 class="title">Esta ruta no está mapeada.</h1>
+
+				<p class="lede">
+					La página que buscas no existe, fue movida, o nunca estuvo
+					aquí. Si llegaste por un link mío que está roto,{" "}
+					<a href="mailto:contacto@etejeda.dev">avísame</a>.
+				</p>
+
+				<div class="actions">
+					<a href="/" class="btn btn-primary">
+						<span aria-hidden="true">←</span>
+						Volver al inicio
+					</a>
+					<a href="https://blog.etejeda.dev" class="btn btn-ghost">
+						Ir al blog
+					</a>
+				</div>
+
+				<nav class="quick-nav" aria-label="Atajos">
+					<span class="quick-nav-label">Atajos</span>
+					<a href="/#sobre-mi">Sobre mí</a>
+					<a href="/#projects">Proyectos</a>
+					<a href="/#blog">Blog</a>
+					<a href="/#contacto">Contacto</a>
+				</nav>
 			</div>
-
-			<p class="code" aria-hidden="true">
-				<span class="code-prompt">$</span>
-				<span class="code-cmd">cat /404</span>
-				<span class="code-blink">_</span>
-			</p>
-
-			<h1 class="title">Esta ruta no está mapeada.</h1>
-
-			<p class="lede">
-				La página que buscas no existe, fue movida, o nunca estuvo aquí.
-				Si llegaste por un link mío que está roto,{" "}
-				<a href="mailto:contacto@etejeda.dev">avísame</a>.
-			</p>
-
-			<div class="actions">
-				<a href="/" class="btn btn-primary">
-					<span aria-hidden="true">←</span>
-					Volver al inicio
-				</a>
-				<a href="https://blog.etejeda.dev" class="btn btn-ghost">
-					Ir al blog
-				</a>
-			</div>
-
-			<nav class="quick-nav" aria-label="Atajos">
-				<span class="quick-nav-label">Atajos</span>
-				<a href="/#sobre-mi">Sobre mí</a>
-				<a href="/#projects">Proyectos</a>
-				<a href="/#blog">Blog</a>
-				<a href="/#contacto">Contacto</a>
-			</nav>
-		</div>
-	</section>
+		</section>
+	</main>
 </Layout>
 
 <style is:global>

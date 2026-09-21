@@ -291,94 +291,102 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 	description="Las herramientas, la infraestructura y los equipos que uso para trabajar y construir mis proyectos. Software libre siempre que se puede."
 	menu={menu}
 >
-	<article class="uses-page">
-		<a href="/" class="back">
-			<span aria-hidden="true">←</span> Volver al inicio
-		</a>
+	<main id="contenido">
+		<article class="uses-page">
+			<a href="/" class="back">
+				<span aria-hidden="true">←</span> Volver al inicio
+			</a>
 
-		<header class="head">
-			<h1 class="title">Lo que uso</h1>
-			<p class="lede">
-				Las herramientas, la infraestructura y los equipos con los que
-				trabajo y construyo mis proyectos. Uso software libre siempre
-				que puedo: GNU/Linux en mis servidores y en mi escritorio de
-				trabajo, y licencias libres en todo lo que publico.
-			</p>
-			<time
-				class="updated"
-				datetime={updatedAt.toISOString().slice(0, 10)}
-			>
-				Actualizado en {updatedLabel}
-			</time>
-		</header>
+			<header class="head">
+				<h1 class="title">Lo que uso</h1>
+				<p class="lede">
+					Las herramientas, la infraestructura y los equipos con los
+					que trabajo y construyo mis proyectos. Uso software libre
+					siempre que puedo: GNU/Linux en mis servidores y en mi
+					escritorio de trabajo, y licencias libres en todo lo que
+					publico.
+				</p>
+				<time
+					class="updated"
+					datetime={updatedAt.toISOString().slice(0, 10)}
+				>
+					Actualizado en {updatedLabel}
+				</time>
+			</header>
 
-		{
-			groups.map(group => (
-				<section class="group" id={group.id}>
-					<h2 class="group-title">{group.title}</h2>
-					<ul class="tools">
-						{group.tools.map(tool => (
-							<li class="tool">
-								<div class="tool-head">
-									<span class="tool-name">{tool.name}</span>
-									{tool.foss && (
-										<span
-											class="badge badge-foss"
-											title="Software libre"
-										>
-											FOSS
+			{
+				groups.map(group => (
+					<section class="group" id={group.id}>
+						<h2 class="group-title">{group.title}</h2>
+						<ul class="tools">
+							{group.tools.map(tool => (
+								<li class="tool">
+									<div class="tool-head">
+										<span class="tool-name">
+											{tool.name}
 										</span>
-									)}
-								</div>
-								<p class="tool-description">
-									{tool.description}
-								</p>
-								{tool.replaces && (
-									<p class="tool-replaces">
-										reemplaza a {tool.replaces}
+										{tool.foss && (
+											<span
+												class="badge badge-foss"
+												title="Software libre"
+											>
+												FOSS
+											</span>
+										)}
+									</div>
+									<p class="tool-description">
+										{tool.description}
 									</p>
-								)}
-							</li>
-						))}
-					</ul>
-				</section>
-			))
-		}
+									{tool.replaces && (
+										<p class="tool-replaces">
+											reemplaza a {tool.replaces}
+										</p>
+									)}
+								</li>
+							))}
+						</ul>
+					</section>
+				))
+			}
 
-		<section class="group" id="equipos">
-			<h2 class="group-title">Equipos</h2>
-			<ul class="machines">
-				{
-					machines.map(machine => (
-						<li class={`machine machine-${machine.kind}`}>
-							<div class="machine-bar" aria-hidden="true">
-								<span />
-								<span />
-								<span />
-							</div>
-							<div class="machine-body">
-								<p class="machine-host">
-									<span class="machine-user">esteban</span>@
-									<span class="machine-name">
-										{machine.host}
-									</span>
-								</p>
-								<p class="machine-role">{machine.role}</p>
-								<dl class="machine-specs">
-									{machine.specs.map(([key, value]) => (
-										<div class="spec">
-											<dt>{key}</dt>
-											<dd>{value}</dd>
-										</div>
-									))}
-								</dl>
-							</div>
-						</li>
-					))
-				}
-			</ul>
-		</section>
-	</article>
+			<section class="group" id="equipos">
+				<h2 class="group-title">Equipos</h2>
+				<ul class="machines">
+					{
+						machines.map(machine => (
+							<li class={`machine machine-${machine.kind}`}>
+								<div class="machine-bar" aria-hidden="true">
+									<span />
+									<span />
+									<span />
+								</div>
+								<div class="machine-body">
+									<p class="machine-host">
+										<span class="machine-user">
+											esteban
+										</span>
+										@
+										<span class="machine-name">
+											{machine.host}
+										</span>
+									</p>
+									<p class="machine-role">{machine.role}</p>
+									<dl class="machine-specs">
+										{machine.specs.map(([key, value]) => (
+											<div class="spec">
+												<dt>{key}</dt>
+												<dd>{value}</dd>
+											</div>
+										))}
+									</dl>
+								</div>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</article>
+	</main>
 </Layout>
 
 <style is:global>

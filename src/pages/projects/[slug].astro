@@ -87,158 +87,160 @@ const breadcrumbSchema = {
 	schemas={[projectSchema, breadcrumbSchema]}
 	menu={await getProjectsMenu(slugOf(project))}
 >
-	<article class="project-page" style={`--p-color: ${color};`}>
-		<a href="/#projects" class="back">
-			<span aria-hidden="true">←</span> Volver a proyectos
-		</a>
+	<main id="contenido">
+		<article class="project-page" style={`--p-color: ${color};`}>
+			<a href="/#projects" class="back">
+				<span aria-hidden="true">←</span> Volver a proyectos
+			</a>
 
-		<header class="head">
-			<div class="meta">
-				<span class="meta-cat">{category}</span>
-				{year && <span class="meta-year">{year}</span>}
-			</div>
-			<h1 class="title">{title}</h1>
-			<p class="description">{description}</p>
-			<ul class="tags">
-				{tags.map(tag => <li>{tag}</li>)}
-			</ul>
-			{
-				(github || url) && (
-					<div class="links">
-						{url && (
-							<a
-								href={url}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="btn btn-primary"
-							>
-								Ver en vivo
-								<ArrowUpRight size={16} />
-							</a>
-						)}
-						{github && (
-							<a
-								href={github}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="btn btn-ghost"
-							>
-								<GitHub size={16} />
-								Código fuente
-							</a>
-						)}
-					</div>
-				)
-			}
-		</header>
-
-		{
-			disclaimer && (
-				<aside class="disclaimer" role="note">
-					<svg
-						viewBox="0 0 24 24"
-						width="18"
-						height="18"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						aria-hidden="true"
-					>
-						<circle cx="12" cy="12" r="10" />
-						<line x1="12" y1="16" x2="12" y2="12" />
-						<line x1="12" y1="8" x2="12.01" y2="8" />
-					</svg>
-					<span>{disclaimer}</span>
-				</aside>
-			)
-		}
-
-		{
-			image && (
-				<figure class="cover">
-					<button
-						type="button"
-						class="zoom-trigger"
-						data-zoom-src={image.src}
-						data-zoom-alt={`Captura de ${title}`}
-						aria-label={`Ampliar captura de ${title}`}
-					>
-						<Image
-							src={image}
-							alt={`Captura de ${title}`}
-							widths={[760, 1520]}
-							sizes="(min-width: 760px) 760px, 100vw"
-							loading="eager"
-						/>
-					</button>
-				</figure>
-			)
-		}
-
-		{
-			gallery && gallery.length > 0 && (
-				<ul class="gallery">
-					{gallery.map(item => (
-						<li class="gallery-item">
-							<figure>
-								<button
-									type="button"
-									class="zoom-trigger"
-									data-zoom-src={item.src.src}
-									data-zoom-alt={item.alt ?? ""}
-									aria-label={`Ampliar: ${item.alt || item.caption || "captura"}`}
-								>
-									<Image
-										src={item.src}
-										alt={item.alt ?? ""}
-										widths={[400, 760, 1520]}
-										sizes="(min-width: 760px) 360px, 100vw"
-										loading="lazy"
-									/>
-								</button>
-								{item.caption && (
-									<figcaption>{item.caption}</figcaption>
-								)}
-							</figure>
-						</li>
-					))}
+			<header class="head">
+				<div class="meta">
+					<span class="meta-cat">{category}</span>
+					{year && <span class="meta-year">{year}</span>}
+				</div>
+				<h1 class="title">{title}</h1>
+				<p class="description">{description}</p>
+				<ul class="tags">
+					{tags.map(tag => <li>{tag}</li>)}
 				</ul>
-			)
-		}
+				{
+					(github || url) && (
+						<div class="links">
+							{url && (
+								<a
+									href={url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="btn btn-primary"
+								>
+									Ver en vivo
+									<ArrowUpRight size={16} />
+								</a>
+							)}
+							{github && (
+								<a
+									href={github}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="btn btn-ghost"
+								>
+									<GitHub size={16} />
+									Código fuente
+								</a>
+							)}
+						</div>
+					)
+				}
+			</header>
 
-		{(image || (gallery && gallery.length > 0)) && <Lightbox />}
-
-		<div class="body prose">
-			<Content />
-		</div>
-
-		<nav class="pagination" aria-label="Otros proyectos">
 			{
-				prev && (
-					<a
-						href={`/projects/${slugOf(prev)}`}
-						class="page-link page-prev"
-					>
-						<span class="page-dir">← Anterior</span>
-						<span class="page-title">{prev.data.title}</span>
-					</a>
+				disclaimer && (
+					<aside class="disclaimer" role="note">
+						<svg
+							viewBox="0 0 24 24"
+							width="18"
+							height="18"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<circle cx="12" cy="12" r="10" />
+							<line x1="12" y1="16" x2="12" y2="12" />
+							<line x1="12" y1="8" x2="12.01" y2="8" />
+						</svg>
+						<span>{disclaimer}</span>
+					</aside>
 				)
 			}
+
 			{
-				next && (
-					<a
-						href={`/projects/${slugOf(next)}`}
-						class="page-link page-next"
-					>
-						<span class="page-dir">Siguiente →</span>
-						<span class="page-title">{next.data.title}</span>
-					</a>
+				image && (
+					<figure class="cover">
+						<button
+							type="button"
+							class="zoom-trigger"
+							data-zoom-src={image.src}
+							data-zoom-alt={`Captura de ${title}`}
+							aria-label={`Ampliar captura de ${title}`}
+						>
+							<Image
+								src={image}
+								alt={`Captura de ${title}`}
+								widths={[760, 1520]}
+								sizes="(min-width: 760px) 760px, 100vw"
+								loading="eager"
+							/>
+						</button>
+					</figure>
 				)
 			}
-		</nav>
-	</article>
+
+			{
+				gallery && gallery.length > 0 && (
+					<ul class="gallery">
+						{gallery.map(item => (
+							<li class="gallery-item">
+								<figure>
+									<button
+										type="button"
+										class="zoom-trigger"
+										data-zoom-src={item.src.src}
+										data-zoom-alt={item.alt ?? ""}
+										aria-label={`Ampliar: ${item.alt || item.caption || "captura"}`}
+									>
+										<Image
+											src={item.src}
+											alt={item.alt ?? ""}
+											widths={[400, 760, 1520]}
+											sizes="(min-width: 760px) 360px, 100vw"
+											loading="lazy"
+										/>
+									</button>
+									{item.caption && (
+										<figcaption>{item.caption}</figcaption>
+									)}
+								</figure>
+							</li>
+						))}
+					</ul>
+				)
+			}
+
+			{(image || (gallery && gallery.length > 0)) && <Lightbox />}
+
+			<div class="body prose">
+				<Content />
+			</div>
+
+			<nav class="pagination" aria-label="Otros proyectos">
+				{
+					prev && (
+						<a
+							href={`/projects/${slugOf(prev)}`}
+							class="page-link page-prev"
+						>
+							<span class="page-dir">← Anterior</span>
+							<span class="page-title">{prev.data.title}</span>
+						</a>
+					)
+				}
+				{
+					next && (
+						<a
+							href={`/projects/${slugOf(next)}`}
+							class="page-link page-next"
+						>
+							<span class="page-dir">Siguiente →</span>
+							<span class="page-title">{next.data.title}</span>
+						</a>
+					)
+				}
+			</nav>
+		</article>
+	</main>
 </Layout>
 
 <style is:global>
