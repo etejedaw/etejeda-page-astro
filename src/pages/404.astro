@@ -1,5 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { isBlogAvailable } from "../providers/ghost";
+
+const showBlog = await isBlogAvailable();
 ---
 
 <Layout title="404 - Esteban Tejeda" description="Página no encontrada" noindex>
@@ -29,16 +32,23 @@ import Layout from "../layouts/Layout.astro";
 						<span aria-hidden="true">←</span>
 						Volver al inicio
 					</a>
-					<a href="https://blog.etejeda.dev" class="btn btn-ghost">
-						Ir al blog
-					</a>
+					{
+						showBlog && (
+							<a
+								href="https://blog.etejeda.dev"
+								class="btn btn-ghost"
+							>
+								Ir al blog
+							</a>
+						)
+					}
 				</div>
 
 				<nav class="quick-nav" aria-label="Atajos">
 					<span class="quick-nav-label">Atajos</span>
 					<a href="/#about">Sobre mí</a>
 					<a href="/#projects">Proyectos</a>
-					<a href="/#blog">Blog</a>
+					{showBlog && <a href="/#blog">Blog</a>}
 					<a href="/#contact">Contacto</a>
 				</nav>
 			</div>
