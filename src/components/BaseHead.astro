@@ -3,6 +3,9 @@ interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	imageAlt?: string;
+	type?: "website" | "article";
+	schemas?: Record<string, unknown>[];
 	noindex?: boolean;
 }
 
@@ -11,8 +14,13 @@ const {
 	title,
 	description,
 	image = "/og-image-v2.png",
+	imageAlt = "Esteban Tejeda - Software Engineer",
+	type = "website",
+	schemas = [],
 	noindex = false
 } = Astro.props;
+
+const imageURL = new URL(image, Astro.site);
 
 const personSchema = {
 	"@context": "https://schema.org",
@@ -62,22 +70,29 @@ const personSchema = {
 <title>{title}</title>
 <meta name="description" content={description} />
 
-<meta property="og:type" content="website" />
+<meta property="og:type" content={type} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:site_name" content="Esteban Tejeda" />
 <meta property="og:locale" content="es_CL" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
-<meta property="og:image:alt" content="Esteban Tejeda - Software Engineer" />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={imageAlt} />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={new URL(image, Astro.url)} />
+<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />
 
-<script
-	is:inline
-	type="application/ld+json"
-	set:html={JSON.stringify(personSchema)}
-/>
+{
+	[personSchema, ...schemas].map(schema => (
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify(schema)}
+		/>
+	))
+}

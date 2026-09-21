@@ -1,22 +1,17 @@
 ---
+import type { ComponentProps } from "astro/types";
 import { Font } from "astro:assets";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import "../styles/global.css";
 
-interface Props {
-	title: string;
-	description: string;
-	noindex?: boolean;
-}
-
-const { title, description, noindex = false } = Astro.props;
+type Props = ComponentProps<typeof BaseHead>;
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
-		<BaseHead title={title} description={description} noindex={noindex} />
+		<BaseHead {...Astro.props} />
 		<script is:inline>
 			(function () {
 				var theme;

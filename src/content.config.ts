@@ -9,6 +9,7 @@ const projects = defineCollection({
 			title: z.string(),
 			short: z.string(),
 			description: z.string(),
+			summary: z.string().max(160).optional(),
 			tags: z.array(z.string()),
 			color: z.string(),
 			category: z.enum(["Freelance", "Personal", "Investigación"]),
