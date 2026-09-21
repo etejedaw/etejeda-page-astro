@@ -1,10 +1,26 @@
 ---
+import Zap from "./icons/Zap.astro";
+import Link from "./icons/Link.astro";
+import Server from "./icons/Server.astro";
+import GitBranch from "./icons/GitBranch.astro";
+import Layers from "./icons/Layers.astro";
+
+type IconName = "zap" | "link" | "server" | "branch" | "layers";
+
 interface Skill {
 	title: string;
 	description: string;
 	tags: string[];
-	icon: string;
+	icon: IconName;
 }
+
+const iconMap = {
+	zap: Zap,
+	link: Link,
+	server: Server,
+	branch: GitBranch,
+	layers: Layers
+};
 
 const skills: Skill[] = [
 	{
@@ -19,35 +35,35 @@ const skills: Skill[] = [
 			"Zod",
 			"Express"
 		],
-		icon: "&#9889;"
+		icon: "zap"
 	},
 	{
 		title: "Integraciones & Automatización",
 		description:
 			"Conexión entre plataformas y sistemas externos. Transformación de datos, mappers y serializers para hacer hablar a formatos que no fueron diseñados para entenderse.",
 		tags: ["APIs REST", "Webhooks", "ETL", "SAP", "Snowflake", "CRMs"],
-		icon: "&#128279;"
+		icon: "link"
 	},
 	{
 		title: "Infraestructura & CI/CD",
 		description:
 			"Servidores GNU/Linux, contenedores, CI/CD y bases de datos. Lo suficiente para montar, desplegar y mantener lo que construyo sin depender de otro equipo.",
 		tags: ["GNU/Linux", "Docker", "CapRover", "PostgreSQL", "MySQL"],
-		icon: "&#9881;"
+		icon: "server"
 	},
 	{
 		title: "Workflow Automation & SaaS",
 		description:
 			"Diseñé la arquitectura de integraciones para clientes enterprise, mentoricé partners y traduje necesidades de negocio en soluciones técnicas sobre plataformas de workflow automation como Cotalker.",
 		tags: ["Workflow Automation", "Cotalker", "Cotlang", "Data Modeling"],
-		icon: "&#128736;"
+		icon: "branch"
 	},
 	{
 		title: "Producto end to end",
 		description:
 			"Funcionalidades completas sobre producto en producción: del modelo de datos y la API hasta la interfaz en React, en flujos financieros donde los números tienen que cuadrar.",
 		tags: ["React", "TypeScript", "DynamoDB", "REST"],
-		icon: "&#128208;"
+		icon: "layers"
 	}
 ];
 ---
@@ -59,24 +75,25 @@ const skills: Skill[] = [
 
 	<div class="skills">
 		{
-			skills.map(skill => (
-				<article class="skill">
-					<div
-						class="skill-icon"
-						aria-hidden="true"
-						set:html={skill.icon}
-					/>
-					<div class="skill-content">
-						<h3 class="skill-title">{skill.title}</h3>
-						<p class="skill-description">{skill.description}</p>
-						<ul class="skill-tags">
-							{skill.tags.map(tag => (
-								<li>{tag}</li>
-							))}
-						</ul>
-					</div>
-				</article>
-			))
+			skills.map(skill => {
+				const Icon = iconMap[skill.icon];
+				return (
+					<article class="skill">
+						<div class="skill-icon" aria-hidden="true">
+							<Icon size={24} />
+						</div>
+						<div class="skill-content">
+							<h3 class="skill-title">{skill.title}</h3>
+							<p class="skill-description">{skill.description}</p>
+							<ul class="skill-tags">
+								{skill.tags.map(tag => (
+									<li>{tag}</li>
+								))}
+							</ul>
+						</div>
+					</article>
+				);
+			})
 		}
 	</div>
 </section>
@@ -135,11 +152,9 @@ const skills: Skill[] = [
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 1.6rem;
-		line-height: 1;
+		color: var(--accent);
 		background: var(--accent-soft);
 		border-radius: 10px;
-		filter: saturate(1.1);
 	}
 
 	.skill-content {
@@ -190,7 +205,6 @@ const skills: Skill[] = [
 		.skill-icon {
 			width: 48px;
 			height: 48px;
-			font-size: 1.4rem;
 		}
 	}
 </style>
