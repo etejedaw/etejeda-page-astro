@@ -1,4 +1,6 @@
 ---
+import { isBlogAvailable } from "../providers/ghost";
+
 interface Props {
 	title: string;
 	description: string;
@@ -21,6 +23,7 @@ const {
 } = Astro.props;
 
 const imageURL = new URL(image, Astro.site);
+const showBlog = await isBlogAvailable();
 
 const personSchema = {
 	"@context": "https://schema.org",
@@ -63,6 +66,16 @@ const personSchema = {
 <meta name="color-scheme" content="dark light" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
+{
+	showBlog && (
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			title="Blog de Esteban Tejeda"
+			href="https://blog.etejeda.dev/rss/"
+		/>
+	)
+}
 
 <link rel="canonical" href={canonicalURL} />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
