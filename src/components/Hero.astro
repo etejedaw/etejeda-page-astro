@@ -5,12 +5,15 @@ import GitHub from "./icons/GitHub.astro";
 import LinkedIn from "./icons/LinkedIn.astro";
 import Mail from "./icons/Mail.astro";
 import Book from "./icons/Book.astro";
+import { isBlogAvailable } from "../providers/ghost";
 
 interface NavLink {
 	href: string;
 	label: string;
 	id: string;
 }
+
+const showBlog = await isBlogAvailable();
 
 const navLinks: NavLink[] = [
 	{ href: "#sobre-mi", label: "Sobre mí", id: "sobre-mi" },
@@ -19,7 +22,7 @@ const navLinks: NavLink[] = [
 	{ href: "#projects", label: "Proyectos", id: "projects" },
 	{ href: "#blog", label: "Blog", id: "blog" },
 	{ href: "#contacto", label: "Contacto", id: "contacto" }
-];
+].filter(link => showBlog || link.href !== "#blog");
 ---
 
 <section class="hero">

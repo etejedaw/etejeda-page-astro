@@ -2,7 +2,6 @@
 import { getTotalPosts } from "../providers/ghost";
 
 const totalPosts = await getTotalPosts();
-const roundedPosts = Math.floor(totalPosts / 5) * 5;
 const yearsOfExperience = new Date().getFullYear() - 2022;
 
 interface Stat {
@@ -15,9 +14,15 @@ const stats: Stat[] = [
 		value: `${yearsOfExperience}+`,
 		label: "años construyendo software en producción"
 	},
-	{ value: "20+", label: "proyectos de integración entregados" },
-	{ value: `${roundedPosts}+`, label: "artículos técnicos publicados" }
+	{ value: "20+", label: "proyectos de integración entregados" }
 ];
+
+if (totalPosts !== null) {
+	stats.push({
+		value: `${Math.floor(totalPosts / 5) * 5}+`,
+		label: "artículos técnicos publicados"
+	});
+}
 ---
 
 <section class="section" id="sobre-mi">
@@ -76,7 +81,7 @@ const stats: Stat[] = [
 			</p>
 		</div>
 
-		<dl class="stats">
+		<dl class="stats" style={`--stats-count: ${stats.length};`}>
 			{
 				stats.map(stat => (
 					<div class="stat">
@@ -162,7 +167,7 @@ const stats: Stat[] = [
 
 	.stats {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(var(--stats-count), 1fr);
 		gap: 0;
 		margin-top: 2.5rem;
 		border: 1px solid var(--rule);

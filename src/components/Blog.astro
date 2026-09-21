@@ -10,7 +10,7 @@ interface Serie {
 	name: string;
 	description: string;
 	tagSlug: string;
-	posts?: number;
+	posts?: number | null;
 	color: string;
 }
 
@@ -60,9 +60,12 @@ const seriesConfig: Serie[] = [
 ];
 
 const recentPosts = await getRecentPosts(3);
+const hasPosts = recentPosts !== null && recentPosts.length > 0;
 
 const seriesSlug = seriesConfig.map(s => s.tagSlug);
-const counts = await Promise.all(seriesSlug.map(getPostCountByTag));
+const counts = hasPosts
+	? await Promise.all(seriesSlug.map(getPostCountByTag))
+	: [];
 
 const series = seriesConfig.map((serie, index) => ({
 	...serie,
@@ -99,152 +102,156 @@ function formatDate(dateStr: string): string {
 }
 ---
 
-<section class="section" id="blog">
-	<header class="section-header">
-		<h2 class="section-title">Blog</h2>
-	</header>
+{
+	hasPosts && (
+		<section class="section" id="blog">
+			<header class="section-header">
+				<h2 class="section-title">Blog</h2>
+			</header>
 
-	<div class="block">
-		<h3 class="block-title">Últimos artículos</h3>
-		<ol class="posts">
-			{
-				recentPosts.map(post => {
-					const seriesTag = getPostSeriesTag(post);
-					const accentColor = seriesTag
-						? tagColorMap[seriesTag.slug]
-						: "var(--accent)";
-					return (
+			<div class="block">
+				<h3 class="block-title">Últimos artículos</h3>
+				<ol class="posts">
+					{recentPosts.map(post => {
+						const seriesTag = getPostSeriesTag(post);
+						const accentColor = seriesTag
+							? tagColorMap[seriesTag.slug]
+							: "var(--accent)";
+						return (
+							<li>
+								<a
+									href={post.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="post"
+								>
+									{post.feature_image ? (
+										<div class="post-cover">
+											<img
+												src={resizedCover(
+													post.feature_image
+												)}
+												alt={
+													post.feature_image_alt ||
+													post.title
+												}
+												loading="lazy"
+												decoding="async"
+											/>
+										</div>
+									) : (
+										<div
+											class="post-cover post-cover-fallback"
+											style={`background: linear-gradient(135deg, ${accentColor}, color-mix(in srgb, ${accentColor} 50%, var(--bg-surface)));`}
+										>
+											<span aria-hidden="true">¶</span>
+										</div>
+									)}
+									<div class="post-body">
+										<div class="post-meta">
+											<time datetime={post.published_at}>
+												{formatDate(post.published_at)}
+											</time>
+											{seriesTag && (
+												<span
+													class="post-series"
+													style={`color: ${accentColor};`}
+												>
+													<span
+														class="post-dot"
+														style={`background: ${accentColor};`}
+													/>
+													{seriesTag.name}
+												</span>
+											)}
+										</div>
+										<h4 class="post-title">
+											{post.title}
+											<span
+												class="post-arrow"
+												aria-hidden="true"
+											>
+												<ArrowUpRight size={14} />
+											</span>
+										</h4>
+										<p class="post-excerpt">
+											{post.excerpt}
+										</p>
+									</div>
+								</a>
+							</li>
+						);
+					})}
+				</ol>
+				<a
+					href="https://blog.etejeda.dev/#/portal/signup/free"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="newsletter"
+				>
+					<div class="newsletter-text">
+						<span class="newsletter-eyebrow">Newsletter</span>
+						<span class="newsletter-title">
+							Recibe los nuevos posts en tu correo.
+						</span>
+					</div>
+					<span class="newsletter-cta">
+						Suscribirse
+						<ArrowUpRight size={16} />
+					</span>
+				</a>
+			</div>
+
+			<div class="block">
+				<h3 class="block-title">Series</h3>
+				<ul class="series-list">
+					{series.map(serie => (
 						<li>
 							<a
-								href={post.url}
+								href={`https://blog.etejeda.dev/tag/${serie.tagSlug}/`}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="post"
+								class="series"
+								style={`--s-color: ${serie.color};`}
 							>
-								{post.feature_image ? (
-									<div class="post-cover">
-										<img
-											src={resizedCover(
-												post.feature_image
-											)}
-											alt={
-												post.feature_image_alt ||
-												post.title
-											}
-											loading="lazy"
-											decoding="async"
-										/>
-									</div>
-								) : (
-									<div
-										class="post-cover post-cover-fallback"
-										style={`background: linear-gradient(135deg, ${accentColor}, color-mix(in srgb, ${accentColor} 50%, var(--bg-surface)));`}
-									>
-										<span aria-hidden="true">¶</span>
-									</div>
-								)}
-								<div class="post-body">
-									<div class="post-meta">
-										<time datetime={post.published_at}>
-											{formatDate(post.published_at)}
-										</time>
-										{seriesTag && (
-											<span
-												class="post-series"
-												style={`color: ${accentColor};`}
-											>
-												<span
-													class="post-dot"
-													style={`background: ${accentColor};`}
-												/>
-												{seriesTag.name}
+								<span class="series-mark" />
+								<div class="series-body">
+									<div class="series-header">
+										<span class="series-name">
+											{serie.name}
+										</span>
+										{serie.posts != null && (
+											<span class="series-count">
+												{serie.posts}{" "}
+												{serie.posts === 1
+													? "artículo"
+													: "artículos"}
 											</span>
 										)}
 									</div>
-									<h4 class="post-title">
-										{post.title}
-										<span
-											class="post-arrow"
-											aria-hidden="true"
-										>
-											<ArrowUpRight size={14} />
-										</span>
-									</h4>
-									<p class="post-excerpt">{post.excerpt}</p>
+									<p class="series-description">
+										{serie.description}
+									</p>
 								</div>
 							</a>
 						</li>
-					);
-				})
-			}
-		</ol>
-		<a
-			href="https://blog.etejeda.dev/#/portal/signup/free"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="newsletter"
-		>
-			<div class="newsletter-text">
-				<span class="newsletter-eyebrow">Newsletter</span>
-				<span class="newsletter-title">
-					Recibe los nuevos posts en tu correo.
-				</span>
+					))}
+				</ul>
 			</div>
-			<span class="newsletter-cta">
-				Suscribirse
-				<ArrowUpRight size={16} />
-			</span>
-		</a>
-	</div>
 
-	<div class="block">
-		<h3 class="block-title">Series</h3>
-		<ul class="series-list">
-			{
-				series.map(serie => (
-					<li>
-						<a
-							href={`https://blog.etejeda.dev/tag/${serie.tagSlug}/`}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="series"
-							style={`--s-color: ${serie.color};`}
-						>
-							<span class="series-mark" />
-							<div class="series-body">
-								<div class="series-header">
-									<span class="series-name">
-										{serie.name}
-									</span>
-									<span class="series-count">
-										{serie.posts}{" "}
-										{serie.posts === 1
-											? "artículo"
-											: "artículos"}
-									</span>
-								</div>
-								<p class="series-description">
-									{serie.description}
-								</p>
-							</div>
-						</a>
-					</li>
-				))
-			}
-		</ul>
-	</div>
-
-	<p class="cta">
-		<a
-			href="https://blog.etejeda.dev"
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			Explorar el blog completo
-			<ArrowUpRight size={14} />
-		</a>
-	</p>
-</section>
+			<p class="cta">
+				<a
+					href="https://blog.etejeda.dev"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Explorar el blog completo
+					<ArrowUpRight size={14} />
+				</a>
+			</p>
+		</section>
+	)
+}
 
 <style>
 	.section {
