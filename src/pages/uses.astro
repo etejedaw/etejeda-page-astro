@@ -38,32 +38,14 @@ const groups: ToolGroup[] = [
 			{
 				name: "Hyper + zsh",
 				description:
-					"Terminal hecha con tecnologías web y configurable con JavaScript. zsh con Oh My Zsh, Powerlevel10k, autosuggestions y syntax highlighting.",
+					"Terminal hecha con tecnologías web y configurable con JavaScript. zsh con Oh My Zsh y Powerlevel10k, junto a fzf, eza, bat y jq.",
 				foss: true
 			},
 			{
-				name: "JetBrains Mono",
-				description:
-					"La fuente de mi editor y mi terminal, en su versión Nerd Font con íconos. También es la que ves en este sitio.",
-				foss: true
-			},
-			{
-				name: "CLI moderna",
-				description:
-					"eza, bat, fzf y jq: ls y cat con mejor formato, búsqueda interactiva y JSON desde la terminal.",
-				foss: true
-			},
-			{
-				name: "Git",
-				description:
-					"gh para trabajar con GitHub desde la terminal, git-flow para las ramas y gitleaks para no subir secretos por error.",
-				foss: true
-			},
-			{
-				name: "Docker Desktop",
+				name: "Docker",
 				description:
 					"Contenedores en local, para levantar los mismos servicios que corren en el VPS y el homelab.",
-				foss: false
+				foss: true
 			},
 			{
 				name: "Bruno",
@@ -118,7 +100,7 @@ const groups: ToolGroup[] = [
 				description:
 					"El CMS de mi blog. Este sitio consume su API en cada build.",
 				foss: true,
-				replaces: "Medium / Substack"
+				replaces: "WordPress"
 			},
 			{
 				name: "Nextcloud",
@@ -149,20 +131,6 @@ const groups: ToolGroup[] = [
 				replaces: "Excel / Airtable"
 			},
 			{
-				name: "Linkwarden",
-				description:
-					"Guarda y archiva mis enlaces, con copia de la página por si el original desaparece.",
-				foss: true,
-				replaces: "Pocket / Raindrop"
-			},
-			{
-				name: "Miniflux",
-				description:
-					"Lector de RSS minimalista para seguir blogs y noticias.",
-				foss: true,
-				replaces: "Feedly"
-			},
-			{
 				name: "Umami",
 				description:
 					"Analítica web sin cookies y respetuosa de la privacidad.",
@@ -185,7 +153,7 @@ const groups: ToolGroup[] = [
 			{
 				name: "VPS + CapRover",
 				description:
-					"Mi servidor para todo lo que necesita backend: las apps self-hosted, Completr y un servicio de correo propio hecho con Hono, sobre PostgreSQL, MariaDB y Redis compartidos.",
+					"Mi servidor para todo lo que necesita backend: las apps self-hosted y Completr, sobre PostgreSQL, MariaDB y Redis compartidos.",
 				foss: true
 			},
 			{
