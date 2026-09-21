@@ -2,6 +2,7 @@
 title: Wayback Scraping
 short: WB
 description: "Pipeline en Node + TypeScript para extraer millones de snapshots históricos de care.com desde Wayback Machine, como insumo de un paper del Prof. Luis Ignacio Valenzuela sobre brechas de género en la gig economy estadounidense durante la pandemia. Mi primera colaboración con un proyecto FONDECYT; el antecesor directo (en aprendizajes y en errores) del CORE Model."
+summary: "Pipeline en Node y TypeScript que extrajo millones de snapshots de care.com desde Wayback Machine para un paper sobre la gig economy en pandemia."
 tags: [TypeScript, Node.js, Web Scraping, Wayback Machine]
 color: "#10b981"
 category: Investigación

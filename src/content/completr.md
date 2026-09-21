@@ -2,6 +2,7 @@
 title: Completr
 short: C
 description: "Aplicación web para hacer seguimiento a tu backlog de videojuegos: pendientes, jugando, completados, abandonados. Inspirada en Trakt pero enfocada en gaming, con un sistema de ratio (puntaje / duración estimada) que prioriza qué jugar primero. Proyecto 100% personal, backend y frontend hechos íntegramente por mí, con el código abierto bajo AGPL-3.0. Actualmente en beta cerrada, abierta a invitaciones."
+summary: "App web para organizar tu backlog de videojuegos, con un ratio de puntaje y duración que prioriza qué jugar primero. Código abierto bajo AGPL-3.0."
 tags: [TypeScript, Express, PostgreSQL, Angular, PWA, CapRover]
 color: "#8b5cf6"
 category: Personal

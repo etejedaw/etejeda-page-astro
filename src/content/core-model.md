@@ -2,6 +2,7 @@
 title: CORE Model
 short: CM
 description: "Pipeline ETL para mi tesis de Ingeniería Civil en Informática, hecho con el PRU-Lab dentro de un proyecto FONDECYT sobre resiliencia comunitaria ante tsunamis en la costa chilena. Recopila indicadores sociales desde fuentes abiertas heterogéneas (HTML, APIs JSON, PDFs, planillas), las normaliza y las publica como dashboards en Metabase. Arquitectura modular con adapters para que sumar una fuente nueva no requiera reescribir el core. Sistema funcional; defensa pendiente."
+summary: "Pipeline ETL para un proyecto FONDECYT: recopila y normaliza indicadores sociales de fuentes abiertas para medir resiliencia ante tsunamis."
 tags: [TypeScript, Node.js, MongoDB, Metabase]
 color: "#3b82f6"
 category: Investigación

@@ -2,6 +2,7 @@
 title: Sistema Contable
 short: SC
 description: "Sistema interno para una oficina contable: gestión de clientes, generación automática de declaraciones IVA mensuales, indicadores económicos al día y panel para el staff. Reemplazó un flujo de planillas impresas y check manual por una plataforma única que centraliza el estado de cada cliente. Más de 100 clientes activos, en evolución activa con nuevas features periódicas."
+summary: "Sistema interno para una oficina contable con más de 100 clientes: gestión de clientes, declaraciones de IVA automáticas e indicadores económicos."
 tags: [NestJS, TypeScript, PostgreSQL, Coolify]
 color: "#ef4444"
 category: Freelance

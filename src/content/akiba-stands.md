@@ -2,6 +2,7 @@
 title: Akiba Stands
 short: AK
 description: "Plataforma para gestionar las postulaciones y asignación de stands en Akiba Festival, evento anual de cultura japonesa en Valdivia. Reemplazó un flujo manual de planillas, correo y mensajería por un único sistema con postulación, selección de stands, mapa de disponibilidad y confirmación de pago. Sistema en producción."
+summary: "Plataforma para gestionar postulaciones y stands de Akiba Festival en Valdivia: reemplazó planillas y correos por un solo sistema. En producción."
 tags: [Express, TypeScript, PostgreSQL, Sequelize, Coolify]
 color: "#f59e0b"
 category: Freelance
