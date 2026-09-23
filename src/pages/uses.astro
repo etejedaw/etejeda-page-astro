@@ -365,8 +365,6 @@ const tools = groups.flatMap(group => group.tools);
 const fossCount = tools.filter(tool => tool.foss).length;
 const fossRatio = fossCount / tools.length;
 const fossPercent = Math.round(fossRatio * 100);
-const fossBarSize = 20;
-const fossBarFilled = Math.round(fossRatio * fossBarSize);
 
 const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 	month: "long",
@@ -395,22 +393,22 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 					escritorio de trabajo, y licencias libres en todo lo que
 					publico.
 				</p>
-				<p class="foss-meter">
-					<span class="foss-bar" aria-hidden="true">
-						[<span class="foss-bar-fill"
-							>{"█".repeat(fossBarFilled)}</span
-						><span class="foss-bar-empty"
-							>{"░".repeat(fossBarSize - fossBarFilled)}</span
-						>]
-					</span>
-					<span class="foss-percent">{fossPercent}%</span>
-					<span class="badge badge-foss" title="Software libre">
-						FOSS
-					</span>
-					<span class="foss-count">
-						{fossCount} de {tools.length} herramientas son software libre
-					</span>
-				</p>
+				<div class="foss-meter">
+					<div class="foss-track" aria-hidden="true">
+						<span
+							class="foss-fill"
+							style={{ width: `${fossRatio * 100}%` }}></span>
+					</div>
+					<p class="foss-label">
+						<span class="foss-percent">{fossPercent}%</span>
+						<span class="badge badge-foss" title="Software libre">
+							FOSS
+						</span>
+						<span class="foss-count">
+							{fossCount} de {tools.length} herramientas
+						</span>
+					</p>
+				</div>
 			</header>
 
 			{
@@ -560,28 +558,46 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 		color: var(--text-muted);
 	}
 
+	/* Same font size and max-width as .lede so the bar spans the paragraph */
 	.foss-meter {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem 1rem;
+		font-size: 1.1rem;
+		max-width: 62ch;
+	}
+
+	.foss-track {
+		flex: 1 1 12rem;
+		height: 0.6rem;
+		background: var(--rule-strong);
+		-webkit-mask-image: repeating-linear-gradient(
+			90deg,
+			#000 0 6px,
+			transparent 6px 8px
+		);
+		mask-image: repeating-linear-gradient(
+			90deg,
+			#000 0 6px,
+			transparent 6px 8px
+		);
+	}
+
+	.foss-fill {
+		display: block;
+		height: 100%;
+		background: var(--accent);
+	}
+
+	.foss-label {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		column-gap: 0.75rem;
 		row-gap: 0.35rem;
-		margin-top: 1.25rem;
 		font-family: var(--font-jetbrains-mono), monospace;
 		font-size: 0.85rem;
-	}
-
-	.foss-bar {
-		color: var(--text-muted);
-		white-space: nowrap;
-	}
-
-	.foss-bar-fill {
-		color: var(--accent);
-	}
-
-	.foss-bar-empty {
-		color: var(--rule-strong);
 	}
 
 	.foss-percent {
@@ -590,7 +606,6 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 	}
 
 	.foss-count {
-		flex-basis: 100%;
 		font-size: 0.8rem;
 		color: var(--text-muted);
 	}
