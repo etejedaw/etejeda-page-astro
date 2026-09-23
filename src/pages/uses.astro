@@ -202,33 +202,21 @@ const groups: ToolGroup[] = [
 		title: "Infraestructura",
 		tools: [
 			{
-				name: "GNU/Linux",
+				name: "CapRover + Coolify",
 				description:
-					"Ubuntu Server en el VPS y Fedora Server en el homelab.",
-				foss: true
-			},
-			{
-				name: "VPS + CapRover",
-				description:
-					"Mi servidor para todo lo que necesita backend: las apps self-hosted y Completr.",
+					"Despliegue self-hosted en dos VPS: CapRover sobre Ubuntu Server para las apps self-hosted y Completr, y Coolify para los proyectos freelance, así no se mezclan.",
 				foss: true
 			},
 			{
 				name: "PostgreSQL + MariaDB + Redis",
 				description:
-					"Bases de datos compartidas en el VPS: una instancia de cada motor para todas las apps, en vez de una por proyecto.",
+					"Bases de datos compartidas en el VPS de CapRover: una instancia de cada motor para todas las apps, en vez de una por proyecto.",
 				foss: true
 			},
 			{
 				name: "Docker",
 				description:
-					"La base de todo lo que despliego: el VPS, el homelab y los proyectos freelance corren en contenedores.",
-				foss: true
-			},
-			{
-				name: "VPS + Coolify",
-				description:
-					"Plataforma de despliegue self-hosted para los proyectos freelance.",
+					"La base de todo lo que despliego: los VPS y el homelab corren todo en contenedores.",
 				foss: true
 			},
 			{
