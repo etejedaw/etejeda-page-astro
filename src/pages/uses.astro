@@ -361,6 +361,13 @@ const menu: MenuGroup[] = [
 	}
 ];
 
+const tools = groups.flatMap(group => group.tools);
+const fossCount = tools.filter(tool => tool.foss).length;
+const fossRatio = fossCount / tools.length;
+const fossPercent = Math.round(fossRatio * 100);
+const fossBarSize = 20;
+const fossBarFilled = Math.round(fossRatio * fossBarSize);
+
 const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 	month: "long",
 	year: "numeric",
@@ -394,6 +401,22 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 				>
 					Actualizado en {updatedLabel}
 				</time>
+				<p class="foss-meter">
+					<span class="foss-bar" aria-hidden="true">
+						[<span class="foss-bar-fill"
+							>{"█".repeat(fossBarFilled)}</span
+						><span class="foss-bar-empty"
+							>{"░".repeat(fossBarSize - fossBarFilled)}</span
+						>]
+					</span>
+					<span class="foss-percent">{fossPercent}%</span>
+					<span class="badge badge-foss" title="Software libre">
+						FOSS
+					</span>
+					<span class="foss-count">
+						{fossCount} de {tools.length} herramientas son software libre
+					</span>
+				</p>
 			</header>
 
 			{
@@ -525,6 +548,41 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 
 	.updated {
 		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.8rem;
+		color: var(--text-muted);
+	}
+
+	.foss-meter {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		column-gap: 0.75rem;
+		row-gap: 0.35rem;
+		margin-top: 1.25rem;
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.85rem;
+	}
+
+	.foss-bar {
+		color: var(--text-muted);
+		white-space: nowrap;
+	}
+
+	.foss-bar-fill {
+		color: var(--accent);
+	}
+
+	.foss-bar-empty {
+		color: var(--rule-strong);
+	}
+
+	.foss-percent {
+		font-weight: 700;
+		color: var(--accent);
+	}
+
+	.foss-count {
+		flex-basis: 100%;
 		font-size: 0.8rem;
 		color: var(--text-muted);
 	}
