@@ -1,9 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ArrowUpRight from "../components/icons/ArrowUpRight.astro";
 import type { MenuGroup } from "../lib/menu";
 
 interface Tool {
 	name: string;
+	// One URL per " + "-separated part of the name
+	url: string | string[];
 	description: string;
 	foss: boolean;
 	replaces?: string;
@@ -31,36 +34,45 @@ const groups: ToolGroup[] = [
 		tools: [
 			{
 				name: "VSCodium",
+				url: "https://vscodium.com",
 				description:
 					"Mi editor. Es VS Code compilado sin telemetría ni licencias propietarias: las mismas extensiones, sin rastreo.",
 				foss: true
 			},
 			{
 				name: "Hyper + zsh",
+				url: ["https://hyper.is", "https://www.zsh.org"],
 				description:
 					"Terminal hecha con tecnologías web y configurable con JavaScript. zsh con Oh My Zsh y Powerlevel10k, junto a fzf, eza, bat y jq.",
 				foss: true
 			},
 			{
 				name: "Bruno",
+				url: "https://www.usebruno.com",
 				description:
 					"Cliente de APIs offline: las colecciones viven en el repo como archivos de texto y se versionan con git.",
 				foss: true
 			},
 			{
 				name: "DBeaver",
+				url: "https://dbeaver.io",
 				description:
 					"Cliente de bases de datos para PostgreSQL y MySQL. Uno solo para todos los motores relacionales.",
 				foss: true
 			},
 			{
 				name: "Studio 3T",
+				url: "https://studio3t.com",
 				description:
 					"Lo mismo que DBeaver, pero para explorar y consultar MongoDB.",
 				foss: false
 			},
 			{
 				name: "Claude Code + herdr",
+				url: [
+					"https://claude.com/product/claude-code",
+					"https://herdr.dev"
+				],
 				description:
 					"IA en la terminal: le delego la escritura de código y yo reviso y decido. Con herdr trabajo con varios agentes y modelos en paralelo.",
 				foss: false
@@ -73,48 +85,56 @@ const groups: ToolGroup[] = [
 		tools: [
 			{
 				name: "Brave",
+				url: "https://brave.com",
 				description:
 					"Mi navegador. Basado en Chromium, con bloqueo de anuncios y rastreadores incluido.",
 				foss: true
 			},
 			{
 				name: "Thunderbird",
+				url: "https://www.thunderbird.net",
 				description:
 					"Mi cliente de correo en Linux: todas las cuentas en un solo lugar, con filtros y sin depender del webmail.",
 				foss: true
 			},
 			{
 				name: "KOrganizer",
+				url: "https://apps.kde.org/korganizer/",
 				description:
 					"El calendario de KDE. Se integra con el escritorio y sincroniza mis agendas por CalDAV.",
 				foss: true
 			},
 			{
 				name: "Zanshin",
+				url: "https://apps.kde.org/zanshin/",
 				description:
 					"Gestor de tareas de KDE inspirado en GTD: vacío la cabeza en la bandeja de entrada y después ordeno por proyectos y contextos.",
 				foss: true
 			},
 			{
 				name: "Vicinae",
+				url: "https://vicinae.com",
 				description:
 					"Lo mismo que Raycast, pero en Linux: nativo, rápido y compatible con muchas de sus extensiones.",
 				foss: true
 			},
 			{
 				name: "Typora",
+				url: "https://typora.io",
 				description:
 					"Editor de Markdown sin distracciones: el formato se aplica mientras escribo, sin panel de vista previa.",
 				foss: false
 			},
 			{
 				name: "Raycast",
+				url: "https://www.raycast.com",
 				description:
 					"Lanzador para macOS: apps, atajos y comandos sin sacar las manos del teclado.",
 				foss: false
 			},
 			{
 				name: "Steam",
+				url: "https://store.steampowered.com",
 				description:
 					"Técnicamente no es productividad. Pero descansar también es parte del trabajo.",
 				foss: false
@@ -127,6 +147,7 @@ const groups: ToolGroup[] = [
 		tools: [
 			{
 				name: "Ghost",
+				url: "https://ghost.org",
 				description:
 					"El CMS de mi blog. Este sitio consume su API en cada build.",
 				foss: true,
@@ -134,6 +155,7 @@ const groups: ToolGroup[] = [
 			},
 			{
 				name: "Nextcloud",
+				url: "https://nextcloud.com",
 				description:
 					"Mi nube personal para archivos, en mi propio servidor.",
 				foss: true,
@@ -141,6 +163,7 @@ const groups: ToolGroup[] = [
 			},
 			{
 				name: "OnlyOffice",
+				url: "https://www.onlyoffice.com",
 				description:
 					"Suite de oficina libre para editar documentos, planillas y presentaciones desde el navegador.",
 				foss: true,
@@ -148,6 +171,7 @@ const groups: ToolGroup[] = [
 			},
 			{
 				name: "AFFiNE",
+				url: "https://affine.pro",
 				description:
 					"Donde organizo mis proyectos personales: pendientes, ideas y avances en un mismo espacio.",
 				foss: true,
@@ -155,6 +179,7 @@ const groups: ToolGroup[] = [
 			},
 			{
 				name: "NocoDB",
+				url: "https://nocodb.com",
 				description:
 					"Para las tablas que en Excel se quedan cortas: relaciones, tipos y vistas, pensando como base de datos.",
 				foss: true,
@@ -162,6 +187,7 @@ const groups: ToolGroup[] = [
 			},
 			{
 				name: "Linkwarden",
+				url: "https://linkwarden.app",
 				description:
 					"Guarda y organiza mis enlaces, con una copia de cada página por si el original desaparece.",
 				foss: true,
@@ -169,6 +195,7 @@ const groups: ToolGroup[] = [
 			},
 			{
 				name: "Miniflux",
+				url: "https://miniflux.app",
 				description:
 					"Lector RSS minimalista: sigo blogs y sitios sin algoritmos ni redes sociales de por medio.",
 				foss: true,
@@ -176,6 +203,7 @@ const groups: ToolGroup[] = [
 			},
 			{
 				name: "Stirling PDF",
+				url: "https://www.stirlingpdf.com",
 				description:
 					"Herramientas para PDF (unir, dividir, comprimir, convertir) sin subir mis documentos a sitios de terceros.",
 				foss: true,
@@ -183,6 +211,7 @@ const groups: ToolGroup[] = [
 			},
 			{
 				name: "Umami",
+				url: "https://umami.is",
 				description:
 					"Analítica web sin cookies y respetuosa de la privacidad.",
 				foss: true,
@@ -190,6 +219,7 @@ const groups: ToolGroup[] = [
 			},
 			{
 				name: "Uptime Kuma",
+				url: "https://uptime.kuma.pet",
 				description:
 					"Monitorea que mis sitios y servicios sigan arriba, y avisa si algo cae.",
 				foss: true,
@@ -203,24 +233,32 @@ const groups: ToolGroup[] = [
 		tools: [
 			{
 				name: "CapRover + Coolify",
+				url: ["https://caprover.com", "https://coolify.io"],
 				description:
 					"Despliegue self-hosted en dos VPS: CapRover sobre Ubuntu Server para las apps self-hosted y Completr, y Coolify para los proyectos freelance, así no se mezclan.",
 				foss: true
 			},
 			{
 				name: "PostgreSQL + MariaDB + Redis",
+				url: [
+					"https://www.postgresql.org",
+					"https://mariadb.org",
+					"https://redis.io"
+				],
 				description:
 					"Bases de datos compartidas en el VPS de CapRover: una instancia de cada motor para todas las apps, en vez de una por proyecto.",
 				foss: true
 			},
 			{
 				name: "Docker",
+				url: "https://www.docker.com",
 				description:
 					"La base de todo lo que despliego: los VPS y el homelab corren todo en contenedores.",
 				foss: true
 			},
 			{
 				name: "Cloudflare Workers",
+				url: "https://workers.cloudflare.com",
 				description:
 					"Donde viven mis sitios estáticos, incluido este. Se despliegan con GitHub Actions en cada push, gratis y sin ocupar espacio en el VPS.",
 				foss: false
@@ -233,45 +271,53 @@ const groups: ToolGroup[] = [
 		tools: [
 			{
 				name: "Jellyfin",
+				url: "https://jellyfin.org",
 				description: "Mi servidor multimedia, sin suscripciones.",
 				foss: true
 			},
 			{
 				name: "Home Assistant",
+				url: "https://www.home-assistant.io",
 				description: "Domótica de la casa, sin depender de la nube.",
 				foss: true
 			},
 			{
 				name: "Zigbee2MQTT + Mosquitto",
+				url: ["https://www.zigbee2mqtt.io", "https://mosquitto.org"],
 				description:
 					"Conectan los sensores y dispositivos Zigbee con Home Assistant a través de MQTT, sin hubs ni apps de cada fabricante.",
 				foss: true
 			},
 			{
 				name: "AdGuard Home",
+				url: "https://adguard.com/en/adguard-home/overview.html",
 				description:
 					"El DNS de la casa: bloquea anuncios y rastreadores en todos los dispositivos de la red, sin instalar nada en ellos.",
 				foss: true
 			},
 			{
 				name: "Nginx Proxy Manager",
+				url: "https://nginxproxymanager.com",
 				description:
 					"Proxy inverso con interfaz web y certificados de Let's Encrypt automáticos para los servicios del homelab.",
 				foss: true
 			},
 			{
 				name: "Duplicati",
+				url: "https://duplicati.com",
 				description:
 					"Respaldos cifrados y programados de la configuración de todos los contenedores y de mis partidas guardadas.",
 				foss: true
 			},
 			{
 				name: "Portainer",
+				url: "https://www.portainer.io",
 				description: "Para administrar los contenedores del homelab.",
 				foss: true
 			},
 			{
 				name: "WireGuard",
+				url: "https://www.wireguard.com",
 				description:
 					"VPN para entrar al homelab de forma segura desde cualquier lugar.",
 				foss: true
@@ -366,6 +412,13 @@ const fossCount = tools.filter(tool => tool.foss).length;
 const fossRatio = fossCount / tools.length;
 const fossPercent = Math.round(fossRatio * 100);
 
+const nameParts = (tool: Tool) => {
+	const urls = [tool.url].flat();
+	return tool.name
+		.split(" + ")
+		.map((label, index) => ({ label, url: urls[index] }));
+};
+
 const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 	month: "long",
 	year: "numeric",
@@ -420,7 +473,25 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 								<li class="tool">
 									<div class="tool-head">
 										<span class="tool-name">
-											{tool.name}
+											{nameParts(tool).map(
+												(part, index) => (
+													<>
+														{index > 0 && " + "}
+														<a
+															href={part.url}
+															class="tool-link"
+															target="_blank"
+															rel="noopener noreferrer"
+														>
+															{part.label}
+															<ArrowUpRight
+																size={12}
+																class="tool-link-icon"
+															/>
+														</a>
+													</>
+												)
+											)}
 										</span>
 										{tool.foss && (
 											<span
@@ -685,6 +756,29 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 		font-size: 1rem;
 		font-weight: 700;
 		color: var(--text-primary);
+	}
+
+	.tool-link {
+		color: inherit;
+		text-decoration: none;
+		white-space: nowrap;
+		transition: color 0.2s ease;
+	}
+
+	.tool-link:hover {
+		color: var(--accent);
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+
+	.tool-link :global(.tool-link-icon) {
+		margin-left: 0.15rem;
+		color: var(--text-muted);
+		vertical-align: -0.05em;
+	}
+
+	.tool-link:hover :global(.tool-link-icon) {
+		color: var(--accent);
 	}
 
 	.tool-replaces {
