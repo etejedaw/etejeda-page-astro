@@ -22,7 +22,7 @@ interface Machine {
 	specs: [string, string][];
 }
 
-const updatedAt = new Date("2026-09-21");
+const updatedAt = new Date("2026-09-22");
 
 const groups: ToolGroup[] = [
 	{
@@ -75,6 +75,30 @@ const groups: ToolGroup[] = [
 				name: "Brave",
 				description:
 					"Mi navegador. Basado en Chromium, con bloqueo de anuncios y rastreadores incluido.",
+				foss: true
+			},
+			{
+				name: "Thunderbird",
+				description:
+					"Mi cliente de correo en Linux: todas las cuentas en un solo lugar, con filtros y sin depender del webmail.",
+				foss: true
+			},
+			{
+				name: "KOrganizer",
+				description:
+					"El calendario de KDE. Se integra con el escritorio y sincroniza mis agendas por CalDAV.",
+				foss: true
+			},
+			{
+				name: "Zanshin",
+				description:
+					"Gestor de tareas de KDE inspirado en GTD: vacío la cabeza en la bandeja de entrada y después ordeno por proyectos y contextos.",
+				foss: true
+			},
+			{
+				name: "Vicinae",
+				description:
+					"Lo mismo que Raycast, pero en Linux: nativo, rápido y compatible con muchas de sus extensiones.",
 				foss: true
 			},
 			{
@@ -186,7 +210,13 @@ const groups: ToolGroup[] = [
 			{
 				name: "VPS + CapRover",
 				description:
-					"Mi servidor para todo lo que necesita backend: las apps self-hosted y Completr, sobre PostgreSQL, MariaDB y Redis compartidos.",
+					"Mi servidor para todo lo que necesita backend: las apps self-hosted y Completr.",
+				foss: true
+			},
+			{
+				name: "PostgreSQL + MariaDB + Redis",
+				description:
+					"Bases de datos compartidas en el VPS: una instancia de cada motor para todas las apps, en vez de una por proyecto.",
 				foss: true
 			},
 			{
@@ -204,13 +234,7 @@ const groups: ToolGroup[] = [
 			{
 				name: "Cloudflare Workers",
 				description:
-					"Donde viven mis sitios estáticos, incluido este. Gratis y sin ocupar espacio en el VPS.",
-				foss: false
-			},
-			{
-				name: "GitHub Actions",
-				description:
-					"Actualiza el tema de mi blog y despliega mis sitios en Cloudflare en cada push.",
+					"Donde viven mis sitios estáticos, incluido este. Se despliegan con GitHub Actions en cada push, gratis y sin ocupar espacio en el VPS.",
 				foss: false
 			}
 		]
