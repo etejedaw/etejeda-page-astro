@@ -1,0 +1,177 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Content, frontmatter } from "../data/now.md";
+
+const updatedAt = new Date(frontmatter.updated);
+
+const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
+	month: "long",
+	year: "numeric",
+	timeZone: "UTC"
+});
+---
+
+<Layout
+	title="Ahora - Esteban Tejeda"
+	description="En qué estoy enfocado en este momento: trabajo, proyectos y lo que tengo entre manos."
+>
+	<main id="content">
+		<article class="now-page">
+			<a href="/" class="back">
+				<span aria-hidden="true">←</span> Volver al inicio
+			</a>
+
+			<header class="head">
+				<h1 class="title">Ahora</h1>
+				<p class="lede">
+					En qué estoy enfocado en este momento. Es una página{" "}
+					<a
+						href="https://nownownow.com/about"
+						target="_blank"
+						rel="noopener noreferrer">/now</a
+					>: lo que le contaría a un amigo que no veo hace un año.
+				</p>
+			</header>
+
+			<div class="prose">
+				<Content />
+			</div>
+
+			<footer class="now-foot">
+				<time
+					class="updated"
+					datetime={updatedAt.toISOString().slice(0, 10)}
+				>
+					Actualizado en {updatedLabel}
+				</time>
+			</footer>
+		</article>
+	</main>
+</Layout>
+
+<style is:global>
+	@media (min-width: 1024px) {
+		body:has(.now-page) .header {
+			display: block;
+		}
+	}
+
+	.now-page .prose h2 {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: var(--text-primary);
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		margin: 3rem 0 1rem;
+	}
+
+	.now-page .prose h2::after {
+		content: "";
+		flex: 1;
+		height: 1px;
+		background: var(--rule);
+	}
+
+	.now-page .prose h2:first-child {
+		margin-top: 0;
+	}
+
+	.now-page .prose p,
+	.now-page .prose ul {
+		color: var(--text-secondary);
+		font-size: 1rem;
+		line-height: 1.75;
+		margin-bottom: 1.25rem;
+	}
+
+	.now-page .prose ul {
+		padding-left: 1.5rem;
+	}
+
+	.now-page .prose li {
+		margin-bottom: 0.4rem;
+	}
+
+	.now-page .prose strong {
+		color: var(--text-primary);
+		font-weight: 600;
+	}
+
+	.now-page a:not(.back) {
+		color: var(--text-primary);
+		text-decoration: none;
+		font-weight: 500;
+		background-image: linear-gradient(var(--accent), var(--accent));
+		background-position: 0 100%;
+		background-repeat: no-repeat;
+		background-size: 100% 1.5px;
+		padding-bottom: 1px;
+		transition:
+			color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+			background-size 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.now-page a:not(.back):hover {
+		color: var(--accent);
+		background-size: 100% 3px;
+	}
+</style>
+
+<style>
+	.now-page {
+		max-width: 720px;
+		margin: 0 auto;
+		padding: 7rem 1.5rem 5rem;
+	}
+
+	.back {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		text-decoration: none;
+		margin-bottom: 2.5rem;
+		transition: color 0.2s ease;
+	}
+
+	.back:hover {
+		color: var(--accent);
+	}
+
+	.head {
+		margin-bottom: 3.5rem;
+	}
+
+	.title {
+		font-size: clamp(2.25rem, 5vw, 3.25rem);
+		font-weight: 700;
+		letter-spacing: -0.04em;
+		line-height: 1.05;
+		color: var(--text-primary);
+		margin-bottom: 1.25rem;
+	}
+
+	.lede {
+		font-size: 1.1rem;
+		line-height: 1.65;
+		color: var(--text-secondary);
+		max-width: 62ch;
+	}
+
+	.now-foot {
+		margin-top: 3.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px dashed var(--rule-strong);
+	}
+
+	.updated {
+		font-family: var(--font-jetbrains-mono), monospace;
+		font-size: 0.8rem;
+		color: var(--text-muted);
+	}
+</style>
