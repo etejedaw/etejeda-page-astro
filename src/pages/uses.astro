@@ -395,12 +395,6 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 					escritorio de trabajo, y licencias libres en todo lo que
 					publico.
 				</p>
-				<time
-					class="updated"
-					datetime={updatedAt.toISOString().slice(0, 10)}
-				>
-					Actualizado en {updatedLabel}
-				</time>
 				<p class="foss-meter">
 					<span class="foss-bar" aria-hidden="true">
 						[<span class="foss-bar-fill"
@@ -490,6 +484,15 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 					}
 				</ul>
 			</section>
+
+			<footer class="uses-foot">
+				<time
+					class="updated"
+					datetime={updatedAt.toISOString().slice(0, 10)}
+				>
+					Actualizado en {updatedLabel}
+				</time>
+			</footer>
 		</article>
 	</main>
 </Layout>
@@ -544,6 +547,11 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 		color: var(--text-secondary);
 		max-width: 62ch;
 		margin-bottom: 1.5rem;
+	}
+
+	.uses-foot {
+		padding-top: 1.5rem;
+		border-top: 1px dashed var(--rule-strong);
 	}
 
 	.updated {
