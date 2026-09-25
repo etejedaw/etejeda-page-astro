@@ -555,6 +555,18 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 			</section>
 
 			<footer class="uses-foot">
+				<p class="dotfiles">
+					La configuración de todo esto está en mis <a
+						href="https://github.com/etejedaw/dotfiles"
+						class="tool-link"
+						target="_blank"
+						rel="noopener noreferrer"
+						>dotfiles<ArrowUpRight
+							size={12}
+							class="tool-link-icon"
+						/></a
+					>, lista para que la tomes y la ajustes a tu gusto.
+				</p>
 				<time
 					class="updated"
 					datetime={updatedAt.toISOString().slice(0, 10)}
@@ -621,6 +633,15 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 	.uses-foot {
 		padding-top: 1.5rem;
 		border-top: 1px dashed var(--rule-strong);
+	}
+
+	.dotfiles {
+		margin-bottom: 0.75rem;
+		color: var(--text-muted);
+	}
+
+	.dotfiles .tool-link {
+		color: var(--text-primary);
 	}
 
 	.updated {
