@@ -25,7 +25,7 @@ interface Machine {
 	specs: [string, string][];
 }
 
-const updatedAt = new Date("2026-09-22");
+const updatedAt = new Date("2026-09-27");
 
 const groups: ToolGroup[] = [
 	{
@@ -54,18 +54,11 @@ const groups: ToolGroup[] = [
 				foss: true
 			},
 			{
-				name: "DBeaver",
-				url: "https://dbeaver.io",
+				name: "DbGate",
+				url: "https://www.dbgate.io",
 				description:
-					"Cliente de bases de datos para PostgreSQL y MySQL. Uno solo para todos los motores relacionales.",
+					"Cliente de bases de datos para PostgreSQL, MySQL y MongoDB. Uno solo para SQL y NoSQL.",
 				foss: true
-			},
-			{
-				name: "Studio 3T",
-				url: "https://studio3t.com",
-				description:
-					"Lo mismo que DBeaver, pero para explorar y consultar MongoDB.",
-				foss: false
 			},
 			{
 				name: "Claude Code + herdr",
