@@ -25,7 +25,7 @@ interface Machine {
 	specs: [string, string][];
 }
 
-const updatedAt = new Date("2026-09-27");
+const updatedAt = new Date("2026-10-01");
 
 const groups: ToolGroup[] = [
 	{
@@ -40,14 +40,14 @@ const groups: ToolGroup[] = [
 				foss: true
 			},
 			{
-				name: "Konsole + Hyper + zsh",
+				name: "Ghostty + Konsole + zsh",
 				url: [
+					"https://ghostty.org",
 					"https://konsole.kde.org",
-					"https://hyper.is",
 					"https://www.zsh.org"
 				],
 				description:
-					"Konsole en Linux y Hyper en macOS, las dos con zsh, Oh My Zsh y Powerlevel10k, junto a fzf, eza, bat y jq.",
+					"Ghostty en macOS y GNOME, Konsole en KDE, todas con zsh, Oh My Zsh y Powerlevel10k, junto a fzf, eza, bat y jq.",
 				foss: true
 			},
 			{
@@ -69,6 +69,16 @@ const groups: ToolGroup[] = [
 				url: "https://herdr.dev",
 				description:
 					"Multiplexor de terminal para agentes: corro varios agentes y modelos en paralelo y veo cuál trabaja, espera o terminó.",
+				foss: true
+			},
+			{
+				name: "lazygit + lazydocker",
+				url: [
+					"https://github.com/jesseduffield/lazygit",
+					"https://github.com/jesseduffield/lazydocker"
+				],
+				description:
+					"Interfaces de terminal para git y Docker: commits, ramas, contenedores y logs sin memorizar comandos ni salir de la consola.",
 				foss: true
 			},
 			{
@@ -559,7 +569,17 @@ const updatedLabel = updatedAt.toLocaleDateString("es-CL", {
 							size={12}
 							class="tool-link-icon"
 						/></a
-					>, lista para que la tomes y la ajustes a tu gusto.
+					>, lista para que la tomes y la ajustes a tu gusto. Los
+					enlazo en cada equipo con <a
+						href="https://www.gnu.org/software/stow/"
+						class="tool-link"
+						target="_blank"
+						rel="noopener noreferrer"
+						>GNU Stow<ArrowUpRight
+							size={12}
+							class="tool-link-icon"
+						/></a
+					>.
 				</p>
 				<time
 					class="updated"
